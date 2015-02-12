@@ -28,7 +28,7 @@ selection.append('text')
     });
 ```
 
-#### d3.wordprap
+#### d3.wordwrap
 
 Comes in handy with the tspans..
 
