@@ -21,8 +21,8 @@ selection.insert("div.my-class");
 For multi-line SVG text
 
 ```js
-selection.insert('text').tspans(['Multiple', 'lines']);
-selection.insert('text')
+selection.append('text').tspans(['Multiple', 'lines']);
+selection.append('text')
     .tspans(function(d) {
         return d.text.split('\n');
     });
@@ -33,7 +33,7 @@ selection.insert('text')
 Comes in handy with the tspans..
 
 ```js
-selection.insert('text')
+selection.append('text')
     .tspans(function(d) {
         return d3.wordwrap(text, 15);  // break line after 15 characters
     });
