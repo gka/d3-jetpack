@@ -1,5 +1,8 @@
 d3-[jetpack](http://myjetpack.tumblr.com/post/23725103159) is a set of nifty convenience wrappers that speed up your daily work with d3.js
 
+[![jetpack](http://36.media.tumblr.com/tumblr_m4kkxd8nWB1rwkrdbo1_500.jpg)](http://myjetpack.tumblr.com/post/23725103159)
+  (comic by [Tom Gauld](http://myjetpack.tumblr.com/]))
+
 Here's what's in the package:
 
 #### selection.append / selection.insert
