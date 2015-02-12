@@ -1,4 +1,4 @@
-[d3-jetpack](http://myjetpack.tumblr.com/post/23725103159) is a set of nifty convenience wrappers that speed up your daily work with d3.js
+d3-[jetpack](http://myjetpack.tumblr.com/post/23725103159) is a set of nifty convenience wrappers that speed up your daily work with d3.js
 
 Here's what's in the package:
 
