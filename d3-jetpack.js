@@ -30,7 +30,7 @@
         };
 
         d3.selection.prototype.insert = 
-        d3.selection.enter.prototype.insert = function(name) {
+        d3.selection.enter.prototype.insert = function(name, before) {
             var n = d3_parse_attributes(name), s;
             name = n.attr ? n.tag : name;
             name = d3_selection_creator(name);
