@@ -20,7 +20,7 @@
         d3.selection.prototype.append = 
         d3.selection.enter.prototype.append = function(name) {
             var n = d3_parse_attributes(name), s;
-            console.log(name, n);
+            //console.log(name, n);
             name = n.attr ? n.tag : name;
             name = d3_selection_creator(name);
             s = this.select(function() {
