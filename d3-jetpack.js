@@ -7,6 +7,12 @@
             });
         };
 
+        d3.transition.prototype.translate = function(xy) {
+            return this.attr('transform', function(d,i) {
+                return 'translate('+[typeof xy == 'function' ? xy(d,i) : xy]+')';
+            });
+        };
+
         d3.selection.prototype.tspans = function(lines, lh) {
             return this.selectAll('tspan')
                 .data(lines)
