@@ -14,13 +14,20 @@
         };
 
         d3.selection.prototype.tspans = function(lines, lh) {
-            return this.selectAll('tspan')
+            this.selectAll('tspan')
                 .data(lines)
                 .enter()
                 .append('tspan')
                 .text(function(d) { return d; })
                 .attr('x', 0)
                 .attr('dy', lh || 15);
+
+            this.selectAll('tspan')
+                .data(lines)
+                .text(function(d) { return d; })
+                .attr('dy', lh || 15);
+
+            return this;
         };
 
         d3.selection.prototype.append = 
