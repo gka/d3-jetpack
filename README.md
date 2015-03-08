@@ -54,7 +54,7 @@ tick.translate(function(d) { return  [0, y(d)]; });
 
 #### selection.appendData
 
-Instead of making an empty selection, binding a data, taking the enter selection and appending elements as seperate steps:
+Instead of making an empty selection, binding a data, taking the enter selection and appending elements as separate steps:
 
 ```js
 svg.selectAll('circle')
