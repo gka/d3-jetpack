@@ -35,7 +35,7 @@ selection.append('text')
 
 Comes in handy with the tspans..
 
-```js    f
+```js
 selection.append('text')
     .tspans(function(d) {
         return d3.wordwrap(text, 15);  // break line after 15 characters
@@ -51,7 +51,7 @@ svg.append(g).translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
 
-### ƒ
+#### ƒ
 
 `ƒ` takes a string and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose `function(d){ return ... }` syntax in ECMAScript 5:
 
@@ -65,7 +65,7 @@ becomes
 x.domain(d3.extent(items, ƒ('price'));
 ```
 
-### attrC and styleC
+#### attrC and styleC
 `attrC` takes the name of an attribute and any number of functions, using the composition of the functions to map data bound to each element its attribute's value. 
 
 ```js
