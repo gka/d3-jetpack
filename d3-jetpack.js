@@ -47,6 +47,14 @@
             return n.attr ? s.attr(n.attr) : s;
         };
 
+        d3.selection.prototype.appendData = function(name, data){
+            return this.selectAll('#zzzzzz')
+                    .data(data)
+                    .enter()
+                    .append(name)
+        }
+
+
         var d3_parse_attributes_regex = /([\.#])/g;
 
         function d3_parse_attributes(name) {
@@ -113,6 +121,7 @@
                 return b[key] < a[key] ? -1 : b[key] > a[key] ? 1 : b[key] >= a[key] ? 0 : NaN;
             };
         };
+
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);
