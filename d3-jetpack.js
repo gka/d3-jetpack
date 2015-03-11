@@ -20,7 +20,7 @@
                 .append('tspan')
                 .text(function(d) { return d; })
                 .attr('x', 0)
-                .attr('dy', lh || 15);
+                .attr('dy', function(d,i) { return i ? lh || 15 : 0; });
         };
 
         d3.selection.prototype.append = 
