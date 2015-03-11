@@ -1,3 +1,5 @@
+function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[str] } } 
+
 (function() {
         
     function jetpack(d3) {
@@ -46,6 +48,20 @@
             });
             return n.attr ? s.attr(n.attr) : s;
         };
+
+        d3.selection.prototype.styleC = function(name){
+            return this.style(name, compose.apply(null, [].slice.call(arguments, 1)))
+        }
+        d3.selection.prototype.attrC = function(name){
+            return this.attr(name, compose.apply(null, [].slice.call(arguments, 1)))
+        }
+        d3.transition.prototype.styleC = function(name){
+            return this.style(name, compose.apply(null, [].slice.call(arguments, 1)))
+        }
+        d3.transition.prototype.attrC = function(name){
+            return this.attr(name, compose.apply(null, [].slice.call(arguments, 1)))
+        }
+
 
         var d3_parse_attributes_regex = /([\.#])/g;
 
@@ -113,6 +129,16 @@
                 return b[key] < a[key] ? -1 : b[key] > a[key] ? 1 : b[key] >= a[key] ? 0 : NaN;
             };
         };
+
+        function compose(){
+          var functions = arguments 
+          return function(d){
+            var i = functions.length
+            while(i--) d = functions[i].call(this, d)
+            return d
+          }
+        }
+
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);

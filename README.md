@@ -50,3 +50,30 @@ How I hated writing ``.attr('transform', function(d) { return 'translate()'; })`
 svg.append(g).translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
+
+#### ƒ
+
+`ƒ` takes a string and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose `function(d){ return ... }` syntax in ECMAScript 5:
+
+```js
+x.domain(d3.extent(items, function(d){ return d.price; }));
+```
+
+becomes 
+
+```js
+x.domain(d3.extent(items, ƒ('price'));
+```
+
+#### attrC and styleC
+`attrC` takes the name of an attribute and any number of functions, using the composition of the functions to map data bound to each element its attribute's value. 
+
+```js
+circles.attrC('cx', x, ƒ('price'));
+```
+
+Instead of 
+
+```js
+circles.attrC('cx', function(d){ return x(d.price); });
+```
