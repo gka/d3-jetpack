@@ -71,4 +71,4 @@ x.domain(d3.extent(items, ƒ('price'));
 var firstY = polygons.map(ƒ('points', 0, 'y'));
 ```
 
-If you don't know how to type ƒ (it's [alt] + f on Macs), you can use ``d3.f()``, too.
+If you don't know how to type ƒ (it's [alt] + f on Macs), you can use ``d3.f()``, too. Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
