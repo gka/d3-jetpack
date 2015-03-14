@@ -113,6 +113,26 @@
                 return b[key] < a[key] ? -1 : b[key] > a[key] ? 1 : b[key] >= a[key] ? 0 : NaN;
             };
         };
+        
+        d3.f = function(){
+            var functions = arguments;
+            //convert all string arguments into field accessors
+            var i = 0, l = functions.length;
+            while (i < l) {
+                if (typeof(functions[i]) === 'string' || typeof(functions[i]) === 'number'){
+                    functions[i] = (function(str){ return function(d){ return d[str] }; })(functions[i])
+                }
+                i++;
+            }
+             //return composition of functions
+            return function(d) {
+                var i=0, l = functions.length;
+                while (i++ < l) d = functions[i-1].call(this, d);
+                return d;
+            };
+        };
+        // store d3.f as convenient unicode character function (alt-f on macs)
+        if (!window.hasOwnProperty('ƒ')) window.ƒ = d3.f;
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);
