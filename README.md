@@ -50,3 +50,25 @@ How I hated writing ``.attr('transform', function(d) { return 'translate()'; })`
 svg.append(g).translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
+
+#### ƒ or d3.f
+
+``ƒ`` takes a string|number and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose function(d){ return ... } syntax in ECMAScript 5:
+
+```js
+x.domain(d3.extent(items, function(d){ return d.price; }));
+```
+
+becomes
+
+```js
+x.domain(d3.extent(items, ƒ('price'));
+```
+
+ƒ even accepts multiple accessors and will execute them in the order of appearance. So for instance, let's say we have an array of polygon objects like this ``{ points: [{x: 0, y: 3}, ...] }`` we can get the first ``y`` coordinates using:
+
+```js
+var firstY = polygons.map(ƒ('points', 0, 'y'));
+```
+
+If you don't know how to type ƒ (it's [alt] + f on Macs), you can use ``d3.f()``, too.
