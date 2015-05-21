@@ -133,6 +133,20 @@
         };
         // store d3.f as convenient unicode character function (alt-f on macs)
         if (!window.hasOwnProperty('ƒ')) window.ƒ = d3.f;
+        
+        // this tweak allows setting a listener for multiple events, jquery style
+        var d3_selection_on = d3.selection.prototype.on;
+        d3.selection.prototype.on = function(type, listener, capture) {
+            if (typeof type == 'string' && type.indexOf(' ') > -1) {
+                type = type.split(' ');
+                for (var i = 0; i<type.length; i++) {
+                    d3_selection_on.apply(this, [type[i], listener, capture]);
+                }
+            } else {
+                d3_selection_on.apply(this, [type, listener, capture]);
+            }
+            return this;
+        };
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);
