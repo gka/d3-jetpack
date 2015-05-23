@@ -1,0 +1,10 @@
+{
+    "name": "d3-jetpack",
+    "version": "1.0.0",
+    "main": "d3-jetpack.js",
+    "scripts": ["d3-jetpack.js"],
+    "ignore": ["README", "COPYING"],
+    "dependencies": {
+        "d3": "3.x"
+    }
+}
