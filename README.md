@@ -27,7 +27,7 @@ Exists to prevent double appending (appendation?) and easy updating of attribute
 
 ```js
 selection.select_or_append("div.my-class");
-selection.select_or_append("g#someId");
+d3.select('svg').select_or_append("g#someId");
 d3.select_or_append("div#someId");
 
 ```
