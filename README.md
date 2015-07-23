@@ -19,6 +19,19 @@ selection.append("div#someId.some-class");
 selection.insert("div.my-class");
 ```
 
+
+#### selection.select_or_append
+
+Inspired by Django's QuerySet command get_or_create(), select_or_append selects the appropriate object or appends it as a child.
+Exists to prevent double appending (appendation?) and easy updating of attributes when running a function multiple times. Shallowly tested, just started using it in development.
+
+```js
+selection.select_or_append("div.my-class");
+selection.select_or_append("g#someId");
+d3.select_or_append("div#someId");
+
+```
+
 #### selection.tspans
 
 For multi-line SVG text
