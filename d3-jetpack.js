@@ -6,7 +6,7 @@
                 return 'translate('+[typeof xy == 'function' ? xy(d,i) : xy]+')';
             });
         };
-
+        
         d3.transition.prototype.translate = function(xy) {
             return this.attr('transform', function(d,i) {
                 return 'translate('+[typeof xy == 'function' ? xy(d,i) : xy]+')';
@@ -22,7 +22,6 @@
                 .attr('x', 0)
                 .attr('dy', function(d,i) { return i ? lh || 15 : 0; });
         };
-
         d3.selection.prototype.append = 
         d3.selection.enter.prototype.append = function(name) {
             var n = d3_parse_attributes(name), s;
@@ -46,6 +45,22 @@
             });
             return n.attr ? s.attr(n.attr) : s;
         };
+
+        d3.select_or_append = 
+        d3.selection.prototype.select_or_append =
+        d3.selection.enter.prototype.select_or_append = function(name) {
+            var n = d3_parse_attributes(name), s;
+            name = n.attr ? n.tag : name;
+            if (!this.select(name).empty()) {
+                return this.select(name)
+            } else {
+                name = d3_selection_creator(name);
+                s = this.select(function() {
+                return this.appendChild(name.apply(this, arguments));
+            });
+            }
+            return n.attr ? s.attr(n.attr) : s;
+        }
 
         var d3_parse_attributes_regex = /([\.#])/g;
 
@@ -77,6 +92,7 @@
             };
         }
 
+        
         d3.wordwrap = function(line, maxCharactersPerLine) {
             var w = line.split(' '),
                 lines = [],
