@@ -6,7 +6,7 @@
                 return 'translate('+[typeof xy == 'function' ? xy(d,i) : xy]+')';
             });
         };
-        
+
         d3.transition.prototype.translate = function(xy) {
             return this.attr('transform', function(d,i) {
                 return 'translate('+[typeof xy == 'function' ? xy(d,i) : xy]+')';
@@ -33,35 +33,34 @@
             });
             return n.attr ? s.attr(n.attr) : s;
         };
-
         d3.selection.prototype.insert = 
         d3.selection.enter.prototype.insert = function(name, before) {
             var n = d3_parse_attributes(name), s;
             name = n.attr ? n.tag : name;
+            console.log(name)
             name = d3_selection_creator(name);
+            console.log(name)
             before = d3_selection_selector(before);
             s = this.select(function() {
                 return this.insertBefore(name.apply(this, arguments), before.apply(this, arguments) || null);
             });
             return n.attr ? s.attr(n.attr) : s;
         };
-
         d3.select_or_append = 
         d3.selection.prototype.select_or_append =
         d3.selection.enter.prototype.select_or_append = function(name) {
-            var n = d3_parse_attributes(name), s;
-            name = n.attr ? n.tag : name;
-            if (!this.select(name).empty()) {
-                return this.select(name)
-            } else {
+            if (this.select(name).empty()) {
+                var n = d3_parse_attributes(name), s;
+                //console.log(name, n);
+                name = n.attr ? n.tag : name;
                 name = d3_selection_creator(name);
                 s = this.select(function() {
-                return this.appendChild(name.apply(this, arguments));
-            });
+                    return this.appendChild(name.apply(this, arguments));
+                });
+                return n.attr ? s.attr(n.attr) : s;
             }
-            return n.attr ? s.attr(n.attr) : s;
+            return this.select(name)
         }
-
         var d3_parse_attributes_regex = /([\.#])/g;
 
         function d3_parse_attributes(name) {
@@ -85,14 +84,15 @@
                 return this.ownerDocument.createElementNS(this.namespaceURI, name);
             };
         }
-
         function d3_selection_selector(selector) {
             return typeof selector === "function" ? selector : function() {
+                console.log('shit')
+                console.log(this)
+                console.log(selector)
                 return this.querySelector(selector);
             };
         }
 
-        
         d3.wordwrap = function(line, maxCharactersPerLine) {
             var w = line.split(' '),
                 lines = [],
