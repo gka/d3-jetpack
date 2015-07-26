@@ -7,7 +7,8 @@ Here's what's in the package:
 
 #### selection.select_or_append
 
-Selects the matching object or appends it as a child, will return as a selection
+Selects the matching object or appends it as a child, will return as a selection.
+
 Exists to prevent double appending (appendation?) and easy updating of attributes when running a function multiple times. Given that it both selects and creates objects, you must declare the type of element (g, div, text, etc.) in addition to the typical class/id selector. 
 
 ```js
