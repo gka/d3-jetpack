@@ -5,6 +5,19 @@ d3-jetpack is a set of nifty convenience wrappers that speed up your daily work 
 
 Here's what's in the package:
 
+#### selection.select_or_append
+
+Selects the matching object or appends it as a child, will return as a selection
+Exists to prevent double appending (appendation?) and easy updating of attributes when running a function multiple times. Given that it both selects and creates objects, you must declare the type of element (g, div, text, etc.) in addition to the typical class/id selector. 
+
+```js
+selection.select_or_append("div.my-class");
+d3.select('svg').select_or_append("g#someId");
+d3.select_or_append("div#someId");
+
+```
+
+
 #### selection.append / selection.insert
 
 Appending and inserting with classes/ids 
@@ -17,19 +30,6 @@ selection.append("div#someId.some-class");
 
 // works with insert, too
 selection.insert("div.my-class");
-```
-
-
-#### selection.select_or_append
-
-Inspired by Django's QuerySet command get_or_create(), select_or_append selects the appropriate object or appends it as a child.
-Exists to prevent double appending (appendation?) and easy updating of attributes when running a function multiple times. Shallowly tested, just started using it in development.
-
-```js
-selection.select_or_append("div.my-class");
-d3.select('svg').select_or_append("g#someId");
-d3.select_or_append("div#someId");
-
 ```
 
 #### selection.tspans

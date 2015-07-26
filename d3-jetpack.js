@@ -22,6 +22,7 @@
                 .attr('x', 0)
                 .attr('dy', function(d,i) { return i ? lh || 15 : 0; });
         };
+
         d3.selection.prototype.append = 
         d3.selection.enter.prototype.append = function(name) {
             var n = d3_parse_attributes(name), s;
@@ -37,9 +38,7 @@
         d3.selection.enter.prototype.insert = function(name, before) {
             var n = d3_parse_attributes(name), s;
             name = n.attr ? n.tag : name;
-            console.log(name)
             name = d3_selection_creator(name);
-            console.log(name)
             before = d3_selection_selector(before);
             s = this.select(function() {
                 return this.insertBefore(name.apply(this, arguments), before.apply(this, arguments) || null);
@@ -51,7 +50,6 @@
         d3.selection.enter.prototype.select_or_append = function(name) {
             if (this.select(name).empty()) {
                 var n = d3_parse_attributes(name), s;
-                //console.log(name, n);
                 name = n.attr ? n.tag : name;
                 name = d3_selection_creator(name);
                 s = this.select(function() {
@@ -86,9 +84,6 @@
         }
         function d3_selection_selector(selector) {
             return typeof selector === "function" ? selector : function() {
-                console.log('shit')
-                console.log(this)
-                console.log(selector)
                 return this.querySelector(selector);
             };
         }
