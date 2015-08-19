@@ -61,6 +61,10 @@ svg.append(g).translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
 
+#### selection.prop
+
+jetpack added `selection.prop` as alias for `selection.property`. Much faster to type, isn't it? Also only consistent with `selection.attr`, and familiar to [jQuery](http://api.jquery.com/prop/) folks.
+
 #### ƒ or d3.f
 
 ``ƒ`` takes a string|number and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose function(d){ return ... } syntax in ECMAScript 5:
