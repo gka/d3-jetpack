@@ -147,6 +147,9 @@
             }
             return this;
         };
+        
+        // for heaven's sake, let's add prop as alias for property
+        d3.selection.prototype.prop = d3.selection.prototype.property;
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);
