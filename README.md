@@ -57,7 +57,7 @@ selection.append('text')
 How I hated writing ``.attr('transform', function(d) { return 'translate()'; })`` a thousand times...
 
 ```js
-svg.append(g).translate([margin.left, margin.top]);
+svg.append('g').translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
 
