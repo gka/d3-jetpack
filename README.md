@@ -5,19 +5,6 @@ d3-jetpack is a set of nifty convenience wrappers that speed up your daily work 
 
 Here's what's in the package:
 
-#### selection.select_or_append
-
-Selects the matching object or appends it as a child, will return as a selection.
-
-Exists to prevent double appending (appendation?) and easy updating of attributes when running a function multiple times. Given that it both selects and creates objects, you must declare the type of element (g, div, text, etc.) in addition to the typical class/id selector. 
-
-```js
-selection.select_or_append("div.my-class");
-d3.select('svg').select_or_append("g#someId");
-d3.select_or_append("div#someId");
-
-```
-
 
 #### selection.append / selection.insert
 
@@ -100,3 +87,16 @@ var firstY = polygons.map(ƒ('points', 0, 'y'));
 ```
 
 If you don't know how to type ƒ (it's [alt] + f on Macs), you can use ``d3.f()``, too. Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
+
+#### selection.select_or_append
+
+Selects the matching object or appends it as a child, will return as a selection.
+
+Does away with ungainly "check to see if element exists, if not, append it." Must declare the type of element (g, div, text, etc.) in addition to the typical class/id selector. 
+
+```js
+selection.select_or_append("div.my-class");
+d3.select('svg').select_or_append("g#someId");
+d3.select_or_append("div#someId");
+
+```
