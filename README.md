@@ -37,7 +37,7 @@ jetpack lets you set the same listener for multiple events at once, jQuery style
 
 ```js
 selection.on('click touchend', function() {
-    console.log('this works on desktop AND mobile!')'
+    console.log('this works on desktop AND mobile!');
 });
 ```
 
