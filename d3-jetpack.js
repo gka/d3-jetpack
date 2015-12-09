@@ -3,13 +3,13 @@
     function jetpack(d3) {
         d3.selection.prototype.translate = function(xy) {
             return this.attr('transform', function(d,i) {
-                return 'translate('+[typeof xy == 'function' ? xy(d,i) : xy]+')';
+                return 'translate('+[typeof xy == 'function' ? xy.call(this, d,i) : xy]+')';
             });
         };
 
         d3.transition.prototype.translate = function(xy) {
             return this.attr('transform', function(d,i) {
-                return 'translate('+[typeof xy == 'function' ? xy(d,i) : xy]+')';
+                return 'translate('+[typeof xy == 'function' ? xy.call(this, d,i) : xy]+')';
             });
         };
 
@@ -148,7 +148,7 @@
             return this;
         };
         
-        // for heaven's sake, let's add prop as alias for property
+        // for everyone's sake, let's add prop as alias for property
         d3.selection.prototype.prop = d3.selection.prototype.property;
     }
 
