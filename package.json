@@ -1,0 +1,30 @@
+{
+  "name": "d3-jetpack",
+  "version": "1.0.0",
+  "description": "d3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js",
+  "main": "d3-jetpack.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gka/d3-jetpack.git"
+  },
+  "keywords": [
+    "d3"
+  ],
+  "author": "Gregor Aisch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gka/d3-jetpack/issues"
+  },
+  "homepage": "https://github.com/gka/d3-jetpack#readme",
+  "contributors": [{
+    "name": "Gregor Aisch",
+    "email": "mail@driven-by-data.net"
+    "url": "http://driven-by-data.net/"
+  }, {
+    "name": "Adam Pearce",
+    "url": "http://roadtolarissa.com/"
+  }]
+}
