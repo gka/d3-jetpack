@@ -34,7 +34,6 @@
             });
             return n.attr ? s.attr(n.attr) : s;
         };
-
         d3.selection.prototype.insert = 
         d3.selection.enter.prototype.insert = function(name, before) {
             var n = d3_parse_attributes(name), s;
@@ -46,7 +45,20 @@
             });
             return n.attr ? s.attr(n.attr) : s;
         };
-
+        d3.select_or_append = 
+        d3.selection.prototype.select_or_append =
+        d3.selection.enter.prototype.select_or_append = function(name) {
+            if (this.select(name).empty()) {
+                var n = d3_parse_attributes(name), s;
+                name = n.attr ? n.tag : name;
+                name = d3_selection_creator(name);
+                s = this.select(function() {
+                    return this.appendChild(name.apply(this, arguments));
+                });
+                return n.attr ? s.attr(n.attr) : s;
+            }
+            return this.select(name)
+        }
         var d3_parse_attributes_regex = /([\.#])/g;
 
         function d3_parse_attributes(name) {
@@ -70,7 +82,6 @@
                 return this.ownerDocument.createElementNS(this.namespaceURI, name);
             };
         }
-
         function d3_selection_selector(selector) {
             return typeof selector === "function" ? selector : function() {
                 return this.querySelector(selector);
