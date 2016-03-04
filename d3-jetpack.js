@@ -147,9 +147,30 @@
             }
             return this;
         };
-        
+
         // for everyone's sake, let's add prop as alias for property
         d3.selection.prototype.prop = d3.selection.prototype.property;
+
+        function merge(obj1, obj2) {
+            for(var p in obj2) {
+                if(obj2[p] && obj2[p].constructor == Object) {
+                    if(obj1[p]) {
+                        merge(obj1[p], obj2[p]);
+                        continue;
+                    }
+                }
+                obj1[p] = obj2[p];
+            }
+        }
+
+        d3.mergeObjects = function(arrays) {
+            var newObj = {};
+            var objs = arguments;
+            for(var i = 0; i < objs.length; i++) {
+                merge(newObj, objs[i]);
+            }
+            return newObj;
+        };
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);

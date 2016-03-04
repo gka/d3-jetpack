@@ -86,3 +86,11 @@ var firstY = polygons.map(ƒ('points', 0, 'y'));
 ```
 
 If you don't know how to type ƒ (it's [alt] + f on Macs), you can use ``d3.f()``, too. Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
+
+#### d3.mergeObjects
+
+Deep merge any numbers of objects.
+
+```js
+var merged = d3.mergeObjects({a: 1, b: {c: 8}}, {a: new Date(), b: {c: d3.f()}, d: 0}, {f: 9});
+```
