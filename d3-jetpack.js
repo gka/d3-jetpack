@@ -35,7 +35,15 @@
             return n.attr ? s.attr(n.attr) : s;
         };
 
-        d3.selection.prototype.insert = 
+        d3.selection.prototype.appendHTML =
+        d3.selection.enter.prototype.appendHTML = function(HTMLString) {
+            var that = this.node();
+            return this.select(function() {
+                return this.appendChild(document.importNode(new DOMParser().parseFromString(HTMLString, 'text/html').body.childNodes[0], true));
+            });
+        };
+
+        d3.selection.prototype.insert =
         d3.selection.enter.prototype.insert = function(name, before) {
             var n = d3_parse_attributes(name), s;
             name = n.attr ? n.tag : name;
