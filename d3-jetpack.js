@@ -35,7 +35,15 @@
             return n.attr ? s.attr(n.attr) : s;
         };
 
-        d3.selection.prototype.insert = 
+        d3.selection.prototype.appendHTML =
+        d3.selection.enter.prototype.appendHTML = function(HTMLString) {
+            var that = this.node();
+            return this.select(function() {
+                return this.appendChild(document.importNode(new DOMParser().parseFromString(HTMLString, 'text/html').body.childNodes[0], true));
+            });
+        };
+
+        d3.selection.prototype.insert =
         d3.selection.enter.prototype.insert = function(name, before) {
             var n = d3_parse_attributes(name), s;
             name = n.attr ? n.tag : name;
@@ -147,9 +155,30 @@
             }
             return this;
         };
-        
+
         // for everyone's sake, let's add prop as alias for property
         d3.selection.prototype.prop = d3.selection.prototype.property;
+
+        function merge(obj1, obj2) {
+            for(var p in obj2) {
+                if(obj2[p] && obj2[p].constructor == Object) {
+                    if(obj1[p]) {
+                        merge(obj1[p], obj2[p]);
+                        continue;
+                    }
+                }
+                obj1[p] = obj2[p];
+            }
+        }
+
+        d3.mergeObjects = function(arrays) {
+            var newObj = {};
+            var objs = arguments;
+            for(var i = 0; i < objs.length; i++) {
+                merge(newObj, objs[i]);
+            }
+            return newObj;
+        };
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);
