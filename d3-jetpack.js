@@ -134,6 +134,26 @@
         // store d3.f as convenient unicode character function (alt-f on macs)
         if (!window.hasOwnProperty('ƒ')) window.ƒ = d3.f;
         
+        // clickout function manager
+        function clickout(){
+            var callbacks = [];
+            document.querySelector('html').addEventListener('click', function(event){
+                for(var i=0; i<callbacks.length; i++){
+                    var element = callbacks[i].container;
+                    if(!element.contains(event.target)){
+                        callbacks[i].callback.call(element, element.__data__);
+                    }
+                }
+            });
+
+            return {
+                sub: function(_container, callback){
+                    var container = typeof _container === 'string' ? document.querySelector(_container) : _container;
+                    callbacks.push({container: container, callback: callback});
+                    return this;
+                }
+            };
+        };
         // this tweak allows setting a listener for multiple events, jquery style
         var d3_selection_on = d3.selection.prototype.on;
         d3.selection.prototype.on = function(type, listener, capture) {
@@ -142,7 +162,11 @@
                 for (var i = 0; i<type.length; i++) {
                     d3_selection_on.apply(this, [type[i], listener, capture]);
                 }
-            } else {
+            }
+            if(type === 'clickout'){
+                clickout().sub(this.node(), listener);
+            }
+            else {
                 d3_selection_on.apply(this, [type, listener, capture]);
             }
             return this;

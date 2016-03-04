@@ -7,7 +7,7 @@ Here's what's in the package:
 
 #### selection.append / selection.insert
 
-Appending and inserting with classes/ids 
+Appending and inserting with classes/ids
 
 ```js
 selection.append("div.my-class");
@@ -86,3 +86,13 @@ var firstY = polygons.map(ƒ('points', 0, 'y'));
 ```
 
 If you don't know how to type ƒ (it's [alt] + f on Macs), you can use ``d3.f()``, too. Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
+
+#### selection.on 'clickout' event
+
+'clickout' triggers when you click outside of a hierarchy of nodes. It can be used for example to unselect a widget.
+
+```js
+d3.select('.container')
+    .datum('dummy')
+    .on('clickout', function(d){ console.log(this, d); });
+```
