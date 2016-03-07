@@ -3,6 +3,33 @@ d3-jetpack is a set of nifty convenience wrappers that speed up your daily work 
 [![jetpack](http://36.media.tumblr.com/tumblr_m4kkxd8nWB1rwkrdbo1_500.jpg)](http://myjetpack.tumblr.com/post/23725103159)
   (comic by [Tom Gauld](http://myjetpack.tumblr.com/]))
 
+## Usage
+
+You can use d3-jetpack with AMD, CommonJS and browser globals. 
+You need to install d3 in order to use d3-jetpack.
+
+### AMD 
+```js
+var d3 = require('./d3-jetpack'); 
+// now d3 has a jetpack
+```
+
+### CommonJS 
+```js
+requirejs(['d3-jetpack'],function (d3) {
+  // now d3 has a jetpack
+})
+```
+
+### Browser globals 
+```markup
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.js"></script>
+<script src="js/d3-jetpack.js"></script>
+<script>
+  // now d3 has a jetpack
+</script>
+```
+
 Here's what's in the package:
 
 #### selection.append / selection.insert
