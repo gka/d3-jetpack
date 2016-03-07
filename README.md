@@ -113,3 +113,12 @@ var firstY = polygons.map(ƒ('points', 0, 'y'));
 ```
 
 If you don't know how to type ƒ (it's [alt] + f on Macs), you can use ``d3.f()``, too. Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
+
+#### d3.ascendingKey and d3.descendingKey
+
+These functions operate like d3.ascending / d3.descending but you can pass a key string or key function which will be used to specify the property by which to sort an array of objects.
+
+```js
+var fruits = [{ name: "Apple", color: "green" }, { name: "Banana", color: "yellow" }];
+fruits.sort(d3.ascendingKey('color'));
+```
