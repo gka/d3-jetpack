@@ -1,0 +1,98 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@2.14.12
+3 info using node@v4.2.4
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/205947/d3-jetpack',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/205947/.npm/d3-jetpack/1.0.1/package.tgz not in flight; packing
+9 verbose tar pack [ '/Users/205947/.npm/d3-jetpack/1.0.1/package.tgz',
+9 verbose tar pack   '/Users/205947/d3-jetpack' ]
+10 verbose tarball /Users/205947/.npm/d3-jetpack/1.0.1/package.tgz
+11 verbose folder /Users/205947/d3-jetpack
+12 info prepublish d3-jetpack@1.0.1
+13 verbose addLocalTarball adding from inside cache /Users/205947/.npm/d3-jetpack/1.0.1/package.tgz
+14 silly cache afterAdd d3-jetpack@1.0.1
+15 verbose afterAdd /Users/205947/.npm/d3-jetpack/1.0.1/package/package.json not in flight; writing
+16 verbose afterAdd /Users/205947/.npm/d3-jetpack/1.0.1/package/package.json written
+17 silly publish { name: 'd3-jetpack',
+17 silly publish   version: '1.0.1',
+17 silly publish   description: 'd3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js',
+17 silly publish   main: 'd3-jetpack.js',
+17 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+17 silly publish   repository:
+17 silly publish    { type: 'git',
+17 silly publish      url: 'git+https://github.com/gka/d3-jetpack.git' },
+17 silly publish   keywords: [ 'd3' ],
+17 silly publish   author: { name: 'Gregor Aisch' },
+17 silly publish   license: 'ISC',
+17 silly publish   bugs: { url: 'https://github.com/gka/d3-jetpack/issues' },
+17 silly publish   homepage: 'https://github.com/gka/d3-jetpack#readme',
+17 silly publish   contributors:
+17 silly publish    [ { name: 'Gregor Aisch',
+17 silly publish        email: 'mail@driven-by-data.net',
+17 silly publish        url: 'http://driven-by-data.net/' },
+17 silly publish      { name: 'Adam Pearce', url: 'http://roadtolarissa.com/' } ],
+17 silly publish   readme: 'd3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js\n\n[![jetpack](http://36.media.tumblr.com/tumblr_m4kkxd8nWB1rwkrdbo1_500.jpg)](http://myjetpack.tumblr.com/post/23725103159)\n  (comic by [Tom Gauld](http://myjetpack.tumblr.com/]))\n\n## Usage\n\nYou can use d3-jetpack with AMD, CommonJS and browser globals. \nYou need to install d3 in order to use d3-jetpack.\n\n### AMD \n```js\nvar d3 = require(\'./d3-jetpack\'); \n// now d3 has a jetpack\n```\n\n### CommonJS \n```js\nrequirejs([\'d3-jetpack\'],function (d3) {\n  // now d3 has a jetpack\n})\n```\n\n### Browser globals \n```markup\n<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.js"></script>\n<script src="js/d3-jetpack.js"></script>\n<script>\n  // now d3 has a jetpack\n</script>\n```\n\nHere\'s what\'s in the package:\n\n#### selection.append / selection.insert\n\nAppending and inserting with classes/ids \n\n```js\nselection.append("div.my-class");\nselection.append("div.first-class.second-class");\nselection.append("div#someId");\nselection.append("div#someId.some-class");\n\n// works with insert, too\nselection.insert("div.my-class");\n```\n\n#### selection.tspans\n\nFor multi-line SVG text\n\n```js\nselection.append(\'text\').tspans([\'Multiple\', \'lines\']);\nselection.append(\'text\')\n    .tspans(function(d) {\n        return d.text.split(\'\\n\');\n    });\n```\n\n#### selection.on\n\njetpack lets you set the same listener for multiple events at once, jQuery style.\n\n```js\nselection.on(\'click touchend\', function() {\n    console.log(\'this works on desktop AND mobile!\');\n});\n```\n\n#### d3.wordwrap\n\nComes in handy with the tspans..\n\n```js\nselection.append(\'text\')\n    .tspans(function(d) {\n        return d3.wordwrap(text, 15);  // break line after 15 characters\n    });\n```\n\n#### selection.translate\n\nHow I hated writing ``.attr(\'transform\', function(d) { return \'translate()\'; })`` a thousand times...\n\n```js\nsvg.append(g).translate([margin.left, margin.top]);\ntick.translate(function(d) { return  [0, y(d)]; });\n```\n\n#### selection.prop\n\njetpack added `selection.prop` as alias for `selection.property`. Much faster to type, isn\'t it? Also only consistent with `selection.attr`, and familiar to [jQuery](http://api.jquery.com/prop/) folks.\n\n#### ƒ or d3.f\n\n``ƒ`` takes a string|number and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose function(d){ return ... } syntax in ECMAScript 5:\n\n```js\nx.domain(d3.extent(items, function(d){ return d.price; }));\n```\n\nbecomes\n\n```js\nx.domain(d3.extent(items, ƒ(\'price\'));\n```\n\nƒ even accepts multiple accessors and will execute them in the order of appearance. So for instance, let\'s say we have an array of polygon objects like this ``{ points: [{x: 0, y: 3}, ...] }`` we can get the first ``y`` coordinates using:\n\n```js\nvar firstY = polygons.map(ƒ(\'points\', 0, \'y\'));\n```\n\nIf you don\'t know how to type ƒ (it\'s [alt] + f on Macs), you can use ``d3.f()``, too. Also, [in @1wheel\'s blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.\n\n#### d3.ascendingKey and d3.descendingKey\n\nThese functions operate like d3.ascending / d3.descending but you can pass a key string or key function which will be used to specify the property by which to sort an array of objects.\n\n```js\nvar fruits = [{ name: "Apple", color: "green" }, { name: "Banana", color: "yellow" }];\nfruits.sort(d3.ascendingKey(\'color\'));\n```\n',
+17 silly publish   readmeFilename: 'README.md',
+17 silly publish   gitHead: '1955b727d10c059b57c35e314b5d46d98772bf0a',
+17 silly publish   _id: 'd3-jetpack@1.0.1',
+17 silly publish   _shasum: '62f604b6d8774077d41136ebc9dcb83c62451a2a',
+17 silly publish   _from: '.' }
+18 verbose getPublishConfig undefined
+19 silly mapToRegistry name d3-jetpack
+20 silly mapToRegistry using default registry
+21 silly mapToRegistry registry https://registry.npmjs.org/
+22 silly mapToRegistry uri https://registry.npmjs.org/d3-jetpack
+23 verbose publish registryBase https://registry.npmjs.org/
+24 silly publish uploading /Users/205947/.npm/d3-jetpack/1.0.1/package.tgz
+25 verbose request uri https://registry.npmjs.org/d3-jetpack
+26 verbose request sending authorization for write operation
+27 info attempt registry request try #1 at 4:36:02 PM
+28 verbose request using bearer token for auth
+29 verbose request id 81ab8f9d77f02a2c
+30 http request PUT https://registry.npmjs.org/d3-jetpack
+31 http 403 https://registry.npmjs.org/d3-jetpack
+32 verbose headers { 'content-type': 'application/json',
+32 verbose headers   'cache-control': 'max-age=300',
+32 verbose headers   'content-length': '95',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Mon, 07 Mar 2016 21:36:03 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-atl6227-ATL',
+32 verbose headers   'x-cache': 'MISS',
+32 verbose headers   'x-cache-hits': '0',
+32 verbose headers   'x-timer': 'S1457386562.315047,VS0,VE1034' }
+33 verbose request invalidating /Users/205947/.npm/registry.npmjs.org/d3-jetpack on PUT
+34 error publish Failed PUT 403
+35 verbose stack Error: "You cannot publish over the previously published version 1.0.1." : d3-jetpack
+35 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+35 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+35 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+35 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+35 verbose stack     at emitTwo (events.js:87:13)
+35 verbose stack     at Request.emit (events.js:172:7)
+35 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1082:10)
+35 verbose stack     at emitOne (events.js:82:20)
+35 verbose stack     at Request.emit (events.js:169:7)
+35 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+36 verbose statusCode 403
+37 verbose pkgid d3-jetpack
+38 verbose cwd /Users/205947/d3-jetpack
+39 error Darwin 14.5.0
+40 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+41 error node v4.2.4
+42 error npm  v2.14.12
+43 error code E403
+44 error "You cannot publish over the previously published version 1.0.1." : d3-jetpack
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]
