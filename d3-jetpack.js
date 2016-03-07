@@ -139,7 +139,7 @@
         };
     };
     // store d3.f as convenient unicode character function (alt-f on macs)
-    if (!window.hasOwnProperty('ƒ')) window.ƒ = d3.f;
+    if (typeof window !== 'undefined' && !window.hasOwnProperty('ƒ')) window.ƒ = d3.f;
     
     // this tweak allows setting a listener for multiple events, jquery style
     var d3_selection_on = d3.selection.prototype.on;
