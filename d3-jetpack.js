@@ -30,20 +30,19 @@
             .attr('dy', function(d,i) { return i ? lh || 15 : 0; });
     };
 
-    d3.selection.prototype.append = 
-    d3.selection.enter.prototype.append = function(name) {
+    d3.selection.prototype.append = function(name) {
         var n = d3_parse_attributes(name), s;
-        //console.log(name, n);
         name = n.attr ? n.tag : name;
         name = d3_selection_creator(name);
         s = this.select(function() {
             return this.appendChild(name.apply(this, arguments));
         });
-        return n.attr ? s.attr(n.attr) : s;
+        //attrs not provided by default in v4
+        for (var name in n.attr) { s.attr(name, n.attr[name]) }
+        return s;
     };
 
-    d3.selection.prototype.insert = 
-    d3.selection.enter.prototype.insert = function(name, before) {
+    d3.selection.prototype.insert = function(name, before) {
         var n = d3_parse_attributes(name), s;
         name = n.attr ? n.tag : name;
         name = d3_selection_creator(name);
@@ -51,8 +50,16 @@
         s = this.select(function() {
             return this.insertBefore(name.apply(this, arguments), before.apply(this, arguments) || null);
         });
-        return n.attr ? s.attr(n.attr) : s;
+        //attrs not provided by default in v4
+        for (var name in n.attr) { s.attr(name, n.attr[name]) }
+        return s;
     };
+
+    //no selection.enter in v4
+    if (d3.selection.enter){
+        d3.selection.enter.prototype.append = d3.selection.prototype.append
+        d3.selection.enter.prototype.insert = d3.selection.prototype.insert
+    }
 
     var d3_parse_attributes_regex = /([\.#])/g;
 
@@ -71,7 +78,8 @@
     }
 
     function d3_selection_creator(name) {
-        return typeof name === "function" ? name : (name = d3.ns.qualify(name)).local ? function() {
+        var qualify = d3.namespace || d3.ns.qualify //v4 API change
+        return typeof name === "function" ? name : (name = qualify(name)).local ? function() {
             return this.ownerDocument.createElementNS(name.space, name.local);
         } : function() {
             return this.ownerDocument.createElementNS(this.namespaceURI, name);
