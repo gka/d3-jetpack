@@ -166,6 +166,11 @@
     // for everyone's sake, let's add prop as alias for property
     d3.selection.prototype.prop = d3.selection.prototype.property;
 
+    // combines data().enter().append()
+    d3.selection.prototype.appendMany = function(data, name){
+        return this.selectAll(name).data(data).enter().append(name);
+    };
+
     return d3;
 
 }));
