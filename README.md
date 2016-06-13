@@ -46,6 +46,19 @@ selection.append("div#someId.some-class");
 selection.insert("div.my-class");
 ```
 
+#### selection.appendMany
+
+combines data().enter().append()
+
+```js
+selection.appendMany(myArray, 'div.my-class');
+// is same as
+selection.selectAll('div.my-class')
+  .data(myArray)
+  .enter()
+  .append('div.my-class');
+```
+
 #### selection.tspans
 
 For multi-line SVG text
@@ -84,7 +97,7 @@ selection.append('text')
 How I hated writing ``.attr('transform', function(d) { return 'translate()'; })`` a thousand times...
 
 ```js
-svg.append(g).translate([margin.left, margin.top]);
+svg.append('g').translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
 
