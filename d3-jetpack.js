@@ -135,7 +135,9 @@
         var i = 0, l = functions.length;
         while (i < l) {
             if (typeof(functions[i]) === 'string' || typeof(functions[i]) === 'number'){
-                functions[i] = (function(str){ return function(d){ return d[str] }; })(functions[i])
+                functions[i] = (function(str){ return function(d){ return typeof(d[str]) == 'function' ? d[str]() : d[str]; }; })(functions[i]);
+            } else if (typeof(functions[i]) === 'object'){
+                functions[i] = (function(map){ return function(d){ return typeof(map[d]) == 'function' ? map[d]() : map[d]; }; })(functions[i]);
             }
             i++;
         }
