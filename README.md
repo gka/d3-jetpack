@@ -127,6 +127,22 @@ var firstY = polygons.map(ƒ('points', 0, 'y'));
 
 If you don't know how to type ƒ (it's [alt] + f on Macs), you can use ``d3.f()``, too. Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
 
+#### Special operator `ƒ.call`
+
+Let's say we have an array of objects which expose certain properties via accessor functions, like `polygon.centroid()`. Calling just `ƒ('centroid')` would return the accessor function itself instead of the result. To get ƒ to call the accessor function we added a special operator `ƒ.call`. 
+
+```js
+var centroids = polygons.map(ƒ('centroid', 'ƒ.call'));
+```
+
+#### Special operator `ƒ.not`
+
+This one is helpful if you're accessing boolean values but for some reason want to negate them.
+
+```js
+selection.classed('hidden', ƒ('is_visible', 'ƒ.not'));
+```
+
 #### d3.ascendingKey and d3.descendingKey
 
 These functions operate like d3.ascending / d3.descending but you can pass a key string or key function which will be used to specify the property by which to sort an array of objects.
