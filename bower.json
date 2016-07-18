@@ -1,6 +1,6 @@
 {
     "name": "d3-jetpack",
-    "version": "1.0.0",
+    "version": "1.0.4",
     "main": "d3-jetpack.js",
     "scripts": ["d3-jetpack.js"],
     "ignore": ["README", "COPYING"],
