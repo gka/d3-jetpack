@@ -134,8 +134,12 @@
         //convert all string arguments into field accessors
         var i = 0, l = functions.length;
         while (i < l) {
-            if (typeof(functions[i]) === 'string' || typeof(functions[i]) === 'number'){
-                functions[i] = (function(str){ return function(d){ return d[str] }; })(functions[i])
+            if (functions[i] in d3.f._) {
+                functions[i] = (function(f){ return function(d){ return f(d); }; })(d3.f._[functions[i]]);
+            } else if (typeof(functions[i]) === 'string' || typeof(functions[i]) === 'number'){
+                functions[i] = (function(str){ return function(d){ return d[str]; }; })(functions[i]);
+            } else if (typeof(functions[i]) === 'object'){
+                functions[i] = (function(map){ return function(d){ return map[d]; }; })(functions[i]);
             }
             i++;
         }
@@ -146,6 +150,13 @@
             return d;
         };
     };
+
+    // special operator functions
+    d3.f._ = {
+        'ƒ.call': function(d) { return d(); },
+        'ƒ.not': function(d) { return !d; }
+    };
+    
     // store d3.f as convenient unicode character function (alt-f on macs)
     if (typeof window !== 'undefined' && !window.hasOwnProperty('ƒ')) window.ƒ = d3.f;
     
