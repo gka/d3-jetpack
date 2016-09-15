@@ -183,8 +183,7 @@
     };
     
     d3.round = d3.round || function(n, p) {
-        d = Math.pow(10, p);
-        return Math.round(n * d) / d;
+        return p ? Math.round(n * (p = Math.pow(10, p))) / p : Math.round(n);
     };
 
     return d3;
