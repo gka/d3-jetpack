@@ -151,3 +151,12 @@ These functions operate like d3.ascending / d3.descending but you can pass a key
 var fruits = [{ name: "Apple", color: "green" }, { name: "Banana", color: "yellow" }];
 fruits.sort(d3.ascendingKey('color'));
 ```
+
+#### d3.round(x, precision)
+
+A useful short-hand method for `+d3.format('.'+precision+'f')(x)` also known as `+x.toFixed(precision)`. Note that this code is [fundamentally broken](https://twitter.com/mbostock/status/776448389814718465) but still works fine 99% of the time.
+
+```js
+d3.round(1.2345, 2) // 1.23
+```
+
