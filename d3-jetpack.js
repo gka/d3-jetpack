@@ -181,6 +181,11 @@
     d3.selection.prototype.appendMany = function(data, name){
         return this.selectAll(name).data(data).enter().append(name);
     };
+    
+    d3.round = d3.round || function(n, p) {
+        d = Math.pow(10, p);
+        return Math.round(n * d) / d;
+    };
 
     return d3;
 
