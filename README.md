@@ -6,7 +6,7 @@ d3-jetpack is a set of nifty convenience wrappers that speed up your daily work 
 
 ## Usage
 
-If you use NPM, `npm install d3-jetpack`. Otherwise, download the latest [d3v4+jetpack.js](https://raw.githubusercontent.com/1wheel/d3-jetpack-module/master/build/d3v4%2Bjetpack.js).
+If you use NPM, `npm install d3-jetpack`. Otherwise, download the latest [d3v4+jetpack.js](https://raw.githubusercontent.com/gka/d3-jetpack/master/build/d3v4%2Bjetpack.js).
 
 Here's what's in the package:
 
@@ -138,7 +138,7 @@ A useful short-hand method for `+d3.format('.'+precision+'f')(x)` also known as 
 d3.round(1.2345, 2) // 1.23
 ```
 
-<a name="at" href="#at">#</a> selection.<b>at</b>(<i>name[, value]</i>) [<>](https://github.com/1wheel/d3-jetpack-module/blob/master/src/at.js "Source")
+<a name="at" href="#at">#</a> selection.<b>at</b>(<i>name[, value]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/at.js "Source")
 
 Works like d3v3's `.attr`. Passing an object to name sets multiple attributes, passing a string returns a single attribute and passing a string & second argument sets a single attribute.
 
@@ -160,7 +160,7 @@ you can write:
 With syntax highlighting on, it is a little easier to see the difference between keys and values when everything isn't a string. Plus there's less typing! 
 
 
-<a name="st" href="#st">#</a> selection.<b>st</b>(<i>name[, value]</i>) [<>](https://github.com/1wheel/d3-jetpack-module/blob/master/src/st.js "Source")
+<a name="st" href="#st">#</a> selection.<b>st</b>(<i>name[, value]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/st.js "Source")
 
 Like `at`, but for `style`. Additionally, when a number is passed to a style that requires a unit of measure, like `margin-top` or `font-size`, `px` is automatically appended. Instead of 
 
@@ -174,7 +174,7 @@ The `+ px`s can also be dropped:
     selection.st({marginTop: height/2, fontSize: 40, width: width - 80})
 
 <a 
-name="loadData" href="#loadData">#</a> d3.<b>loadData</b>(<i>file1, file2, file3, ..., callback</i>) [<>](https://github.com/1wheel/d3-jetpack-module/blob/master/src/loadData.js "Source")
+name="loadData" href="#loadData">#</a> d3.<b>loadData</b>(<i>file1, file2, file3, ..., callback</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/loadData.js "Source")
 
 Takes any number of files paths and loads them with `queue`, `d3.csv` and `d3.json`. After all the files have loaded, calls the `callback` function with the first error (or null if none) as the first arguement and an array of the loaded files as the secound. Instead of:
 
@@ -201,7 +201,7 @@ d3.loadData('state-data.csv', 'county-data.tsv', 'us.json', function(err, res){
 ```
 
 <a 
-name="nestBy" href="#nestBy">#</a> d3.<b>nestBy</b>(<i>array, key</i>) [<>](https://github.com/1wheel/d3-jetpack-module/blob/master/src/nestBy.js "Source")
+name="nestBy" href="#nestBy">#</a> d3.<b>nestBy</b>(<i>array, key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/nestBy.js "Source")
 
 Shorthand for `d3.nest().key(key).entries(array)`. Returns an array of arrays, instead of a `key`/`value` pairs. The `key` property of each array is equal the value returned by the `key` function when it is called with element of the array.  
 
@@ -220,7 +220,7 @@ d3.nestBy(yields, ƒ('year')).forEach(function(d){
     console.log('Count in ' + d.key  + ': ' + d.length) })
 ```
 
-<a name="selectAppend" href="#selectAppend">#</a> d3.<b>selectAppend</b>(<i>selector</i>) [<>](https://github.com/1wheel/d3-jetpack-module/blob/master/src/selectAppend.js "Source")
+<a name="selectAppend" href="#selectAppend">#</a> d3.<b>selectAppend</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/selectAppend.js "Source")
 
 Selects the first element that matches the specified selector string or if no elements match the selector, it will append an element. This is often handy for elements which are required as part of the DOM hierachy, especially when making repeated calls to the same code. When appending it will also add id and classes, same as Jetpack's [append](#append)
 
@@ -230,6 +230,18 @@ d3.selectAppend('ul.fruits')
     .data(data)
 ```
 
+<a name="parent" href="#parent">#</a> d3.<b>parent</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/parent.js "Source")
+
+Returns the parent of each element in the selection: 
+
+```js
+d3.selectAll('span')
+    .style('color', 'red')
+  .parent()
+    .style('background', 'yellow')
+```
+
+This might mess with the joined data and/or return duplicate elements. Usually better to save a variable, but sometimes useful. 
 
 #### d3.attachTooltip
 

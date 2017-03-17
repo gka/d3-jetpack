@@ -3,6 +3,7 @@ import {transition} from "d3-transition";
 
 import translateSelection from "./src/translate-selection";
 import append from "./src/append";
+import insert from "./src/insert";
 import parent from "./src/parent";
 import selectAppend from "./src/selectAppend";
 import tspans from "./src/tspans";
@@ -13,6 +14,7 @@ import st from "./src/st";
 selection.prototype.translate = translateSelection;
 transition.prototype.translate = translateSelection;
 selection.prototype.append = append;
+selection.prototype.insert = insert;
 selection.prototype.parent = parent;
 selection.prototype.selectAppend = selectAppend;
 selection.prototype.tspans = tspans;
