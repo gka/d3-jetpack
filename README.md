@@ -174,14 +174,14 @@ The `+ px`s can also be dropped:
     selection.st({marginTop: height/2, fontSize: 40, width: width - 80})
 
 <a 
-name="loadData" href="#loadData">#</a> d3.<b>loadData</b>(<i>files, callback</i>) [<>](https://github.com/1wheel/d3-jetpack-module/blob/master/src/loadData.js "Source")
+name="loadData" href="#loadData">#</a> d3.<b>loadData</b>(<i>file1, file2, file3, ..., callback</i>) [<>](https://github.com/1wheel/d3-jetpack-module/blob/master/src/loadData.js "Source")
 
-Takes an array of files paths and loads them with `queue`, `d3.csv` and `d3.json`. After all the files have loaded, calls the `callback` function with the first error (or null if none) as the first arguement and an array of the loaded files as the secound. Instead of:
+Takes any number of files paths and loads them with `queue`, `d3.csv` and `d3.json`. After all the files have loaded, calls the `callback` function with the first error (or null if none) as the first arguement and an array of the loaded files as the secound. Instead of:
 
 ```js
 d3.queue()
     .defer(d3.csv, 'state-data.csv')
-    .defer(d3.csv, 'county-data.csv')
+    .defer(d3.tsv, 'county-data.tsv')
     .defer(d3.json, 'us.json')
     .awaitAll(function(err, res){
         var states = res[0],
@@ -193,7 +193,7 @@ d3.queue()
 if your file types match their extensions, you can use: 
 
 ```js
-d3.loadData(['state-data.csv', 'county-data.csv', 'us.json'], function(err, res){
+d3.loadData('state-data.csv', 'county-data.tsv', 'us.json', function(err, res){
     var states = res[0],
         counties = res[1],
         us = res[2]
