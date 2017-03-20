@@ -10,7 +10,8 @@ If you use NPM, `npm install d3-jetpack`. Otherwise, download the latest [d3v4+j
 
 Here's what's in the package:
 
-#### selection.append / selection.insert
+<a name="append" href="#append">#</a> selection.<b>append</b>(<i>array</i>, <i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/append.js "Source") /
+<a name="insert" href="#insert">#</a> selection.<b>insert</b>(<i>array</i>, <i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/insert.js "Source")
 
 Appending and inserting with classes/ids 
 
@@ -24,118 +25,21 @@ selection.append("div#someId.some-class");
 selection.insert("div.my-class");
 ```
 
-#### selection.appendMany
+<a name="appendMany" href="#appendMany">#</a> selection.<b>appendMany</b>(<i>array</i>, <i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/appendMany.js "Source")
 
-combines data().enter().append()
+Instead of making an empty selection, binding data to it, taking the enter selection and appending elements as separate steps:
 
 ```js
-selection.appendMany(myArray, 'div.my-class');
-// is same as
 selection.selectAll('div.my-class')
   .data(myArray)
   .enter()
   .append('div.my-class');
 ```
 
-#### selection.tspans
-
-For multi-line SVG text
+use `appendMany`:
 
 ```js
-selection.append('text').tspans(['Multiple', 'lines']);
-selection.append('text')
-    .tspans(function(d) {
-        return d.text.split('\n');
-    });
-```
-
-#### selection.on
-
-jetpack lets you set the same listener for multiple events at once, jQuery style.
-
-```js
-selection.on('click touchend', function() {
-    console.log('this works on desktop AND mobile!');
-});
-```
-
-#### d3.wordwrap
-
-Comes in handy with the tspans..
-
-```js
-selection.append('text')
-    .tspans(function(d) {
-        return d3.wordwrap(text, 15);  // break line after 15 characters
-    });
-```
-
-#### selection.translate
-
-How I hated writing ``.attr('transform', function(d) { return 'translate()'; })`` a thousand times...
-
-```js
-svg.append('g').translate([margin.left, margin.top]);
-tick.translate(function(d) { return  [0, y(d)]; });
-```
-
-#### selection.prop
-
-jetpack added `selection.prop` as alias for `selection.property`. Much faster to type, isn't it? Also only consistent with `selection.attr`, and familiar to [jQuery](http://api.jquery.com/prop/) folks.
-
-#### ƒ or d3.f
-
-``ƒ`` takes a string|number and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose function(d){ return ... } syntax in ECMAScript 5:
-
-```js
-x.domain(d3.extent(items, function(d){ return d.price; }));
-```
-
-becomes
-
-```js
-x.domain(d3.extent(items, ƒ('price'));
-```
-
-ƒ even accepts multiple accessors and will execute them in the order of appearance. So for instance, let's say we have an array of polygon objects like this ``{ points: [{x: 0, y: 3}, ...] }`` we can get the first ``y`` coordinates using:
-
-```js
-var firstY = polygons.map(ƒ('points', 0, 'y'));
-```
-
-If you don't know how to type ƒ (it's [alt] + f on Macs), you can use ``d3.f()``, too. Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
-
-#### Special operator `ƒ.call`
-
-Let's say we have an array of objects which expose certain properties via accessor functions, like `polygon.centroid()`. Calling just `ƒ('centroid')` would return the accessor function itself instead of the result. To get ƒ to call the accessor function we added a special operator `ƒ.call`. 
-
-```js
-var centroids = polygons.map(ƒ('centroid', 'ƒ.call'));
-```
-
-#### Special operator `ƒ.not`
-
-This one is helpful if you're accessing boolean values but for some reason want to negate them.
-
-```js
-selection.classed('hidden', ƒ('is_visible', 'ƒ.not'));
-```
-
-#### d3.ascendingKey and d3.descendingKey
-
-These functions operate like d3.ascending / d3.descending but you can pass a key string or key function which will be used to specify the property by which to sort an array of objects.
-
-```js
-var fruits = [{ name: "Apple", color: "green" }, { name: "Banana", color: "yellow" }];
-fruits.sort(d3.ascendingKey('color'));
-```
-
-#### d3.round(x, precision)
-
-A useful short-hand method for `+d3.format('.'+precision+'f')(x)` also known as `+x.toFixed(precision)`. Note that this code is [fundamentally broken](https://twitter.com/mbostock/status/776448389814718465) but still works fine 99% of the time.
-
-```js
-d3.round(1.2345, 2) // 1.23
+selection.appendMany(myArray, 'div.my-class');
 ```
 
 <a name="at" href="#at">#</a> selection.<b>at</b>(<i>name[, value]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/at.js "Source")
@@ -173,6 +77,116 @@ The `+ px`s can also be dropped:
 
     selection.st({marginTop: height/2, fontSize: 40, width: width - 80})
 
+
+<a name="selectAppend" href="#selectAppend">#</a> d3.<b>selectAppend</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/selectAppend.js "Source")
+
+Selects the first element that matches the specified selector string or if no elements match the selector, it will append an element. This is often handy for elements which are required as part of the DOM hierachy, especially when making repeated calls to the same code. When appending it will also add id and classes, same as Jetpack's [append](#append)
+
+```js
+d3.selectAppend('ul.fruits')
+    .selectAll('li')
+    .data(data)
+```
+
+<a name="parent" href="#parent">#</a> d3.<b>parent</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/parent.js "Source")
+
+Returns the parent of each element in the selection: 
+
+```js
+d3.selectAll('span')
+    .style('color', 'red')
+  .parent()
+    .style('background', 'yellow')
+```
+
+This might mess with the joined data and/or return duplicate elements. Usually better to save a variable, but sometimes useful. 
+
+<a name="translate" href="#translate">#</a> selection.<b>translate</b>(<i>[xPos, yPos]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/translate.js "Source")
+
+How I hated writing ``.attr('transform', function(d) { return 'translate()'; })`` a thousand times...
+
+```js
+svg.append('g').translate([margin.left, margin.top]);
+tick.translate(function(d) { return  [0, y(d)]; });
+```
+
+<a name="tspans" href="#tspans">#</a> selection.<b>tspans</b>(<i>[xPos, yPos]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/tspans.js "Source")
+
+For multi-line SVG text
+
+```js
+selection.append('text')
+    .tspans(function(d) {
+        return d.text.split('\n');
+    });
+selection.append('text').tspans(['Multiple', 'lines'], 20);
+```
+
+The optional second argument sets the line height (defaults to 15). 
+
+<a name="wordwrap" href="#wordwrap">#</a> d3.<b>wordwrap</b>(<i>text</i>, [<i>lineWidth</i>]) [<>](https://github.com/gka/d3-jetpack/blob/master/src/wordwrap.js "Source")
+
+Comes in handy with the tspans:
+
+```js
+selection.append('text')
+    .tspans(function(d) {
+        return d3.wordwrap(text, 15);  // break line after 15 characters
+    });
+```
+
+<a name="f" href="#f">#</a> d3.<b>f</b>(<i>key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/f.js "Source")
+
+``d3.f`` takes a string|number and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose function(d){ return ... } syntax in ECMAScript 5:
+
+```js
+x.domain(d3.extent(items, function(d){ return d.price; }));
+```
+
+becomes
+
+```js
+x.domain(d3.extent(items, d3.f('price'));
+```
+
+d3.f even accepts multiple accessors and will execute them in the order of appearance. So for instance, let's say we have an array of polygon objects like this ``{ points: [{x: 0, y: 3}, ...] }`` we can get the first ``y`` coordinates using:
+
+```js
+var firstY = polygons.map(d3.f('points', 0, 'y'));
+```
+
+Since we use this little function quite a lot, we usually set `var ƒ = d3.f` (type with [alt] + f on Macs). Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
+
+<a name="ascendingKey" href="#ascendingKey">#</a> d3.<b>ascendingKey</b>(<i>key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/ascendingKey.js "Source") /
+<a name="descendingKey" href="#descendingKey">#</a> d3.<b>descendingKey</b>(<i>key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/descendingKey.js "Source")
+
+These functions operate like d3.ascending / d3.descending but you can pass a key string or key function which will be used to specify the property by which to sort an array of objects.
+
+```js
+var fruits = [{ name: "Apple", color: "green" }, { name: "Banana", color: "yellow" }];
+fruits.sort(d3.ascendingKey('color'));
+```
+
+<a 
+name="nestBy" href="#nestBy">#</a> d3.<b>nestBy</b>(<i>array, key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/nestBy.js "Source")
+
+Shorthand for `d3.nest().key(key).entries(array)`. Returns an array of arrays, instead of a `key`/`value` pairs. The `key` property of each array is equal the value returned by the `key` function when it is called with element of the array.  
+
+```js
+d3.nest()
+    .key(ƒ('year'))
+    .entries(yields)
+    .forEach(function(d){
+        console.log('Count in ' + d.key + ': ' + d.values.length) })
+```
+
+to 
+
+```js
+d3.nestBy(yields, ƒ('year')).forEach(function(d){
+    console.log('Count in ' + d.key  + ': ' + d.length) })
+```
+
 <a 
 name="loadData" href="#loadData">#</a> d3.<b>loadData</b>(<i>file1, file2, file3, ..., callback</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/loadData.js "Source")
 
@@ -200,52 +214,19 @@ d3.loadData('state-data.csv', 'county-data.tsv', 'us.json', function(err, res){
 })
 ```
 
-<a 
-name="nestBy" href="#nestBy">#</a> d3.<b>nestBy</b>(<i>array, key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/nestBy.js "Source")
 
-Shorthand for `d3.nest().key(key).entries(array)`. Returns an array of arrays, instead of a `key`/`value` pairs. The `key` property of each array is equal the value returned by the `key` function when it is called with element of the array.  
+<a name="round" href="#round">#</a> d3.<b>round</b>(<i>x</i>, <i>precisions</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/round.js "Source")
 
-```js
-d3.nest()
-    .key(ƒ('year'))
-    .entries(yields)
-    .forEach(function(d){
-        console.log('Count in ' + d.key + ': ' + d.values.length) })
-```
-
-to 
+A useful short-hand method for `+d3.format('.'+precision+'f')(x)` also known as `+x.toFixed(precision)`. Note that this code is [fundamentally broken](https://twitter.com/mbostock/status/776448389814718465) but still works fine 99% of the time.
 
 ```js
-d3.nestBy(yields, ƒ('year')).forEach(function(d){
-    console.log('Count in ' + d.key  + ': ' + d.length) })
+d3.round(1.2345, 2) // 1.23
 ```
 
-<a name="selectAppend" href="#selectAppend">#</a> d3.<b>selectAppend</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/selectAppend.js "Source")
 
-Selects the first element that matches the specified selector string or if no elements match the selector, it will append an element. This is often handy for elements which are required as part of the DOM hierachy, especially when making repeated calls to the same code. When appending it will also add id and classes, same as Jetpack's [append](#append)
+<a name="attachTooltip" href="#attachTooltip">#</a> d3.<b>attachTooltip</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/attachTooltip.js "Source")
 
-```js
-d3.selectAppend('ul.fruits')
-    .selectAll('li')
-    .data(data)
-```
-
-<a name="parent" href="#parent">#</a> d3.<b>parent</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/parent.js "Source")
-
-Returns the parent of each element in the selection: 
-
-```js
-d3.selectAll('span')
-    .style('color', 'red')
-  .parent()
-    .style('background', 'yellow')
-```
-
-This might mess with the joined data and/or return duplicate elements. Usually better to save a variable, but sometimes useful. 
-
-#### d3.attachTooltip
-
-Attaches a light weight tooltip that prints out all of an objects properties on click. No more `> d3.select($0).datum()`! Make sure to add a  `<div class='tooltip'></div>` and that the tooltip css exist on the page - see [index](https://github.com/1wheel/d3-starterkit/blob/master/index.html) for an example.
+Attaches a light weight tooltip that prints out all of an objects properties on click. No more `> d3.select($0).datum()`! 
 
 ```js
 d3.select('body').selectAppend('div.tooltip')
@@ -262,7 +243,38 @@ circles
       d3.select('.tooltip').html("Number of " + d.key + ": " + d.length) })
 ```
 
-#### d3.conventions
+Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip css on the page - see [index](https://github.com/1wheel/d3-starterkit/blob/master/index.html):
+
+```css
+.tooltip {
+  top: -1000px;
+  position: absolute;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    position: fixed;
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+```
+
+<a name="conventions" href="#conventions">#</a> d3.<b>conventions</b>(<i>[options]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/conventions.js "Source")
+
 `d3.conventions()` appends an `svg` element with a `g` element according to the  [margin convention](http://bl.ocks.org/mbostock/3019563) to the page and returns an object with the following properties:
 
 `totalWidth`, `totalHeight`, `margin`: size of the `svg` and its margins
