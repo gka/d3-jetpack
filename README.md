@@ -12,19 +12,23 @@ Here's what's in the package:
 
 <a name="append" href="#append">#</a> selection.<b>append</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/append.js "Source") 
 
-<a name="insert" href="#insert">#</a> selection.<b>insert</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/insert.js "Source")
-
-Appending and inserting with classes/ids 
+Modifies `append` so it adds classes and ids:  
 
 ```js
 selection.append("div.my-class");
 selection.append("div.first-class.second-class");
 selection.append("div#someId");
 selection.append("div#someId.some-class");
+```
 
-// works with insert, too
+<a name="insert" href="#insert">#</a> selection.<b>insert</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/insert.js "Source")
+
+Works with insert, too:
+
+```
 selection.insert("div.my-class");
 ```
+
 
 <a name="appendMany" href="#appendMany">#</a> selection.<b>appendMany</b>(<i>array</i>, <i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/appendMany.js "Source")
 
