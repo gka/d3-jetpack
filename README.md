@@ -12,7 +12,7 @@ Here's what's in the package:
 
 <a name="append" href="#append">#</a> selection.<b>append</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/append.js "Source") 
 
-Modifies `append` so it adds classes and ids:  
+Modifies `append` so it adds classes and ids. 
 
 ```js
 selection.append("div.my-class");
