@@ -10,8 +10,9 @@ If you use NPM, `npm install d3-jetpack`. Otherwise, download the latest [d3v4+j
 
 Here's what's in the package:
 
-<a name="append" href="#append">#</a> selection.<b>append</b>(<i>array</i>, <i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/append.js "Source") /
-<a name="insert" href="#insert">#</a> selection.<b>insert</b>(<i>array</i>, <i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/insert.js "Source")
+<a name="append" href="#append">#</a> selection.<b>append</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/append.js "Source") 
+
+<a name="insert" href="#insert">#</a> selection.<b>insert</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/insert.js "Source")
 
 Appending and inserting with classes/ids 
 
@@ -88,7 +89,7 @@ d3.selectAppend('ul.fruits')
     .data(data)
 ```
 
-<a name="parent" href="#parent">#</a> d3.<b>parent</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/parent.js "Source")
+<a name="parent" href="#parent">#</a> d3.<b>parent</b>(<i></i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/parent.js "Source")
 
 Returns the parent of each element in the selection: 
 
@@ -99,7 +100,7 @@ d3.selectAll('span')
     .style('background', 'yellow')
 ```
 
-This might mess with the joined data and/or return duplicate elements. Usually better to save a variable, but sometimes useful. 
+This might mess with the joined data and/or return duplicate elements. Usually better to save a variable, but sometimes useful when working with nested html. 
 
 <a name="translate" href="#translate">#</a> selection.<b>translate</b>(<i>[xPos, yPos]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/translate.js "Source")
 
@@ -157,7 +158,8 @@ var firstY = polygons.map(d3.f('points', 0, 'y'));
 
 Since we use this little function quite a lot, we usually set `var ƒ = d3.f` (type with [alt] + f on Macs). Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
 
-<a name="ascendingKey" href="#ascendingKey">#</a> d3.<b>ascendingKey</b>(<i>key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/ascendingKey.js "Source") /
+<a name="ascendingKey" href="#ascendingKey">#</a> d3.<b>ascendingKey</b>(<i>key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/ascendingKey.js "Source") 
+
 <a name="descendingKey" href="#descendingKey">#</a> d3.<b>descendingKey</b>(<i>key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/descendingKey.js "Source")
 
 These functions operate like d3.ascending / d3.descending but you can pass a key string or key function which will be used to specify the property by which to sort an array of objects.
