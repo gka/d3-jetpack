@@ -37,6 +37,20 @@ var append = function(name) {
   return s;
 };
 
+var insert = function(name, before) {
+  var n = parseAttributes(name), s;
+  name = d3Selection.creator(n.tag);
+  before = d3Selection.creator(before);
+
+  s = this.select(function() {
+      return this.insertBefore(name.apply(this, arguments), before.apply(this, arguments) || null);
+  });
+
+  //attrs not provided by default in v4
+  for (var key in n.attr) { s.attr(key, n.attr[key]); }
+  return s;
+};
+
 var parent = function() {
   var parents = [];
   return this.filter(function() {
@@ -284,8 +298,13 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
   }
 };
 
-var loadData = function(files, cb){
+var loadData = function(){
   var q = d3Queue.queue();
+  
+  var args = [].slice.call(arguments);
+  var files = args.slice(0, args.length - 1);
+  var cb = args[args.length - 1];
+
   files.forEach(function(d){
     var type = d.split('.').reverse()[0];
 
@@ -369,6 +388,7 @@ function polygonClosed(coordinates) {
 d3Selection.selection.prototype.translate = translateSelection;
 d3Transition.transition.prototype.translate = translateSelection;
 d3Selection.selection.prototype.append = append;
+d3Selection.selection.prototype.insert = insert;
 d3Selection.selection.prototype.parent = parent;
 d3Selection.selection.prototype.selectAppend = selectAppend;
 d3Selection.selection.prototype.tspans = tspans;

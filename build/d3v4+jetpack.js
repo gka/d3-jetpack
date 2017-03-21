@@ -16292,6 +16292,20 @@ var append = function(name) {
   return s;
 };
 
+var insert = function(name, before) {
+  var n = parseAttributes(name), s;
+  name = creator(n.tag);
+  before = creator(before);
+
+  s = this.select(function() {
+      return this.insertBefore(name.apply(this, arguments), before.apply(this, arguments) || null);
+  });
+
+  //attrs not provided by default in v4
+  for (var key in n.attr) { s.attr(key, n.attr[key]); }
+  return s;
+};
+
 var parent = function() {
   var parents = [];
   return this.filter(function() {
@@ -16539,8 +16553,13 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
   }
 };
 
-var loadData = function(files, cb){
+var loadData = function(){
   var q = queue();
+  
+  var args = [].slice.call(arguments);
+  var files = args.slice(0, args.length - 1);
+  var cb = args[args.length - 1];
+
   files.forEach(function(d){
     var type = d.split('.').reverse()[0];
 
@@ -16624,6 +16643,7 @@ function polygonClosed(coordinates) {
 selection.prototype.translate = translateSelection;
 transition.prototype.translate = translateSelection;
 selection.prototype.append = append;
+selection.prototype.insert = insert;
 selection.prototype.parent = parent;
 selection.prototype.selectAppend = selectAppend;
 selection.prototype.tspans = tspans;
