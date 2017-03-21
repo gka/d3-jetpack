@@ -2,11 +2,11 @@
   "name": "d3-jetpack",
   "version": "2.0.0",
   "description": "d3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js",
-  "main": "build/d3-jetpack-module.js",
+  "main": "build/d3-jetpack.js",
   "jsnext:main": "index",
   "module": "index",
   "scripts": {
-    "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -g d3-selection:d3,d3-transition:d3,d3-axis:d3,d3-scale:d3,d3-queue:d3,d3-collection:d3,d3-request:d3 -n d3 -o build/d3-jetpack-module.js -- index.js",
+    "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -g d3-selection:d3,d3-transition:d3,d3-axis:d3,d3-scale:d3,d3-queue:d3,d3-collection:d3,d3-request:d3 -n d3 -o build/d3-jetpack.js -- index.js",
     "test": "tape 'test/test-*.js'",
     "prepublish": "npm run pretest && bin/rollup",
     "postpublish": "bin/rollup"
