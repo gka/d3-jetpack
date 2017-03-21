@@ -31,7 +31,10 @@
     "d3",
     "d3-module"
   ],
-  "author": "Gregor Aisch",
+  "author": {
+    "name": "Gregor Aisch",
+    "url": "http://driven-by-data.net/"
+  },
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/gka/d3-jetpack/issues"
