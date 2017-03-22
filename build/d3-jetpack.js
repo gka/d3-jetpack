@@ -2,7 +2,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
-	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3Array,global.d3,global.d3,global.d3,global.d3,global.d3));
+	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3));
 }(this, (function (exports,d3Selection,d3Transition,d3Array,d3Axis,d3Scale,d3Collection,d3Queue,d3Request) { 'use strict';
 
 var translateSelection = function(xy) {
