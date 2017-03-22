@@ -1,9 +1,9 @@
 // https://github.com/gka/d3-jetpack#readme Version 2.0.0. Copyright 2017 Gregor Aisch.
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
-	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
-	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3));
-}(this, (function (exports,d3Selection,d3Transition,d3Axis,d3Scale,d3Collection,d3Queue,d3Request) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
+	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
+	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3Array,global.d3,global.d3,global.d3,global.d3,global.d3));
+}(this, (function (exports,d3Selection,d3Transition,d3Array,d3Axis,d3Scale,d3Collection,d3Queue,d3Request) { 'use strict';
 
 var translateSelection = function(xy) {
   return this.attr('transform', function(d,i) {
@@ -69,8 +69,8 @@ var selectAppend = function(name) {
   name = d3Selection.creator(n.tag);
 
   s = this.select(function() {
-    return select$$1.apply(this, arguments)
-        || this.appendChild(name.apply(this, arguments));
+    return select$$1.apply(this, arguments) ||
+        this.appendChild(name.apply(this, arguments));
   });
 
   //attrs not provided by default in v4
@@ -83,7 +83,7 @@ var tspans = function(lines, lh) {
       .data(function(d) {
         return (typeof(lines) == 'function' ? lines(d) : lines)
           .map(function(l) {
-            return { line: l, parent: d }
+            return { line: l, parent: d };
           });
       })
       .enter()
@@ -100,11 +100,11 @@ var appendMany = function(data, name){
 var at = function(name, value) {
   if (typeof(name) == 'object'){
     for (var key in name){
-      this.attr(key.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase(), name[key]); 
+      this.attr(key.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase(), name[key]);
     }
-    return this
+    return this;
   } else{
-    return arguments.length == 1 ? this.attr(name) : this.attr(name, value)
+    return arguments.length == 1 ? this.attr(name) : this.attr(name, value);
   }
 };
 
@@ -115,7 +115,7 @@ function f(){
   var i = 0, l = functions.length;
   while (i < l) {
     if (typeof(functions[i]) === 'string' || typeof(functions[i]) === 'number'){
-      functions[i] = (function(str){ return function(d){ return d[str] } })(functions[i]);
+      functions[i] = (function(str){ return function(d){ return d[str]; }; })(functions[i]);
     }
     i++;
   }
@@ -124,17 +124,18 @@ function f(){
   return function(d) {
     var i=0, l = functions.length;
     while (i++ < l) d = functions[i-1].call(this, d);
-    return d
-  }
+    return d;
+  };
 }
 
-f.not = function(d){ return !d };
-f.run = function(d){ return d() };
+f.not = function(d){ return !d; };
+f.run = function(d){ return d(); };
 f.objToFn = function(obj, defaultVal){
   if (arguments.length == 1) defaultVal = undefined;
 
   return function(str){
-    return typeof(obj[str]) !== undefined ? obj[str] : defaultVal }
+    return typeof(obj[str]) !== undefined ? obj[str] : defaultVal;
+  };
 };
 
 var st = function(name, value) {
@@ -142,14 +143,14 @@ var st = function(name, value) {
     for (var key in name){
       addStyle(this, key, name[key]);
     }
-    return this
-  } else{
-    return arguments.length == 1 ? this.style(name) : addStyle(this, name, value)
+    return this;
+  } else {
+    return arguments.length == 1 ? this.style(name) : addStyle(this, name, value);
   }
 
 
   function addStyle(sel, style, value){
-    var style = style.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
+    style = style.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
 
     var pxStyles = 'top left bottom right padding-top padding-left padding-bottom padding-right border-top b-width border-left-width border-botto-width m border-right-width  margin-top margin-left margin-bottom margin-right font-size width height stroke-width line-height margin padding border max-width min-width';
 
@@ -159,32 +160,58 @@ var st = function(name, value) {
       sel.style(style, value);
     }
 
-    return sel
+    return sel;
   } 
 
-  function addPx(d){ return d.match ? d : d + 'px' }
+  function addPx(d){ return d.match ? d : d + 'px'; }
 };
 
-var wordwrap = function(line, maxCharactersPerLine) {
-  var w = line.split(' '),
-    lines = [],
-    words = [],
-    maxChars = maxCharactersPerLine || 40,
-    l = 0;
+// while this might not be reprentative for all fonts, it is
+// still better than assuming every character has the same width
+// (set monospace=true if you want to bypass this)
+var CHAR_W = {
+    A:7,a:7,B:8,b:7,C:8,c:6,D:9,d:7,E:7,e:7,F:7,f:4,G:9,g:7,H:9,h:7,I:3,i:3,J:5,j:3,K:8,k:6,L:7,l:3,M:11,
+    m:11,N:9,n:7,O:9,o:7,P:8,p:7,Q:9,q:7,R:8,r:4,S:8,s:6,T:7,t:4,U:9,u:7,V:7,v:6,W:11,w:9,X:7,x:6,Y:7,y:6,Z:7,z:5,
+    '.':2,',':2,':':2,';':2
+};
 
-  w.forEach(function(d) {
-    if (l+d.length > maxChars) {
-      lines.push(words.join(' '));
-      words.length = 0;
-      l = 0;
+var wordwrap = function(line, maxCharactersPerLine, minCharactersPerLine, monospace) {
+    var l, lines = [], w = [], words = [], w1, maxChars, minChars, maxLineW, minLineW;
+    w1 = line.split(' ');
+    w1.forEach(function(s, i) {
+        var w2 = s.split('-');
+        if (w2.length > 1) {
+            w2.forEach(function(t, j) {
+                w.push(t + (j < w2.length - 1 ? '-' : ''));
+            });
+        } else {
+            w.push(s + (i < w1.length - 1 ? ' ' : ''));
+        }
+    });
+    maxChars = maxCharactersPerLine || 40;
+    minChars = minCharactersPerLine || Math.max(3, Math.min(maxChars * 0.5, 0.75 * w.map(word_len).sort(num_asc)[Math.round(w.length / 2)]));
+    maxLineW = maxChars * CHAR_W.a;
+    minLineW = minChars * CHAR_W.a;
+    l = 0;
+    w.forEach(function(d) {
+        var ww = d3Array.sum(d.split('').map(char_w));
+        if (l + ww > maxLineW && l > minLineW) {
+            lines.push(words.join(''));
+            words.length = 0;
+            l = 0;
+        }
+        l += ww;
+        return words.push(d);
+    });
+    if (words.length) {
+        lines.push(words.join(''));
     }
-    l += d.length;
-    words.push(d);
-  });
-  if (words.length) {
-    lines.push(words.join(' '));
-  }
-  return lines.filter(function(d){ return d != '' });
+    return lines.filter(function(d) {
+        return d !== '';
+    });
+    function char_w(c) { return !monospace && CHAR_W[c] || CHAR_W.a; }
+    function word_len(d) { return d.length; }
+    function num_asc(a, b) { return a - b; }
 };
 
 var ascendingKey = function(key) {
@@ -208,7 +235,7 @@ var conventions = function(c){
 
   c.margin = c.margin || {top: 20, right: 20, bottom: 20, left: 20}
   ;['top', 'right', 'bottom', 'left'].forEach(function(d){
-    if (!c.margin[d] && c.margin[d] != 0) c.margin[d] = 20; 
+    if (!c.margin[d] && c.margin[d] != 0) c.margin[d] = 20 ;
   });
 
   c.width  = c.width  || c.totalWidth  - c.margin.left - c.margin.right || 900;
@@ -244,11 +271,11 @@ var conventions = function(c){
         .call(c.yAxis);
   };
   
-  return c
+  return c;
 };
 
 var attachTooltip = function(sel, tooltipSel, fieldFns){
-  if (!sel.size()) return
+  if (!sel.size()) return;
 
   tooltipSel = tooltipSel || d3Selection.select('.tooltip');
 
@@ -261,24 +288,25 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
   var d = sel.datum();
   fieldFns = fieldFns || d3Collection.keys(d)
       .filter(function(str){
-        return (typeof d[str] != 'object') && (d[str] != 'array')
+        return (typeof d[str] != 'object') && (d[str] != 'array');
       })
       .map(function(str){
-        return function(d){ return str + ': <b>' + d[str] + '</b>'} });
+        return function(d){ return str + ': <b>' + d[str] + '</b>'; };
+      });
 
   function ttDisplay(d){
     tooltipSel
         .classed('tooltip-hidden', false)
         .html('')
       .appendMany(fieldFns, 'div')
-        .html(function(fn){ return fn(d) });
+        .html(function(fn){ return fn(d); });
 
     d3Selection.select(this).classed('tooltipped', true);
   }
 
   function ttMove(d){
     var tt = tooltipSel;
-    if (!tt.size()) return
+    if (!tt.size()) return;
     var e = d3Selection.event,
         x = e.clientX,
         y = e.clientY,
@@ -309,8 +337,8 @@ var loadData = function(){
     var type = d.split('.').reverse()[0];
 
     var loadFn = {csv: d3Request.csv, tsv: d3Request.tsv, json: d3Request.json}[type];
-    if (!loadFn) return cb(new Error('Invalid type', d))
-    q.defer(loadFn, d); 
+    if (!loadFn) return cb(new Error('Invalid type', d));
+    q.defer(loadFn, d) ;
   });
   q.awaitAll(cb);
 };
@@ -318,8 +346,8 @@ var loadData = function(){
 var nestBy = function(array, key){
   return d3Collection.nest().key(key).entries(array).map(function(d){
     d.values.key = d.key;
-    return d.values
-  })
+    return d.values;
+  });
 };
 
 var round = function(n, p) {

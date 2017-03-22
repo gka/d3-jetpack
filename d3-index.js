@@ -2,7 +2,7 @@
 //   version
 // } from "./build/package";
 
-export * from "d3"
+export * from "d3";
 
 import "d3-selection-multi";
 import "./index.js";

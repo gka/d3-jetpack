@@ -11,6 +11,6 @@ export default function(name, before) {
   });
 
   //attrs not provided by default in v4
-  for (var key in n.attr) { s.attr(key, n.attr[key]) }
+  for (var key in n.attr) { s.attr(key, n.attr[key]); }
   return s;
-};
+}

@@ -4,4 +4,4 @@ export default function(key) {
   } : function (a, b) {
     return b[key] < a[key] ? -1 : b[key] > a[key] ? 1 : b[key] >= a[key] ? 0 : NaN;
   };
-};
+}
