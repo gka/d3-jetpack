@@ -40,13 +40,26 @@
     "url": "https://github.com/gka/d3-jetpack/issues"
   },
   "homepage": "https://github.com/gka/d3-jetpack#readme",
-  "contributors": [{
-    "name": "Gregor Aisch",
-    "email": "mail@driven-by-data.net",
-    "url": "http://driven-by-data.net/"
-  }, {
-    "name": "Adam Pearce",
+  "contributors": [
+    {
+      "name": "Gregor Aisch",
+      "email": "mail@driven-by-data.net",
+      "url": "http://driven-by-data.net/"
+    },
+    {
+      "name": "Adam Pearce",
       "email": "1wheel@gmail.com",
-    "url": "http://roadtolarissa.com/"
-  }]
+      "url": "http://roadtolarissa.com/"
+    }
+  ],
+  "dependencies": {
+    "d3-array": "1",
+    "d3-axis": "1",
+    "d3-collection": "1",
+    "d3-queue": "3",
+    "d3-request": "1",
+    "d3-scale": "1",
+    "d3-selection": "1",
+    "d3-transition": "1"
+  }
 }
