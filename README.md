@@ -115,7 +115,7 @@ svg.append('g').translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
 
-<a name="tspans" href="#tspans">#</a> selection.<b>tspans</b>(<i>[xPos, yPos]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/tspans.js "Source")
+<a name="tspans" href="#tspans">#</a> selection.<b>tspans</b>(<i>array</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/tspans.js "Source")
 
 For multi-line SVG text
 
