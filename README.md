@@ -1,6 +1,6 @@
 d3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js
 
-[![jetpack](https://68.media.tumblr.com/tumblr_m4kkxd8nWB1rwkrdbo1_500.jpg)](http://myjetpack.tumblr.com/post/23725103159)
+[![jetpack](http://68.media.tumblr.com/tumblr_m4kkxd8nWB1rwkrdbo1_500.jpg)](http://myjetpack.tumblr.com/post/23725103159)
 
 (comic by [Tom Gauld](http://myjetpack.tumblr.com/]))
 
