@@ -25,7 +25,7 @@ selection.append("div#someId.some-class");
 
 Works with insert, too:
 
-```
+```js
 selection.insert("div.my-class");
 ```
 
