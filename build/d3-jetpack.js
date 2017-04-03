@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.0.0. Copyright 2017 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.0.1. Copyright 2017 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
@@ -37,14 +37,19 @@ var append = function(name) {
   return s;
 };
 
-var insert = function(name, before) {
-  var n = parseAttributes(name), s;
-  name = d3Selection.creator(n.tag);
-  before = d3Selection.creator(before);
+function constantNull() {
+  return null;
+}
 
-  s = this.select(function() {
-      return this.insertBefore(name.apply(this, arguments), before.apply(this, arguments) || null);
+var insert = function(name, before) {
+  var n = parseAttributes(name),
+      create = d3Selection.creator(n.tag),
+      select$$1 = before == null ? constantNull : typeof before === "function" ? before : d3Selection.selector(before);
+
+  var s = this.select(function() {
+    return this.insertBefore(create.apply(this, arguments), select$$1.apply(this, arguments) || null);
   });
+
 
   //attrs not provided by default in v4
   for (var key in n.attr) { s.attr(key, n.attr[key]); }

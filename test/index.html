@@ -27,15 +27,16 @@ svg{
 <script src="../build/d3v4+jetpack.js"></script>
 <script>
 
-var width = 960, height = 500, r = 15;
 
-var svg = d3.select('body')
-	.append('svg').at({width, height})
-	.append('g').translate([r, r])
+var width = innerWidth,
+    height = innerHeight,
+    r = 20
 
+var c = d3.conventions({totalWidth: width, totalHeight: height})
+c.drawAxis()
 
 function drawCicle(pos){
-  svg.append('circle')
+  c.svg.append('circle')
       .at({r, fillOpacity: .1, stroke: '#000'})
       .datum([Math.random()*width, Math.random()*height])
       .translate(pos)
@@ -49,5 +50,6 @@ function drawCicle(pos){
 
 drawCicle([width/2, height/2])
 
+c.svg.insert('circle').at({r: 100})
 
 </script>
