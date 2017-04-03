@@ -1,6 +1,6 @@
 d3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js
 
-[![jetpack](https://68.media.tumblr.com/tumblr_m4kkxd8nWB1rwkrdbo1_500.jpg)](http://myjetpack.tumblr.com/post/23725103159)
+[![jetpack](http://68.media.tumblr.com/tumblr_m4kkxd8nWB1rwkrdbo1_500.jpg)](http://myjetpack.tumblr.com/post/23725103159)
 
 (comic by [Tom Gauld](http://myjetpack.tumblr.com/]))
 
@@ -25,7 +25,7 @@ selection.append("div#someId.some-class");
 
 Works with insert, too:
 
-```
+```js
 selection.insert("div.my-class");
 ```
 
@@ -53,18 +53,24 @@ Works like d3v3's `.attr`. Passing an object to name sets multiple attributes, p
 
 To avoid having to use quotes around attributes and styles with hyphens when using the object notation, camelCase keys are hyphenated. Instead of:
 
-    selection
-        .attr('stroke-width', 10)
-        .attr('text-anchor', 'end')
-        .attr('font-weight', 600)
+```js
+selection
+    .attr('stroke-width', 10)
+    .attr('text-anchor', 'end')
+    .attr('font-weight', 600)
+```
 
 or with [d3-selection-multi](https://github.com/d3/d3-selection-multi): 
 
-    selection.attrs({'stroke-width': 10, 'text-anchor': 'end', 'font-weight': 600})
+```js
+selection.attrs({'stroke-width': 10, 'text-anchor': 'end', 'font-weight': 600})
+```
 
 you can write: 
 
-    selection.at({fontSize: 10, textAnchor: 'end', fontWeight: 600})
+```js
+selection.at({fontSize: 10, textAnchor: 'end', fontWeight: 600})
+```
 
 With syntax highlighting on, it is a little easier to see the difference between keys and values when everything isn't a string. Plus there's less typing! 
 
@@ -73,15 +79,18 @@ With syntax highlighting on, it is a little easier to see the difference between
 
 Like `at`, but for `style`. Additionally, when a number is passed to a style that requires a unit of measure, like `margin-top` or `font-size`, `px` is automatically appended. Instead of 
 
-    selection
-        .style('margin-top', height/2 + 'px')
-        .style('font-size', '40px')
-        .style('width', width - 80 + 'px')
+```js
+selection
+    .style('margin-top', height/2 + 'px')
+    .style('font-size', '40px')
+    .style('width', width - 80 + 'px')
+```
 
 The `+ px`s can also be dropped: 
 
-    selection.st({marginTop: height/2, fontSize: 40, width: width - 80})
-
+```js
+selection.st({marginTop: height/2, fontSize: 40, width: width - 80})
+```
 
 <a name="selectAppend" href="#selectAppend">#</a> d3.<b>selectAppend</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/selectAppend.js "Source")
 
