@@ -7,49 +7,54 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: auto;
   position: relative;
-  width: 960px;
 }
 
-button {
-  position: absolute;
-  right: 10px;
-  top: 10px;
+#graph{
+  width: 960px;
+  height: 500px;
+  margin: 0px auto;
 }
 
 svg{
   overflow: visible;
 }
 
+.blue{
+  fill: blue;
+}
+.green{
+  fill: green;
+}
+
 </style>
 
-<body></body>
+<body>
+  <div id='graph'></div>
+</body>
 
 <script src="../build/d3v4+jetpack.js"></script>
 <script>
 
+var r = 30,
+    c = d3.conventions({parentSel: d3.select('#graph')})
 
-var width = innerWidth,
-    height = innerHeight,
-    r = 20
-
-var c = d3.conventions({totalWidth: width, totalHeight: height})
 c.drawAxis()
+c.svg.insert('rect').at({width: 10, height: 10})
 
 function drawCicle(pos){
-  c.svg.append('circle')
+  c.svg.append('circle.' + (Math.random < .5 ? 'green' : 'blue'))
       .at({r, fillOpacity: .1, stroke: '#000'})
-      .datum([Math.random()*width, Math.random()*height])
+      .datum([Math.random()*c.width, Math.random()*c.height])
       .translate(pos)
       .on('mouseover', drawCicle)
     .transition()
       .translate(function(d){ return d })
-    .transition()
+    .transition().duration(1000)
       .at({r: r/2})
       .st({fill: 'red', strokeDasharray: '2 2'})
 }
 
-drawCicle([width/2, height/2])
+drawCicle([c.width/2, c.height/2])
 
-c.svg.insert('circle').at({r: 100})
 
 </script>
