@@ -16498,8 +16498,13 @@ var conventions = function(c){
     if (!c.margin[d] && c.margin[d] != 0) c.margin[d] = 20 ;
   });
 
-  c.width  = c.width  || c.totalWidth  - c.margin.left - c.margin.right || 900;
-  c.height = c.height || c.totalHeight - c.margin.top - c.margin.bottom || 460;
+  var parentNode = c.parentSel && c.parentSel.node();
+
+  c.totalWidth  = c.totalWidth  || parentNode && parentNode.offsetWidth  || 960;
+  c.totalHeight = c.totalHeight || parentNode && parentNode.offsetHeight || 500;
+
+  c.width  = c.width  || c.totalWidth  - c.margin.left - c.margin.right;
+  c.height = c.height || c.totalHeight - c.margin.top - c.margin.bottom;
 
   c.totalWidth = c.width + c.margin.left + c.margin.right;
   c.totalHeight = c.height + c.margin.top + c.margin.bottom;

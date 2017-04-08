@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.0.1. Copyright 2017 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.0.2. Copyright 2017 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
@@ -243,8 +243,13 @@ var conventions = function(c){
     if (!c.margin[d] && c.margin[d] != 0) c.margin[d] = 20 ;
   });
 
-  c.width  = c.width  || c.totalWidth  - c.margin.left - c.margin.right || 900;
-  c.height = c.height || c.totalHeight - c.margin.top - c.margin.bottom || 460;
+  var parentNode = c.parentSel && c.parentSel.node();
+
+  c.totalWidth  = c.totalWidth  || parentNode && parentNode.offsetWidth  || 960;
+  c.totalHeight = c.totalHeight || parentNode && parentNode.offsetHeight || 500;
+
+  c.width  = c.width  || c.totalWidth  - c.margin.left - c.margin.right;
+  c.height = c.height || c.totalHeight - c.margin.top - c.margin.bottom;
 
   c.totalWidth = c.width + c.margin.left + c.margin.right;
   c.totalHeight = c.height + c.margin.top + c.margin.bottom;
