@@ -258,7 +258,7 @@ circles
       d3.select('.tooltip').html("Number of " + d.key + ": " + d.length) })
 ```
 
-Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip css on the page - see [index](https://github.com/1wheel/d3-starterkit/blob/master/index.html):
+Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip css on the page:
 
 ```css
 .tooltip {
