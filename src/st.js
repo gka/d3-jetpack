@@ -17,7 +17,7 @@ export default function(name, value) {
     var pxStyles = 'top left bottom right padding-top padding-left padding-bottom padding-right border-top b-width border-left-width border-botto-width m border-right-width  margin-top margin-left margin-bottom margin-right font-size width height stroke-width line-height margin padding border max-width min-width';
 
     if (~pxStyles.indexOf(style) ){
-      sel.style(style, typeof value == 'function' ? ƒ(value, addPx) : addPx(value));
+      sel.style(style, typeof value == 'function' ? wrapPx(value) : addPx(value));
     } else{
       sel.style(style, value);
     }
@@ -26,4 +26,11 @@ export default function(name, value) {
   } 
 
   function addPx(d){ return d.match ? d : d + 'px'; }
+  function wrapPx(fn){
+    return function(){
+      var val = fn.apply(this, arguments)
+      return addPx(val)
+    }
+
+  }
 }

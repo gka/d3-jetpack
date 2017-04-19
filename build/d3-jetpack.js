@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.0.2. Copyright 2017 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.0.4. Copyright 2017 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
@@ -160,7 +160,7 @@ var st = function(name, value) {
     var pxStyles = 'top left bottom right padding-top padding-left padding-bottom padding-right border-top b-width border-left-width border-botto-width m border-right-width  margin-top margin-left margin-bottom margin-right font-size width height stroke-width line-height margin padding border max-width min-width';
 
     if (~pxStyles.indexOf(style) ){
-      sel.style(style, typeof value == 'function' ? f(value, addPx) : addPx(value));
+      sel.style(style, typeof value == 'function' ? wrapPx(value) : addPx(value));
     } else{
       sel.style(style, value);
     }
@@ -169,6 +169,13 @@ var st = function(name, value) {
   } 
 
   function addPx(d){ return d.match ? d : d + 'px'; }
+  function wrapPx(fn){
+    return function(){
+      var val = fn.apply(this, arguments);
+      return addPx(val)
+    }
+
+  }
 };
 
 // while this might not be reprentative for all fonts, it is

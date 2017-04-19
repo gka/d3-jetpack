@@ -39,6 +39,9 @@ var r = 30,
     c = d3.conventions({parentSel: d3.select('#graph')})
 
 c.drawAxis()
+c.svg.selectAll('.axis text').transition().duration(1000)
+  .st({fontSize: function(d, i){ return i*2 }, opacity: .5})
+
 c.svg.insert('rect').at({width: 10, height: 10})
 
 function drawCicle(pos){
