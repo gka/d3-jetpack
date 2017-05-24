@@ -239,6 +239,17 @@ d3.round(1.2345, 2) // 1.23
 ```
 
 
+<a name="clamp" href="#clamp">#</a> d3.<b>clamp</b>(<i>min</i>, <i>val</i>, <i>max</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/clamp.js "Source")
+
+Short for `Math.max(min, Math.min(max, val))`.
+
+```js
+d3.clamp(0, -10, 200) // 0
+d3.clamp(0, 110, 200) // 110
+d3.clamp(0, 410, 200) // 200
+```
+
+
 <a name="attachTooltip" href="#attachTooltip">#</a> d3.<b>attachTooltip</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/attachTooltip.js "Source")
 
 Attaches a light weight tooltip that prints out all of an objects properties on click. No more `> d3.select($0).datum()`! 
@@ -263,7 +274,7 @@ Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip 
 ```css
 .tooltip {
   top: -1000px;
-  position: absolute;
+  position: fixed;
   padding: 10px;
   background: rgba(255, 255, 255, .90);
   border: 1px solid lightgray;
@@ -277,7 +288,6 @@ Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip 
 
 @media (max-width: 590px){
   div.tooltip{
-    position: fixed;
     bottom: -1px;
     width: calc(100%);
     left: -1px !important;

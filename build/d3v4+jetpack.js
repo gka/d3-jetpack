@@ -16546,6 +16546,10 @@ var conventions = function(c){
   return c;
 };
 
+var clamp = function(min, d, max) {
+  return Math.max(min, Math.min(max, d))
+};
+
 var attachTooltip = function(sel, tooltipSel, fieldFns){
   if (!sel.size()) return;
 
@@ -16577,18 +16581,18 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
   }
 
   function ttMove(d){
-    var tt = tooltipSel;
     if (!tt.size()) return;
+
     var e = exports.event,
         x = e.clientX,
         y = e.clientY,
-        n = tt.node(),
-        nBB = n.getBoundingClientRect(),
-        doctop = (window.scrollY)? window.scrollY : (document.documentElement && document.documentElement.scrollTop)? document.documentElement.scrollTop : document.body.scrollTop,
-        topPos = y+doctop-nBB.height-18;
+        bb = tooltipSel.node().getBoundingClientRect(),
+        left = clamp(20, (x-bb.width/2), window.innerWidth - bb.width - 20),
+        top = innerHeight - y > 200 ? y + 20 : y - bb.height - 20;
 
-    tt.style('top', (topPos < 0 ? 18 + y : topPos)+'px');
-    tt.style('left', Math.min(Math.max(20, (x-nBB.width/2)), window.innerWidth - nBB.width - 20)+'px');
+    tooltipSel
+      .style('left', left +'px')
+      .style('top', top + 'px');
   }
 
   function ttHide(d){
@@ -16713,6 +16717,7 @@ exports.attachTooltip = attachTooltip;
 exports.loadData = loadData;
 exports.nestBy = nestBy;
 exports.round = round;
+exports.clamp = clamp;
 exports.polygonClip = polygonClip;
 exports.version = version;
 exports.bisect = bisectRight;

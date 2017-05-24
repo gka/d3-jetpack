@@ -18,5 +18,6 @@ export {
   loadData,
   nestBy,
   round,
+  clamp,
   polygonClip
 } from "./index.js";

@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.0.4. Copyright 2017 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.0.5. Copyright 2017 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
@@ -291,6 +291,10 @@ var conventions = function(c){
   return c;
 };
 
+var clamp = function(min, d, max) {
+  return Math.max(min, Math.min(max, d))
+};
+
 var attachTooltip = function(sel, tooltipSel, fieldFns){
   if (!sel.size()) return;
 
@@ -322,18 +326,18 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
   }
 
   function ttMove(d){
-    var tt = tooltipSel;
     if (!tt.size()) return;
+
     var e = d3Selection.event,
         x = e.clientX,
         y = e.clientY,
-        n = tt.node(),
-        nBB = n.getBoundingClientRect(),
-        doctop = (window.scrollY)? window.scrollY : (document.documentElement && document.documentElement.scrollTop)? document.documentElement.scrollTop : document.body.scrollTop,
-        topPos = y+doctop-nBB.height-18;
+        bb = tooltipSel.node().getBoundingClientRect(),
+        left = clamp(20, (x-bb.width/2), window.innerWidth - bb.width - 20),
+        top = innerHeight - y > 200 ? y + 20 : y - bb.height - 20;
 
-    tt.style('top', (topPos < 0 ? 18 + y : topPos)+'px');
-    tt.style('left', Math.min(Math.max(20, (x-nBB.width/2)), window.innerWidth - nBB.width - 20)+'px');
+    tooltipSel
+      .style('left', left +'px')
+      .style('top', top + 'px');
   }
 
   function ttHide(d){
@@ -454,6 +458,7 @@ exports.attachTooltip = attachTooltip;
 exports.loadData = loadData;
 exports.nestBy = nestBy;
 exports.round = round;
+exports.clamp = clamp;
 exports.polygonClip = polygonClip;
 
 Object.defineProperty(exports, '__esModule', { value: true });

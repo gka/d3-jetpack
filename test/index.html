@@ -26,6 +26,31 @@ svg{
   fill: green;
 }
 
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
 </style>
 
 <body>
@@ -36,7 +61,8 @@ svg{
 <script>
 
 var r = 30,
-    c = d3.conventions({parentSel: d3.select('#graph')})
+    c = d3.conventions({parentSel: d3.select('#graph'), height: innerHeight - 100}),
+    tt = d3.select('html').selectAppend('div.tooltip')
 
 c.drawAxis()
 c.svg.selectAll('.axis text').transition().duration(1000)
@@ -50,6 +76,7 @@ function drawCicle(pos){
       .datum([Math.random()*c.width, Math.random()*c.height])
       .translate(pos)
       .on('mouseover', drawCicle)
+      .call(d3.attachTooltip)
     .transition()
       .translate(function(d){ return d })
     .transition().duration(1000)
