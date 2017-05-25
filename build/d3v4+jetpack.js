@@ -16581,7 +16581,7 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
   }
 
   function ttMove(d){
-    if (!tt.size()) return;
+    if (!tooltipSel.size()) return;
 
     var e = exports.event,
         x = e.clientX,

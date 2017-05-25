@@ -35,7 +35,7 @@ export default function(sel, tooltipSel, fieldFns){
   }
 
   function ttMove(d){
-    if (!tt.size()) return;
+    if (!tooltipSel.size()) return;
 
     var e = d3event,
         x = e.clientX,

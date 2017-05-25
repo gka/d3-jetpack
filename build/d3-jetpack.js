@@ -326,7 +326,7 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
   }
 
   function ttMove(d){
-    if (!tt.size()) return;
+    if (!tooltipSel.size()) return;
 
     var e = d3Selection.event,
         x = e.clientX,
