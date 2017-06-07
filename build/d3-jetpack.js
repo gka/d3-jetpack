@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.0.5. Copyright 2017 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.0.7. Copyright 2017 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
@@ -355,7 +355,7 @@ var loadData = function(){
   var cb = args[args.length - 1];
 
   files.forEach(function(d){
-    var type = d.split('.').reverse()[0];
+    var type = d.split('?')[0].split('.').reverse()[0];
 
     var loadFn = {csv: d3Request.csv, tsv: d3Request.tsv, json: d3Request.json}[type];
     if (!loadFn) return cb(new Error('Invalid type', d));

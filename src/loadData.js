@@ -9,7 +9,7 @@ export default function(){
   var cb = args[args.length - 1];
 
   files.forEach(function(d){
-    var type = d.split('.').reverse()[0];
+    var type = d.split('?')[0].split('.').reverse()[0];
 
     var loadFn = {csv: csv, tsv: tsv, json: json}[type];
     if (!loadFn) return cb(new Error('Invalid type', d));
