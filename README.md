@@ -205,7 +205,7 @@ d3.nestBy(yields, ƒ('year')).forEach(function(d){
 <a 
 name="loadData" href="#loadData">#</a> d3.<b>loadData</b>(<i>file1, file2, file3, ..., callback</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/loadData.js "Source")
 
-Takes any number of files paths and loads them with `queue`, `d3.csv` and `d3.json`. After all the files have loaded, calls the `callback` function with the first error (or null if none) as the first arguement and an array of the loaded files as the secound. Instead of:
+Takes any number of files paths and loads them with `queue`, `d3.csv` and `d3.json`. After all the files have loaded, calls the `callback` function with the first error (or null if there are none) as the first argument and an array of the loaded files as the second. Instead of:
 
 ```js
 d3.queue()
