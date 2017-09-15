@@ -42,7 +42,7 @@ export default function(sel, tooltipSel, fieldFns){
         y = e.clientY,
         bb = tooltipSel.node().getBoundingClientRect(),
         left = clamp(20, (x-bb.width/2), window.innerWidth - bb.width - 20),
-        top = innerHeight - y - 20 > bb.height ? y + 20 : y - bb.height - 20
+        top = innerHeight > y + 20 + bb.height ? y + 20 : y - bb.height - 20;
 
     tooltipSel
       .style('left', left +'px')
