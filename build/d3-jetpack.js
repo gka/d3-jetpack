@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.0.7. Copyright 2017 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.0.8. Copyright 2017 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
@@ -333,7 +333,7 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
         y = e.clientY,
         bb = tooltipSel.node().getBoundingClientRect(),
         left = clamp(20, (x-bb.width/2), window.innerWidth - bb.width - 20),
-        top = innerHeight - y - 20 > bb.height ? y + 20 : y - bb.height - 20;
+        top = innerHeight > y + 20 + bb.height ? y + 20 : y - bb.height - 20;
 
     tooltipSel
       .style('left', left +'px')
