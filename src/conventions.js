@@ -58,7 +58,7 @@ export default function(c){
       if (!c.svg) c.svg = c['svg' + i] // defaults to lowest svg layer 
 
     } else if (type == 'c'){
-      var s = 2 // window.pixle ratio device ??
+      var s = window.devicePixelRatio || 1
 
       c['ctx' + i] = c.sel.append('canvas')
         .at({width: c.totalWidth*s, height: c.totalHeight*s})
