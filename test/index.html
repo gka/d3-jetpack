@@ -26,6 +26,10 @@ svg{
   fill: green;
 }
 
+div.scatter{
+  transition: all 5s;
+}
+
 .tooltip {
   top: -1000px;
   position: fixed;
@@ -61,7 +65,7 @@ svg{
 <script>
 
 var r = 30,
-    c = d3.conventions({parentSel: d3.select('#graph'), height: innerHeight - 100}),
+    c = d3.conventions({sel: d3.select('#graph'), height: innerHeight - 100, layers: 'dcs'}),
     tt = d3.select('html').selectAppend('div.tooltip')
 
 c.drawAxis()
@@ -71,7 +75,7 @@ c.svg.selectAll('.axis text').transition().duration(1000)
 c.svg.insert('rect').at({width: 10, height: 10})
 
 function drawCicle(pos){
-  c.svg.append('circle.' + (Math.random < .5 ? 'green' : 'blue'))
+  c.svg2.append('circle.' + (Math.random < .5 ? 'green' : 'blue'))
       .at({r, fillOpacity: .1, stroke: '#000'})
       .datum([Math.random()*c.width, Math.random()*c.height])
       .translate(pos)
@@ -85,6 +89,16 @@ function drawCicle(pos){
 }
 
 drawCicle([c.width/2, c.height/2])
+
+
+var points = d3.range(0, 1, .03).map(x => [c.x(x), c.y(x + Math.random()/10)])
+var scatterSel = c.div0.arrayAppend(points, 'div.scatter')
+  .st({position: 'absolute', width: 10, height: 10, background: '#f0f'})
+  .translateCSS(d => [0, 0])
+
+setTimeout(() => {
+  scatterSel.translateCSS(d => d)
+}, 100)
 
 
 </script>

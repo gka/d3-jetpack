@@ -11,6 +11,13 @@ var translateSelection = function(xy) {
   });
 };
 
+var translateCSS = function(xy) {
+  return this.style('transform', function(d,i) {
+    var p = typeof xy == 'function' ? xy.call(this, d,i) : xy;
+    return 'translate(' + p[0] + 'px, ' + p[1] + 'px)';
+  });
+};
+
 var parseAttributes = function(name) {
   if (typeof name === "string") {
     var attr = {},
@@ -245,15 +252,16 @@ var descendingKey = function(key) {
 var conventions = function(c){
   c = c || {};
 
-  c.margin = c.margin || {top: 20, right: 20, bottom: 20, left: 20}
+  c.margin = c.margin || {}
   ;['top', 'right', 'bottom', 'left'].forEach(function(d){
     if (!c.margin[d] && c.margin[d] != 0) c.margin[d] = 20 ;
   });
 
-  var parentNode = c.parentSel && c.parentSel.node();
+  if (c.parentSel) c.sel = c.parentSel; // backwords comp
+  var node = c.sel && c.sel.node();
 
-  c.totalWidth  = c.totalWidth  || parentNode && parentNode.offsetWidth  || 960;
-  c.totalHeight = c.totalHeight || parentNode && parentNode.offsetHeight || 500;
+  c.totalWidth  = c.totalWidth  || node && node.offsetWidth  || 960;
+  c.totalHeight = c.totalHeight || node && node.offsetHeight || 500;
 
   c.width  = c.width  || c.totalWidth  - c.margin.left - c.margin.right;
   c.height = c.height || c.totalHeight - c.margin.top - c.margin.bottom;
@@ -261,15 +269,8 @@ var conventions = function(c){
   c.totalWidth = c.width + c.margin.left + c.margin.right;
   c.totalHeight = c.height + c.margin.top + c.margin.bottom;
 
-  c.parentSel = c.parentSel || d3Selection.select('body');
-
-  c.rootsvg = c.parentSel.append('svg');
-
-  c.svg = c.rootsvg
-      .attr('width', c.totalWidth)
-      .attr('height', c.totalHeight)
-    .append('g')
-      .attr('transform', 'translate(' + c.margin.left + ',' + c.margin.top + ')');
+  c.sel = c.parentSel = c.sel || c.parentSel || d3Selection.select('body');
+  c.sel.st({position: 'relative', height: c.totalHeight, width: c.totalWidth});
 
   c.x = c.x || d3Scale.scaleLinear().range([0, c.width]);
   c.y = c.y || d3Scale.scaleLinear().range([c.height, 0]);
@@ -287,7 +288,45 @@ var conventions = function(c){
         .attr('class', 'y axis')
         .call(c.yAxis);
   };
-  
+
+
+  c.layers = c.layers || 's';
+  c.layers.split('').forEach(function(type, i){
+
+    if (type == 's'){
+      c['svg' + i] = c.sel.append('svg')
+          .st({position: 'absolute'})
+          .attr('width', c.totalWidth)
+          .attr('height', c.totalHeight)
+        .append('g')
+          .attr('transform', 'translate(' + c.margin.left + ',' + c.margin.top + ')');
+
+      if (!c.svg) c.svg = c['svg' + i]; // defaults to lowest svg layer 
+
+    } else if (type == 'c'){
+      var s = 2; // window.pixle ratio device ??
+
+      c['ctx' + i] = c.sel.append('canvas')
+        .at({width: c.totalWidth*s, height: c.totalHeight*s})
+        .st({width: c.totalWidth, height: c.totalHeight})
+        .st({position: 'absolute'})
+        .node().getContext('2d');
+      c['ctx' + i].scale(s, s);
+      c['ctx' + i].translate(c.margin.left, c.margin.right);
+
+    } else if (type == 'd'){
+      c['div' + i] = c.sel.append('div')
+        .st({
+          position: 'absolute', 
+          left: c.margin.left,
+          top: c.margin.top,
+          width: c.width,
+          height: c.height
+        });
+    }
+
+  });
+
   return c;
 };
 
@@ -436,12 +475,15 @@ function polygonClosed(coordinates) {
 
 d3Selection.selection.prototype.translate = translateSelection;
 d3Transition.transition.prototype.translate = translateSelection;
+d3Selection.selection.prototype.translateCSS = translateCSS;
+d3Transition.transition.prototype.translateCSS = translateCSS;
 d3Selection.selection.prototype.append = append;
 d3Selection.selection.prototype.insert = insert;
 d3Selection.selection.prototype.parent = parent;
 d3Selection.selection.prototype.selectAppend = selectAppend;
 d3Selection.selection.prototype.tspans = tspans;
 d3Selection.selection.prototype.appendMany = appendMany;
+d3Selection.selection.prototype.arrayAppend = appendMany;
 d3Selection.selection.prototype.at = at;
 d3Selection.selection.prototype.st = st;
 d3Transition.transition.prototype.at = at;
