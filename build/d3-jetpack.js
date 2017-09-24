@@ -5,10 +5,19 @@
 	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3));
 }(this, (function (exports,d3Selection,d3Transition,d3Array,d3Axis,d3Scale,d3Collection,d3Queue,d3Request) { 'use strict';
 
-var translateSelection = function(xy) {
-  return this.attr('transform', function(d,i) {
-    return 'translate('+[typeof xy == 'function' ? xy.call(this, d,i) : xy]+')';
-  });
+var translateSelection = function(xy, dim) {
+  // console.log('NODE', this.node());
+  return this.node().getBBox ?
+    this.attr('transform', function(d,i) {
+      var p = typeof xy == 'function' ? xy.call(this, d,i) : xy;
+      if (dim === 0) p = [p, 0]; else if (dim === 1) p = [0, p];
+      return 'translate(' + p[0] +','+ p[1]+')';
+    }) :
+    this.style('transform', function(d,i) {
+      var p = typeof xy == 'function' ? xy.call(this, d,i) : xy;
+      if (dim === 0) p = [p, 0]; else if (dim === 1) p = [0, p];
+      return 'translate(' + p[0] +'px,'+ p[1]+'px)';
+    });
 };
 
 var parseAttributes = function(name) {

@@ -59,6 +59,7 @@
     "d3-request": "1",
     "d3-scale": "1",
     "d3-selection": "1",
-    "d3-transition": "1"
+    "d3-transition": "1",
+    "svgdom": "^0.0.15"
   }
 }
