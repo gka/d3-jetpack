@@ -6,7 +6,6 @@
 }(this, (function (exports,d3Selection,d3Transition,d3Array,d3Axis,d3Scale,d3Collection,d3Queue,d3Request) { 'use strict';
 
 var translateSelection = function(xy, dim) {
-  // console.log('NODE', this.node());
   return this.node().getBBox ?
     this.attr('transform', function(d,i) {
       var p = typeof xy == 'function' ? xy.call(this, d,i) : xy;
