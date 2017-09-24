@@ -115,7 +115,7 @@ d3.selectAll('span')
 
 This might mess with the joined data and/or return duplicate elements. Usually better to save a variable, but sometimes useful when working with nested html.
 
-<a name="translate" href="#translate">#</a> selection.<b>translate</b>(<i>[xPos, yPos]</i>, <i>[dim]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/translate.js "Source")
+<a name="translate" href="#translate">#</a> selection.<b>translate</b>(<i>xyPosition</i>, [<i>dim</i>]) [<>](https://github.com/gka/d3-jetpack/blob/master/src/translate.js "Source")
 
 How I hated writing ``.attr('transform', function(d) { return 'translate()'; })`` a thousand times...
 
@@ -127,15 +127,15 @@ circle.translate(function(d) { return  [x(d.date), y(d.value)]; });
 If you only want to set a *single* dimension you can tell translate by passing 0 (for x) or 1 (for y) as second argument:
 
 ```js
-x_tick.translate(d3.f(x), 0);
-y_tick.translate(d3.f(y), 1);
+x_ticks.translate(d3.f(x), 0);
+y_ticks.translate(d3.f(y), 1);
 ```
 
 HTML is supported as well! `translate` uses style transforms with px units if the first element in the selection is HTML.
 
 ```js
-svg_elements.translate([40,20]); // will set attribute transform="translate(40, 20)"
-html_elements.translate([40,20]); // will set style.transform = "translate(40px, 20px)"
+svg_selection.translate([40,20]); // will set attribute transform="translate(40, 20)"
+html_selection.translate([40,20]); // will set style.transform = "translate(40px, 20px)"
 ```
 
 <a name="tspans" href="#tspans">#</a> selection.<b>tspans</b>(<i>array</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/tspans.js "Source")
