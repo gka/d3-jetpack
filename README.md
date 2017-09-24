@@ -113,15 +113,28 @@ d3.selectAll('span')
     .style('background', 'yellow')
 ```
 
-This might mess with the joined data and/or return duplicate elements. Usually better to save a variable, but sometimes useful when working with nested html. 
+This might mess with the joined data and/or return duplicate elements. Usually better to save a variable, but sometimes useful when working with nested html.
 
-<a name="translate" href="#translate">#</a> selection.<b>translate</b>(<i>[xPos, yPos]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/translate.js "Source")
+<a name="translate" href="#translate">#</a> selection.<b>translate</b>(<i>[xPos, yPos]</i>, <i>[dim]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/translate.js "Source")
 
 How I hated writing ``.attr('transform', function(d) { return 'translate()'; })`` a thousand times...
 
 ```js
 svg.append('g').translate([margin.left, margin.top]);
-tick.translate(function(d) { return  [0, y(d)]; });
+circle.translate(function(d) { return  [x(d.date), y(d.value)]; });
+```
+
+If you only want to set a *single* dimension you can tell translate by passing 0 (for x) or 1 (for y) as second argument:
+
+```js
+x_tick.translate(d3.f(x), 0);
+y_tick.translate(d3.f(y), 1);
+```
+
+HTML is supported as well! `translate` uses style transforms with px units if the first element in the selection is HTML.
+
+```js
+html_elements.translate([40,20]); // will set style.transform = 'translate(40px, 20px)'
 ```
 
 <a name="tspans" href="#tspans">#</a> selection.<b>tspans</b>(<i>array</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/tspans.js "Source")
@@ -136,7 +149,7 @@ selection.append('text')
 selection.append('text').tspans(['Multiple', 'lines'], 20);
 ```
 
-The optional second argument sets the line height (defaults to 15). 
+The optional second argument sets the line height (defaults to 15).
 
 <a name="wordwrap" href="#wordwrap">#</a> d3.<b>wordwrap</b>(<i>text</i>, [<i>lineWidth</i>]) [<>](https://github.com/gka/d3-jetpack/blob/master/src/wordwrap.js "Source")
 
