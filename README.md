@@ -134,7 +134,8 @@ y_tick.translate(d3.f(y), 1);
 HTML is supported as well! `translate` uses style transforms with px units if the first element in the selection is HTML.
 
 ```js
-html_elements.translate([40,20]); // will set style.transform = 'translate(40px, 20px)'
+svg_elements.translate([40,20]); // will set attribute transform="translate(40, 20)"
+html_elements.translate([40,20]); // will set style.transform = "translate(40px, 20px)"
 ```
 
 <a name="tspans" href="#tspans">#</a> selection.<b>tspans</b>(<i>array</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/tspans.js "Source")
