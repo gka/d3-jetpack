@@ -51,6 +51,23 @@ svg{
   }
 }
 
+line.grid {
+  stroke: #eee;
+  shape-rendering: crispEdges;
+}
+
+div.foo {
+  padding: 20px;
+  border: 5px ridge lime;
+  background: white;
+  border-radius: 10px;
+  color: red;
+  position: absolute;
+  width: 100px;
+  text-align: center;
+  top: 0; left: 0;
+}
+
 </style>
 
 <body>
@@ -62,9 +79,22 @@ svg{
 
 var r = 30,
     c = d3.conventions({parentSel: d3.select('#graph'), height: innerHeight - 100}),
-    tt = d3.select('html').selectAppend('div.tooltip')
+    tt = d3.select('body').selectAppend('div.tooltip')
 
-c.drawAxis()
+c.svg
+  .appendMany(c.y.ticks(), 'line.grid')
+  .at({ x2: c.width }).translate(d3.f(c.y), 1);
+
+c.svg
+  .appendMany(c.x.ticks(), 'line.grid')
+  .at({ y2: c.height }).translate(d3.f(c.x), 0);
+
+d3.select('body').append('div.foo')
+  .translate([c.margin.left + c.width*0.5, c.margin.top + c.height*0.5])
+  .html('<marquee>I am <b>html</b>!!!</marquee>');
+
+c.drawAxis();
+
 c.svg.selectAll('.axis text').transition().duration(1000)
   .st({fontSize: function(d, i){ return i*2 }, opacity: .5})
 
@@ -85,6 +115,5 @@ function drawCicle(pos){
 }
 
 drawCicle([c.width/2, c.height/2])
-
 
 </script>

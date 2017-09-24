@@ -20,6 +20,7 @@
     "rollup-plugin-ascii": "0.0",
     "rollup-plugin-node-resolve": "2",
     "tape": "4",
+    "svgdom": "^0.0.15",
     "uglify-js": "2"
   },
   "repository": {
