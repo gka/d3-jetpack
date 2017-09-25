@@ -1,6 +1,6 @@
 {
   "name": "d3-jetpack",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "d3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js",
   "main": "build/d3-jetpack.js",
   "jsnext:main": "index",
@@ -33,7 +33,7 @@
   ],
   "author": {
     "name": "Gregor Aisch",
-    "url": "http://driven-by-data.net/"
+    "url": "https://driven-by-data.net/"
   },
   "license": "BSD-3-Clause",
   "bugs": {
@@ -43,13 +43,13 @@
   "contributors": [
     {
       "name": "Gregor Aisch",
-      "email": "mail@driven-by-data.net",
-      "url": "http://driven-by-data.net/"
+      "email": "gka@users.noreply.github.com",
+      "url": "https://driven-by-data.net/"
     },
     {
       "name": "Adam Pearce",
       "email": "1wheel@gmail.com",
-      "url": "http://roadtolarissa.com/"
+      "url": "https://roadtolarissa.com/"
     }
   ],
   "dependencies": {
