@@ -203,7 +203,7 @@ Shorthand for `d3.nest().key(key).entries(array)`. Returns an array of arrays, i
 
 ```js
 d3.nest()
-    .key(ƒ('year'))
+    .key(d => d.year)
     .entries(yields)
     .forEach(function(d){
         console.log('Count in ' + d.key + ': ' + d.values.length) })
@@ -212,7 +212,7 @@ d3.nest()
 to 
 
 ```js
-d3.nestBy(yields, ƒ('year')).forEach(function(d){
+d3.nestBy(yields, d => d.year).forEach(function(d){
     console.log('Count in ' + d.key  + ': ' + d.length) })
 ```
 
@@ -314,13 +314,13 @@ Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip 
 
 <a name="conventions" href="#conventions">#</a> d3.<b>conventions</b>(<i>[options]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/conventions.js "Source")
 
-`d3.conventions()` appends an `svg` element with a `g` element according to the  [margin convention](http://bl.ocks.org/mbostock/3019563) to the page and returns an object with the following properties:
+`d3.conventions()` appends an `svg` element with a `g` element according to the [margin convention](http://bl.ocks.org/mbostock/3019563) to the page and returns an object with the following properties:
 
-`totalWidth`, `totalHeight`, `margin`: size of the `svg` and its margins
+`sel`: `d3.selection` of the element the `svg` was appended to. Defaults to `d3.select("body")`, but can be specified by passing in an object: `d3.conventions({sel: d3.select("#graph-container")})` appends an svg to `#graph-container`.
+
+`totalWidth`, `totalHeight`, `margin`: size of the `svg` and its margins. By default, uses the offsetWidth and offsetHeight of `sel` and margin of `{left: 20, top: 20, right: 20, bottom: 20}`. `d3.conventions({totalHeight: 500, margin: {top: 100}})` makes a responsive chart with a fixed height of 500 and margin bottom of 100. 
 
 `width`, `height`: size of `svg` inside of margins. 
-
-`parentSel`: `d3.selection` of the element the `svg` was appended to. Defaults to `d3.select("body")`, but like every other returned value, can be specified by passing in an object: `d3.conventions({parentSel: d3.select("#graph-container"), totalHeight: 1300})` appends an svg to `#graph-container` with a height of 1300.
 
 `svg`: `g` element translated to make room for the margins
 
@@ -334,6 +334,18 @@ Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip 
 
 `drawAxis`: Call to append axis group elements to the svg after configuring the domain. Not configurable.
 
+`layers`:  d3.conventions can also create canvas and div elements. `d3.conventions({layers: 'sdc'})` makes an **s**vg, **d**iv and canvas **c**tx with the same margin and size. Layers are position absolutely on top of each other in the order listed in the layer string and named by their type and index. To create an svg with two canvas elements on top:
+
+```js
+var c = d3.conventions({layers: 'scc'})
+
+c.svg0 // bottom svg layer
+c.ctx1 // context for the middle canvas
+c.ctx2 // context for the top canvas
+```
+
+
+For more on why you'd want use different renders simultaneously, checkout [Hurricane How-To](https://roadtolarissa.com/hurricane/).
 
 
 
