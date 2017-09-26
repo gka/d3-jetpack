@@ -314,7 +314,7 @@ Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip 
 
 <a name="conventions" href="#conventions">#</a> d3.<b>conventions</b>(<i>[options]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/conventions.js "Source")
 
-`d3.conventions([config])` creates an `svg` with a `g` element translated to follow the [margin convention](http://bl.ocks.org/mbostock/3019563). `d3.conventions` returns an object with the dimensions and location of the created element. Passing in a config object will override the defaults. 
+`d3.conventions([config])` creates an SVG with a G element translated to follow the [margin convention](http://bl.ocks.org/mbostock/3019563). `d3.conventions` returns an object with the dimensions and location of the created element. Passing in a config object will override the defaults. 
 
 To making this:
 
@@ -334,32 +334,32 @@ var totalWidth  = 900
 var totalHeight = 500
 var {svg, margin, height, width} = d3.conventions({sel, totalHeight, totalWidth})
 
-svg     // d3 selection of g representing chart area
-margin  // padding around g, defaults to {top: 20, left: 20, height: 20, width: 20}
+svg     // d3 selection of G representing chart area
+margin  // padding around G, defaults to {top: 20, left: 20, height: 20, width: 20}
 height  // height of charting area (500 - 20 - 20 = 460 here)
 weight  // width  of charting area (900 - 20 - 20 = 460 here)
 ```
 
 
-`sel`: `d3.selection` of the element the `svg` was appended to. Defaults to `d3.select("body")`, but can be specified by passing in an object: `d3.conventions({sel: d3.select("#graph-container")})` appends an svg to `#graph-container`.
+`sel`: `d3.selection` of the element the SVG was appended to. Defaults to `d3.select("body")`, but can be specified by passing in an object: `d3.conventions({sel: d3.select("#graph-container")})` appends an svg to `#graph-container`.
 
-`totalWidth`/`totalHeight`: size of the `svg`. By default uses the offsetWidth and offsetHeight of `sel` and . `d3.conventions({totalHeight: 500})` makes a responsive chart with a fixed height of 500. 
+`totalWidth`/`totalHeight`: size of the SVG. By default uses the offsetWidth and offsetHeight of `sel` and . `d3.conventions({totalHeight: 500})` makes a responsive chart with a fixed height of 500. 
 
 `margin`:  Individual keys override the defaults. `d3.conventions({margins: {top: 50}})` sets the top margin to 50 and leaves the others at 20
 
 `width`/`height`: inner charting area. If passed into conventions `totalWidth` and `totalHeight` are recalculated. `d3.conventions({width: 200, height: 200, margin: {top: 50}})` creates a square charting area with extra top margin. 
 
-`layers`:  `d3.conventions` can also create multiple canvas and div elements. `d3.conventions({layers: 'sdc'})` makes an **s**vg, **d**iv and canvas **c**tx with the same margin and size. Layers are position absolutely on top of each other in the order listed in the layer string. To create an svg with two canvas elements on top:
+`layers`:  `d3.conventions` can also create multiple canvas and div elements. `d3.conventions({layers: 'sdc'})` makes an **S**VG, **D**IV and canvas **c**tx with the same margin and size. Layers are position absolutely on top of each other in the order listed in the layer string. To create an SVG with two canvas elements on top:
 
 ```js
 var {layers: [svg, bg_ctx, fg_ctx]} = d3.conventions({layers: 'scc'})
 ```
 
-By default, layers makes one `svg`.
+By layers defaults to `'s'`, creating a single SVG.
 
 Most charts use two linear scales and axii. `d3.conventions` returns some functions to help you make them, but feel free to ignore them!  
 
-`x`: `scaleLinear().range([0, width])`. `d3.conventions({x: d3.scaleSqrt})` will override 
+`x`: `scaleLinear().range([0, width])`. To use a different scale: `d3.conventions({x: d3.scaleSqrt()})`. 
 
 `y`: `scaleLinear().range([height, 0])`.
 
@@ -367,19 +367,4 @@ Most charts use two linear scales and axii. `d3.conventions` returns some functi
 
 `yAxis`: `axisLeft().scale(y)`.
 
-`drawAxis`: Call to append axis group elements to `svg`. Make sure to set an `x` and `y` domain before calling!
-
-
-```
-function drawAxis(){
-  svg.append('g.x.axis')
-      .translate([0, height])
-      .call(xAxis);
-
-  svg.append('g.y.axis')
-      .call(yAxis)
-}
-```
-
-
-
+`drawAxis`: Call to append two axis group elements to `svg`. Make sure to set an `x` and `y` domain before calling!
