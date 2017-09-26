@@ -44,31 +44,29 @@ export default function(c){
   };
 
 
-  c.layers = c.layers || 's'
-  c.layers.split('').forEach(function(type, i){
+  c.layers = (c.layers || 's').split('').map(function(type){
+    var layer
     if (type == 's'){
-      c['svg' + i] = c.sel.append('svg')
+      layer = c.sel.append('svg')
           .st({position: 'absolute'})
           .attr('width', c.totalWidth)
           .attr('height', c.totalHeight)
         .append('g')
           .attr('transform', 'translate(' + c.margin.left + ',' + c.margin.top + ')');
 
-      if (!c.svg) c.svg = c['svg' + i] // defaults to lowest svg layer 
-
+      if (!c.svg) c.svg = layer // defaults to lowest svg layer 
     } else if (type == 'c'){
       var s = window.devicePixelRatio || 1
 
-      c['ctx' + i] = c.sel.append('canvas')
+      layer = c.sel.append('canvas')
         .at({width: c.totalWidth*s, height: c.totalHeight*s})
         .st({width: c.totalWidth, height: c.totalHeight})
         .st({position: 'absolute'})
         .node().getContext('2d')
-      c['ctx' + i].scale(s, s)
-      c['ctx' + i].translate(c.margin.left, c.margin.right)
-
+      layer.scale(s, s)
+      layer.translate(c.margin.left, c.margin.right)
     } else if (type == 'd'){
-      c['div' + i] = c.sel.append('div')
+      layer = c.sel.append('div')
         .st({
           position: 'absolute', 
           left: c.margin.left,
@@ -78,6 +76,7 @@ export default function(c){
         });
     }
 
+    return layer
   })
 
   return c;
