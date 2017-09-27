@@ -14,3 +14,18 @@ tape('append adds a class and id', function(test) {
   test.equal(span.getAttribute('class'), 'class');
   test.end();
 });
+
+
+tape('append takes a function', function(test) {
+  var document = jsdom.jsdom('<div></div>');
+
+  d3.select(document.querySelector('div'))
+    .append(d => document.createElement('span'))
+    .attr('id', 'id')
+    .attr('class', 'class')
+
+  var span = document.querySelector('span');
+  test.equal(span.getAttribute('id'), 'id');
+  test.equal(span.getAttribute('class'), 'class');
+  test.end();
+});
