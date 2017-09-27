@@ -28,7 +28,7 @@ export default function(sel, tooltipSel, fieldFns){
     tooltipSel
         .classed('tooltip-hidden', false)
         .html('')
-      .appendMany(fieldFns, 'div')
+      .appendMany('div', fieldFns)
         .html(function(fn){ return fn(d); });
 
     select(this).classed('tooltipped', true);

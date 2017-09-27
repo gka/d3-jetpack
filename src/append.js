@@ -14,8 +14,6 @@ export default function(name) {
     return this.appendChild(create.apply(this, arguments));
   });
 
-  console.log(name)
-
   if (n) for (var key in n.attr) { sel.attr(key, n.attr[key]); }
   return sel;
 }

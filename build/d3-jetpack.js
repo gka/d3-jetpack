@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.0.8. Copyright 2017 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.0.9. Copyright 2017 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
@@ -34,15 +34,20 @@ var parseAttributes = function(name) {
 };
 
 var append = function(name) {
-  var n = parseAttributes(name), s;
-  name = d3Selection.creator(n.tag);
-  s = this.select(function() {
-    return this.appendChild(name.apply(this, arguments));
+  var create, n;
+
+  if (typeof name === "function"){
+    create = name;
+  } else {
+    n = parseAttributes(name);
+    create = d3Selection.creator(n.tag);
+  }
+  var sel = this.select(function(){
+    return this.appendChild(create.apply(this, arguments));
   });
 
-  //attrs not provided by default in v4
-  for (var key in n.attr) { s.attr(key, n.attr[key]); }
-  return s;
+  if (n) for (var key in n.attr) { sel.attr(key, n.attr[key]); }
+  return sel;
 };
 
 function constantNull() {
@@ -106,7 +111,17 @@ var tspans = function(lines, lh) {
       .attr('dy', function(d, i) { return i ? (typeof(lh) == 'function' ? lh(d.parent, d.line, i) : lh) || 15 : 0; });
 };
 
-var appendMany = function(data, name){
+var appendMany = function(name, data){
+  console.log(name, data);
+  if (typeof(data) == 'string'){
+    console.warn("DEPRECATED: jetpack's appendMany order of arguments has changed. It's appendMany('div', data) from now on");
+    var temp = data;
+    data = name;
+    name = temp;
+  }
+
+  console.log(name, data);
+
   return this.selectAll(null).data(data).enter().append(name);
 };
 
@@ -165,7 +180,7 @@ var st = function(name, value) {
   function addStyle(sel, style, value){
     style = style.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
 
-    var pxStyles = 'top left bottom right padding-top padding-left padding-bottom padding-right border-top b-width border-left-width border-botto-width m border-right-width  margin-top margin-left margin-bottom margin-right font-size width height stroke-width line-height margin padding border max-width min-width';
+    var pxStyles = 'top left bottom right padding-top padding-left padding-bottom padding-right border-top b-width border-left-width border-botto-width m border-right-width  margin-top margin-left margin-bottom margin-right font-size width height stroke-width line-height margin padding border border-radius max-width min-width';
 
     if (~pxStyles.indexOf(style) ){
       sel.style(style, typeof value == 'function' ? wrapPx(value) : addPx(value));
@@ -253,15 +268,16 @@ var descendingKey = function(key) {
 var conventions = function(c){
   c = c || {};
 
-  c.margin = c.margin || {top: 20, right: 20, bottom: 20, left: 20}
+  c.margin = c.margin || {}
   ;['top', 'right', 'bottom', 'left'].forEach(function(d){
-    if (!c.margin[d] && c.margin[d] != 0) c.margin[d] = 20 ;
+    if (!c.margin[d] && c.margin[d] !== 0) c.margin[d] = 20 ;
   });
 
-  var parentNode = c.parentSel && c.parentSel.node();
+  if (c.parentSel) c.sel = c.parentSel; // backwords comp
+  var node = c.sel && c.sel.node();
 
-  c.totalWidth  = c.totalWidth  || parentNode && parentNode.offsetWidth  || 960;
-  c.totalHeight = c.totalHeight || parentNode && parentNode.offsetHeight || 500;
+  c.totalWidth  = c.totalWidth  || node && node.offsetWidth  || 960;
+  c.totalHeight = c.totalHeight || node && node.offsetHeight || 500;
 
   c.width  = c.width  || c.totalWidth  - c.margin.left - c.margin.right;
   c.height = c.height || c.totalHeight - c.margin.top - c.margin.bottom;
@@ -269,15 +285,8 @@ var conventions = function(c){
   c.totalWidth = c.width + c.margin.left + c.margin.right;
   c.totalHeight = c.height + c.margin.top + c.margin.bottom;
 
-  c.parentSel = c.parentSel || d3Selection.select('body');
-
-  c.rootsvg = c.parentSel.append('svg');
-
-  c.svg = c.rootsvg
-      .attr('width', c.totalWidth)
-      .attr('height', c.totalHeight)
-    .append('g')
-      .attr('transform', 'translate(' + c.margin.left + ',' + c.margin.top + ')');
+  c.sel = c.sel || d3Selection.select('body');
+  c.sel.st({position: 'relative', height: c.totalHeight, width: c.totalWidth});
 
   c.x = c.x || d3Scale.scaleLinear().range([0, c.width]);
   c.y = c.y || d3Scale.scaleLinear().range([c.height, 0]);
@@ -285,18 +294,55 @@ var conventions = function(c){
   c.xAxis = c.xAxis || d3Axis.axisBottom().scale(c.x);
   c.yAxis = c.yAxis || d3Axis.axisLeft().scale(c.y);
 
-  c.drawAxis = function(){
-    c.svg.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate(0,' + c.height + ')')
-        .call(c.xAxis);
+  c.layers = (c.layers || 's').split('').map(function(type){
+    var layer;
+    if (type == 's'){
+      layer = c.sel.append('svg')
+          .st({position: 'absolute'})
+          .attr('width', c.totalWidth)
+          .attr('height', c.totalHeight)
+        .append('g')
+          .attr('transform', 'translate(' + c.margin.left + ',' + c.margin.top + ')');
 
-    c.svg.append('g')
-        .attr('class', 'y axis')
-        .call(c.yAxis);
-  };
-  
+      if (!c.svg) c.svg = layer; // defaults to lowest svg layer 
+    } else if (type == 'c'){
+      var s = window.devicePixelRatio || 1;
+
+      layer = c.sel.append('canvas')
+        .at({width: c.totalWidth*s, height: c.totalHeight*s})
+        .st({width: c.totalWidth, height: c.totalHeight})
+        .st({position: 'absolute'})
+        .node().getContext('2d');
+      layer.scale(s, s);
+      layer.translate(c.margin.left, c.margin.right);
+    } else if (type == 'd'){
+      layer = c.sel.append('div')
+        .st({
+          position: 'absolute', 
+          left: c.margin.left,
+          top: c.margin.top,
+          width: c.width,
+          height: c.height
+        });
+    }
+
+    return layer
+  });
+
   return c;
+};
+
+var drawAxis = function(d){
+  var xAxisSel = c.svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + c.height + ')')
+      .call(c.xAxis);
+
+  var yAxisSel = c.svg.append('g')
+      .attr('class', 'y axis')
+      .call(c.yAxis);
+
+  return {xAxisSel, yAxisSel}
 };
 
 var clamp = function(min, d, max) {
@@ -327,7 +373,7 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
     tooltipSel
         .classed('tooltip-hidden', false)
         .html('')
-      .appendMany(fieldFns, 'div')
+      .appendMany('div', fieldFns)
         .html(function(fn){ return fn(d); });
 
     d3Selection.select(this).classed('tooltipped', true);
@@ -462,6 +508,7 @@ exports.f = f;
 exports.ascendingKey = ascendingKey;
 exports.descendingKey = descendingKey;
 exports.conventions = conventions;
+exports.drawAxis = drawAxis;
 exports.attachTooltip = attachTooltip;
 exports.loadData = loadData;
 exports.nestBy = nestBy;
