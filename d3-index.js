@@ -14,6 +14,7 @@ export {
   ascendingKey,
   descendingKey,
   conventions,
+  drawAxis,
   attachTooltip,
   loadData,
   nestBy,

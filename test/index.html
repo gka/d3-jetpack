@@ -93,7 +93,7 @@ d3.select('body').append('div.foo')
   .translate([c.margin.left + c.width*0.5, c.margin.top + c.height*0.5])
   .html('<marquee>I am <b>html</b>!!!</marquee>');
 
-c.drawAxis();
+d3.drawAxis(c);
 
 c.svg.selectAll('.axis text').transition().duration(1000)
   .st({fontSize: function(d, i){ return i*2 }, opacity: .5})

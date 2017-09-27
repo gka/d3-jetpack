@@ -203,7 +203,7 @@ Shorthand for `d3.nest().key(key).entries(array)`. Returns an array of arrays, i
 
 ```js
 d3.nest()
-    .key(ƒ('year'))
+    .key(d => d.year)
     .entries(yields)
     .forEach(function(d){
         console.log('Count in ' + d.key + ': ' + d.values.length) })
@@ -212,7 +212,7 @@ d3.nest()
 to 
 
 ```js
-d3.nestBy(yields, ƒ('year')).forEach(function(d){
+d3.nestBy(yields, d => d.year).forEach(function(d){
     console.log('Count in ' + d.key  + ': ' + d.length) })
 ```
 
@@ -314,27 +314,68 @@ Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip 
 
 <a name="conventions" href="#conventions">#</a> d3.<b>conventions</b>(<i>[options]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/conventions.js "Source")
 
-`d3.conventions()` appends an `svg` element with a `g` element according to the  [margin convention](http://bl.ocks.org/mbostock/3019563) to the page and returns an object with the following properties:
+`d3.conventions([config])` creates an SVG with a G element translated to follow the [margin convention](http://bl.ocks.org/mbostock/3019563). `d3.conventions` returns an object with the dimensions and location of the created element. Passing in a config object will override the defaults. 
 
-`totalWidth`, `totalHeight`, `margin`: size of the `svg` and its margins
+To create this html:
 
-`width`, `height`: size of `svg` inside of margins. 
+```html
+<div id="graph">
+  <svg width=900 height=500>
+    <g transform="translate(20, 20)">
+  </svg>  
+</div>
+```
 
-`parentSel`: `d3.selection` of the element the `svg` was appended to. Defaults to `d3.select("body")`, but like every other returned value, can be specified by passing in an object: `d3.conventions({parentSel: d3.select("#graph-container"), totalHeight: 1300})` appends an svg to `#graph-container` with a height of 1300.
+You could run this: 
 
-`svg`: `g` element translated to make room for the margins
+```js
+var sel = d3.select('#graph')
+var totalWidth  = 900
+var totalHeight = 500
+var {svg, margin, height, width} = d3.conventions({sel, totalHeight, totalWidth})
 
-`x`: Linear scale with a range of `[0, width]`
-
-`y`: Linear scale with a range of `[height, 0]`
-
-`xAxis`: Axis with scale set to x and orient to "bottom"
-
-`yAxis`: Axis with scale set to y and orient to "left"
-
-`drawAxis`: Call to append axis group elements to the svg after configuring the domain. Not configurable.
+svg     // d3 selection of G representing chart area
+margin  // padding around G, defaults to {top: 20, left: 20, height: 20, width: 20}
+height  // height of charting area (500 - 20 - 20 = 460 here)
+weight  // width  of charting area (900 - 20 - 20 = 460 here)
+```
 
 
+`sel`: `d3.selection` of the element the SVG was appended to. Defaults to `d3.select("body")`, but can be specified by passing in an object: `d3.conventions({sel: d3.select("#graph-container")})` appends an svg to `#graph-container`.
 
+`totalWidth`/`totalHeight`: size of the SVG. By default uses the offsetWidth and offsetHeight of `sel` and . `d3.conventions({totalHeight: 500})` makes a responsive chart with a fixed height of 500. 
+
+`margin`:  Individual keys override the defaults. `d3.conventions({margins: {top: 50}})` sets the top margin to 50 and leaves the others at 20
+
+`width`/`height`: inner charting area. If passed into conventions `totalWidth` and `totalHeight` are recalculated. `d3.conventions({width: 200, height: 200, margin: {top: 50}})` creates a square charting area with extra top margin. 
+
+`layers`:  `d3.conventions` can also create multiple canvas and div elements. `d3.conventions({layers: 'sdc'})` makes an **S**VG, **D**IV and canvas **c**tx with the same margin and size. Layers are position absolutely on top of each other in the order listed in the layer string. To create an SVG with two canvas elements on top:
+
+```js
+var {layers: [svg, bg_ctx, fg_ctx]} = d3.conventions({layers: 'scc'})
+```
+
+By layers defaults to `'s'`, creating a single SVG.
+
+Most charts use two linear scales and axii. `d3.conventions` returns some functions to help you make them, but feel free to ignore them!  
+
+`x`: `scaleLinear().range([0, width])`. To use a different scale: `d3.conventions({x: d3.scaleSqrt()})`. 
+
+`y`: `scaleLinear().range([height, 0])`.
+
+`xAxis`: `axisBottom().scale(x)`.
+
+`yAxis`: `axisLeft().scale(y)`.
+
+<a name="drawAxis" href="#drawAxis">#</a> d3.<b>drawAxis</b>(<i>{svg, xAxis, yAxis, height}</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/drawAxis.js "Source")
+
+Appends an `xAxis` on the left of `svg` and a `yAxis` to the bottom. You can pass the output of `conventions` directly to `drawAxis`, but make sure to set an `x` and `y` domain first!
+
+```
+var c = d3.conventions()
+c.x.domain([1990, 2015])
+c.y.domain(d3.extent(data, d => d.cost))
+d3.drawAxis(c)
+```
 
 

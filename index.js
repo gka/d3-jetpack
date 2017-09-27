@@ -31,6 +31,7 @@ export {default as f} from "./src/f";
 export {default as ascendingKey} from "./src/ascendingKey";
 export {default as descendingKey} from "./src/descendingKey";
 export {default as conventions} from "./src/conventions";
+export {default as drawAxis} from "./src/drawAxis";
 export {default as attachTooltip} from "./src/attachTooltip";
 export {default as loadData} from "./src/loadData";
 export {default as nestBy} from "./src/nestBy";
