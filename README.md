@@ -367,4 +367,15 @@ Most charts use two linear scales and axii. `d3.conventions` returns some functi
 
 `yAxis`: `axisLeft().scale(y)`.
 
-`drawAxis`: Call to append two axis group elements to `svg`. Make sure to set an `x` and `y` domain before calling!
+<a name="drawAxis" href="#drawAxis">#</a> d3.<b>drawAxis</b>(<i>{svg, xAxis, yAxis, height}</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/drawAxis.js "Source")
+
+Appends an `xAxis` on the left of `svg` and a `yAxis` to the bottom. You can pass the output of `conventions` directly to `drawAxis`, but make sure to set an `x` and `y` domain first!
+
+```
+var c = d3.conventions()
+c.x.domain([1990, 2015])
+c.y.domain(d3.extent(data, d => d.cost))
+d3.drawAxis(c)
+```
+
+

@@ -32,18 +32,6 @@ export default function(c){
   c.xAxis = c.xAxis || axisBottom().scale(c.x);
   c.yAxis = c.yAxis || axisLeft().scale(c.y);
 
-  c.drawAxis = function(){
-    c.svg.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate(0,' + c.height + ')')
-        .call(c.xAxis);
-
-    c.svg.append('g')
-        .attr('class', 'y axis')
-        .call(c.yAxis);
-  };
-
-
   c.layers = (c.layers || 's').split('').map(function(type){
     var layer
     if (type == 's'){
