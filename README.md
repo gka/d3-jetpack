@@ -30,7 +30,7 @@ selection.insert("div.my-class");
 ```
 
 
-<a name="appendMany" href="#appendMany">#</a> selection.<b>appendMany</b>(<i>array</i>, <i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/appendMany.js "Source")
+<a name="appendMany" href="#appendMany">#</a> selection.<b>appendMany</b>(<i>selector</i>, <i>array</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/appendMany.js "Source")
 
 Instead of making an empty selection, binding data to it, taking the enter selection and appending elements as separate steps:
 
@@ -44,7 +44,7 @@ selection.selectAll('div.my-class')
 use `appendMany`:
 
 ```js
-selection.appendMany(myArray, 'div.my-class');
+selection.appendMany('div.my-class', myArray);
 ```
 
 <a name="at" href="#at">#</a> selection.<b>at</b>(<i>name[, value]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/at.js "Source")

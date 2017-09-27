@@ -82,11 +82,11 @@ var r = 30,
     tt = d3.select('body').selectAppend('div.tooltip')
 
 c.svg
-  .appendMany(c.y.ticks(), 'line.grid')
+  .appendMany('line.grid', c.y.ticks())
   .at({ x2: c.width }).translate(d3.f(c.y), 1);
 
 c.svg
-  .appendMany(c.x.ticks(), 'line.grid')
+  .appendMany('line.grid', c.x.ticks())
   .at({ y2: c.height }).translate(d3.f(c.x), 0);
 
 d3.select('body').append('div.foo')
