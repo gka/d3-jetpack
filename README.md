@@ -316,7 +316,7 @@ Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip 
 
 `d3.conventions([config])` creates an SVG with a G element translated to follow the [margin convention](http://bl.ocks.org/mbostock/3019563). `d3.conventions` returns an object with the dimensions and location of the created element. Passing in a config object will override the defaults. 
 
-To making this:
+To create this html:
 
 ```html
 <div id="graph">
