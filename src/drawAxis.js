@@ -8,5 +8,5 @@ export default function(d){
       .attr('class', 'y axis')
       .call(c.yAxis);
 
-  return {xAxisSel, yAxisSel}
+  return {xAxisSel: xAxisSel, yAxisSel: yAxisSel}
 }
