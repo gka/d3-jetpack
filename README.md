@@ -314,7 +314,7 @@ Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip 
 
 <a name="conventions" href="#conventions">#</a> d3.<b>conventions</b>(<i>[options]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/conventions.js "Source")
 
-`d3.conventions([config])` creates an SVG with a G element translated to follow the [margin convention](http://bl.ocks.org/mbostock/3019563). `d3.conventions` returns an object with the dimensions and location of the created element. Passing in a config object will override the defaults. 
+`d3.conventions([config])` creates an SVG with a G element translated to follow the [margin convention](http://bl.ocks.org/mbostock/3019563). `d3.conventions` returns an object with the dimensions and location of the created element. Passing in a config object overrides the default dimensions. 
 
 To create this html:
 
