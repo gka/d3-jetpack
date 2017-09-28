@@ -347,7 +347,7 @@ weight  // width  of charting area (900 - 20 - 20 = 460 here)
 
 `margin`:  Individual keys override the defaults. `d3.conventions({margins: {top: 50}})` sets the top margin to 50 and leaves the others at 20
 
-`width`/`height`: inner charting area. If passed into conventions `totalWidth` and `totalHeight` are recalculated. `d3.conventions({width: 200, height: 200, margin: {top: 50}})` creates a square charting area with extra top margin. 
+`width`/`height`: inner charting area. If passed into conventions, `totalWidth` and `totalHeight` are set to the extent of the charting area plus the margins. `d3.conventions({width: 200, height: 200, margin: {top: 50}})` creates a square charting area with extra top margin. 
 
 `layers`:  `d3.conventions` can also create multiple canvas and div elements. `d3.conventions({layers: 'sdc'})` makes an **S**VG, **D**IV and canvas **c**tx with the same margin and size. Layers are position absolutely on top of each other in the order listed in the layer string. To create an SVG with two canvas elements on top:
 
@@ -357,7 +357,7 @@ var {layers: [svg, bg_ctx, fg_ctx]} = d3.conventions({layers: 'scc'})
 
 `layers` defaults to `'s'`, creating a single SVG.
 
-Most charts use two linear scales and axii. `d3.conventions` returns some functions to get you started, but feel free to ignore them!  
+Most charts use two linear scales and axii. `d3.conventions` returns some functions to get you started, but feel free to use something else!  
 
 `x`: `scaleLinear().range([0, width])`. To use a different scale: `d3.conventions({x: d3.scaleSqrt()})`. 
 
