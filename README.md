@@ -341,9 +341,9 @@ weight  // width  of charting area (900 - 20 - 20 = 460 here)
 ```
 
 
-`sel`: `d3.selection` of the element the SVG was appended to. Defaults to `d3.select("body")`, but can be specified by passing in an object: `d3.conventions({sel: d3.select("#graph-container")})` appends an svg to `#graph-container`.
+`sel`: `d3.selection` of the element the SVG was appended to. Defaults to `d3.select("body")`, but can be specified by passing in an object: `d3.conventions({sel: d3.select("#graph-container")})` appends an SVG to `#graph-container`.
 
-`totalWidth`/`totalHeight`: size of the SVG. By default uses the offsetWidth and offsetHeight of `sel` and . `d3.conventions({totalHeight: 500})` makes a responsive chart with a fixed height of 500. 
+`totalWidth`/`totalHeight`: size of the SVG. By default uses the offsetWidth and offsetHeight of `sel`. `d3.conventions({totalHeight: 500})` makes a responsive chart with a fixed height of 500. 
 
 `margin`:  Individual keys override the defaults. `d3.conventions({margins: {top: 50}})` sets the top margin to 50 and leaves the others at 20
 
@@ -355,9 +355,9 @@ weight  // width  of charting area (900 - 20 - 20 = 460 here)
 var {layers: [svg, bg_ctx, fg_ctx]} = d3.conventions({layers: 'scc'})
 ```
 
-By layers defaults to `'s'`, creating a single SVG.
+`layers` defaults to `'s'`, creating a single SVG.
 
-Most charts use two linear scales and axii. `d3.conventions` returns some functions to help you make them, but feel free to ignore them!  
+Most charts use two linear scales and axii. `d3.conventions` returns some functions to get you started, but feel free to ignore them!  
 
 `x`: `scaleLinear().range([0, width])`. To use a different scale: `d3.conventions({x: d3.scaleSqrt()})`. 
 
