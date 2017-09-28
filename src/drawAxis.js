@@ -1,4 +1,4 @@
-export default function(d){
+export default function(c){
   var xAxisSel = c.svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + c.height + ')')
