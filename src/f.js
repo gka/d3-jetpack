@@ -6,6 +6,8 @@ function f(){
   while (i < l) {
     if (typeof(functions[i]) === 'string' || typeof(functions[i]) === 'number'){
       functions[i] = (function(str){ return function(d){ return d[str]; }; })(functions[i]);
+    } else if (typeof(functions[i]) === 'object'){
+      functions[i] = (function(obj){ return function(d){ return obj[d]; }; })(functions[i]);
     }
     i++;
   }
