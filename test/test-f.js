@@ -24,3 +24,8 @@ tape('function are composed', function(test) {
   test.equal(ƒ(addOne, addOne)(10) , 12);
   test.end();
 });
+
+tape('objects are passed the accumulated value', function (test) {
+  test.equal(ƒ({foo: 'bar'})('foo'), 'bar');
+  test.end();
+});
