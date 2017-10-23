@@ -17154,7 +17154,7 @@ var conventions = function(c){
         .st({position: 'absolute'})
         .node().getContext('2d');
       layer.scale(s, s);
-      layer.translate(c.margin.left, c.margin.right);
+      layer.translate(c.margin.left, c.margin.top);
     } else if (type == 'd'){
       layer = c.sel.append('div')
         .st({
