@@ -126,7 +126,7 @@ How I hated writing ``.attr('transform', function(d) { return 'translate()'; })`
 
 ```js
 svg.append('g').translate([margin.left, margin.top]);
-circle.translate(function(d) { return  [x(d.date), y(d.value)]; });
+circle.translate(function(d) { return [x(d.date), y(d.value)]; });
 ```
 
 If you only want to set a *single* dimension you can tell translate by passing 0 (for x) or 1 (for y) as second argument:
