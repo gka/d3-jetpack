@@ -17002,7 +17002,7 @@ f.objToFn = function(obj, defaultVal){
   if (arguments.length == 1) defaultVal = undefined;
 
   return function(str){
-    return typeof(obj[str]) !== undefined ? obj[str] : defaultVal;
+    return typeof(obj[str]) !== 'undefined' ? obj[str] : defaultVal;
   };
 };
 
