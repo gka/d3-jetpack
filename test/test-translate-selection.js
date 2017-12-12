@@ -63,3 +63,12 @@ tape('translate can take dim parameter to work on single dimension - html', func
   test.equal(document.body.style.transform, 'translate(10px,0px)');
   test.end();
 });
+
+
+tape('translate does not break on empty selections', function(test) {
+  var document = jsdom.jsdom();
+  d3.select(document.body)
+    .select('.no-element')
+    .translate(function() { return 10; }, 0);
+  test.end();
+});
