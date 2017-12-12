@@ -6,9 +6,8 @@
 }(this, (function (exports,d3Selection,d3Transition,d3Array,d3Axis,d3Scale,d3Collection,d3Queue,d3Request) { 'use strict';
 
 var translateSelection = function(xy, dim) {
-
-  
-  return this.node().getBBox ?
+  var node = this.node();
+  return !node ? this : node.getBBox ?
     this.attr('transform', function(d,i) {
       var p = typeof xy == 'function' ? xy.call(this, d,i) : xy;
       if (dim === 0) p = [p, 0]; else if (dim === 1) p = [0, p];
@@ -297,7 +296,7 @@ var conventions = function(c){
     var layer;
     if (type == 's'){
       layer = c.sel.append('svg')
-          .st({position: 'absolute'})
+          .st({position: c.layers ? 'absolute' : ''})
           .attr('width', c.totalWidth)
           .attr('height', c.totalHeight)
         .append('g')

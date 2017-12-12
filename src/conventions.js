@@ -36,7 +36,7 @@ export default function(c){
     var layer
     if (type == 's'){
       layer = c.sel.append('svg')
-          .st({position: c.layers == 's' ? '' : 'absolute'})
+          .st({position: c.layers ? 'absolute' : ''})
           .attr('width', c.totalWidth)
           .attr('height', c.totalHeight)
         .append('g')
