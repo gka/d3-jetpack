@@ -20,5 +20,8 @@ export {
   nestBy,
   round,
   clamp,
-  polygonClip
+  polygonClip,
+  timer,
+  timeout,
+  interval
 } from "./index.js";

@@ -201,8 +201,11 @@ var fruits = [{ name: "Apple", color: "green" }, { name: "Banana", color: "yello
 fruits.sort(d3.ascendingKey('color'));
 ```
 
-<a 
-name="nestBy" href="#nestBy">#</a> d3.<b>nestBy</b>(<i>array, key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/nestBy.js "Source")
+<a name="timer" href="#timer">#</a> d3.<b>timer</b>(<i>callback[, delay[, time[, namespace]]]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/timer.js "Source")
+
+`d3.timer`, `d3.timeout` and `d3.interval` all now take an optional namespace argument. Previous timers with the same namespace as a new timer are stopped. 
+
+<a name="nestBy" href="#nestBy">#</a> d3.<b>nestBy</b>(<i>array, key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/nestBy.js "Source")
 
 Shorthand for `d3.nest().key(key).entries(array)`. Returns an array of arrays, instead of a `key`/`value` pairs. The `key` property of each array is equal the value returned by the `key` function when it is called with element of the array.  
 

@@ -38,3 +38,6 @@ export {default as nestBy} from "./src/nestBy";
 export {default as round} from "./src/round";
 export {default as clamp} from "./src/clamp";
 export {default as polygonClip} from "./src/polygonClip";
+export {default as timer} from "./src/timer";
+export {default as interval} from "./src/interval";
+export {default as timeout} from "./src/timeout";

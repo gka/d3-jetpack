@@ -17326,6 +17326,39 @@ function polygonClosed(coordinates) {
   return !(a[0] - b[0] || a[1] - b[1]);
 }
 
+var prev = {};
+
+var timer$1 = function(fn, delay, time, name){
+  if (prev[name]) prev[name].stop();
+
+  var newTimer = timer(fn, delay, time, name);
+  if (name) prev[name] = newTimer;
+  
+  return newTimer
+};
+
+var prev$1 = {};
+
+var interval$2 = function(fn, delay, time, name){
+  if (prev$1[name]) prev$1[name].stop();
+
+  var newTimer = interval$1(fn, delay, time, name);
+  if (name) prev$1[name] = newTimer;
+  
+  return newTimer
+};
+
+var prev$2 = {};
+
+var timeout$2 = function(fn, delay, time, name){
+  if (prev$2[name]) prev$2[name].stop();
+
+  var newTimer = timeout$1(fn, delay, time, name);
+  if (name) prev$2[name] = newTimer;
+  
+  return newTimer
+};
+
 selection.prototype.translate = translateSelection;
 transition.prototype.translate = translateSelection;
 selection.prototype.append = append;
@@ -17357,6 +17390,9 @@ exports.nestBy = nestBy;
 exports.round = round;
 exports.clamp = clamp;
 exports.polygonClip = polygonClip;
+exports.timer = timer$1;
+exports.timeout = timeout$2;
+exports.interval = interval$2;
 exports.version = version;
 exports.bisect = bisectRight;
 exports.bisectRight = bisectRight;
@@ -17741,10 +17777,7 @@ exports.timeFormatLocale = formatLocale$1;
 exports.isoFormat = formatIso;
 exports.isoParse = parseIso;
 exports.now = now;
-exports.timer = timer;
 exports.timerFlush = timerFlush;
-exports.timeout = timeout$1;
-exports.interval = interval$1;
 exports.transition = transition;
 exports.active = active;
 exports.interrupt = interrupt;

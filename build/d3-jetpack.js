@@ -1,9 +1,9 @@
 // https://github.com/gka/d3-jetpack#readme Version 2.0.15. Copyright 2017 Gregor Aisch.
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request')) :
-	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request'], factory) :
-	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3));
-}(this, (function (exports,d3Selection,d3Transition,d3Array,d3Axis,d3Scale,d3Collection,d3Queue,d3Request) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request'), require('d3-timer')) :
+	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request', 'd3-timer'], factory) :
+	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3,global.d3));
+}(this, (function (exports,d3Selection,d3Transition,d3Array,d3Axis,d3Scale,d3Collection,d3Queue,d3Request,d3Timer) { 'use strict';
 
 var translateSelection = function(xy, dim) {
   var node = this.node();
@@ -486,6 +486,39 @@ function polygonClosed(coordinates) {
   return !(a[0] - b[0] || a[1] - b[1]);
 }
 
+var prev = {};
+
+var timer$1 = function(fn, delay, time, name){
+  if (prev[name]) prev[name].stop();
+
+  var newTimer = d3Timer.timer(fn, delay, time, name);
+  if (name) prev[name] = newTimer;
+  
+  return newTimer
+};
+
+var prev$1 = {};
+
+var interval$1 = function(fn, delay, time, name){
+  if (prev$1[name]) prev$1[name].stop();
+
+  var newTimer = d3Timer.interval(fn, delay, time, name);
+  if (name) prev$1[name] = newTimer;
+  
+  return newTimer
+};
+
+var prev$2 = {};
+
+var timeout$1 = function(fn, delay, time, name){
+  if (prev$2[name]) prev$2[name].stop();
+
+  var newTimer = d3Timer.timeout(fn, delay, time, name);
+  if (name) prev$2[name] = newTimer;
+  
+  return newTimer
+};
+
 d3Selection.selection.prototype.translate = translateSelection;
 d3Transition.transition.prototype.translate = translateSelection;
 d3Selection.selection.prototype.append = append;
@@ -513,6 +546,9 @@ exports.nestBy = nestBy;
 exports.round = round;
 exports.clamp = clamp;
 exports.polygonClip = polygonClip;
+exports.timer = timer$1;
+exports.interval = interval$1;
+exports.timeout = timeout$1;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
