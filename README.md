@@ -354,7 +354,7 @@ weight  // width  of charting area (900 - 20 - 20 = 460 here)
 
 `width`/`height`: inner charting area. If passed into conventions, `totalWidth` and `totalHeight` are set to the extent of the charting area plus the margins. `d3.conventions({width: 200, height: 200, margin: {top: 50}})` creates a square charting area with extra top margin. 
 
-`layers`:  `d3.conventions` can also create multiple canvas and div elements. `d3.conventions({layers: 'sdc'})` makes an **S**VG, **D**IV and canvas **c**tx with the same margin and size. Layers are position absolutely on top of each other in the order listed in the layer string. To create an SVG with two canvas elements on top:
+`layers`:  `d3.conventions` can also create multiple canvas and div elements. `d3.conventions({layers: 'sdc'})` makes an **S**VG, **D**IV and canvas **c**tx with the same margin and size. Layers are positioned absolutely on top of each other in the order listed in the layer string. To create an SVG with two canvas elements on top:
 
 ```js
 var {layers: [svg, bg_ctx, fg_ctx]} = d3.conventions({layers: 'scc'})
