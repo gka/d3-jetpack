@@ -377,7 +377,7 @@ Most charts use two linear scales and axii. `d3.conventions` returns some functi
 
 <a name="drawAxis" href="#drawAxis">#</a> d3.<b>drawAxis</b>(<i>{svg, xAxis, yAxis, height}</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/drawAxis.js "Source")
 
-Appends an `xAxis` on the left of `svg` and a `yAxis` to the bottom. You can pass the output of `conventions` directly to `drawAxis`, but make sure to set an `x` and `y` domain first!
+Appends an `xAxis` aligned to the bottom of `svg` and a `yAxis` aligned to the left. You can pass the output of `conventions` directly to `drawAxis`, but make sure to set an `x` and `y` domain first!
 
 ```
 var c = d3.conventions()
