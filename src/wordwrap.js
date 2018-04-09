@@ -13,14 +13,15 @@ export default function(line, maxCharactersPerLine, minCharactersPerLine, monosp
     var l, lines = [], w = [], words = [], w1, maxChars, minChars, maxLineW, minLineW;
     w1 = line.split(' ');
     w1.forEach(function(s, i) {
-        var w2 = s.split('-');
-        if (w2.length > 1) {
-            w2.forEach(function(t, j) {
-                w.push(t + (j < w2.length - 1 ? '-' : ''));
-            });
-        } else {
-            w.push(s + (i < w1.length - 1 ? ' ' : ''));
-        }
+    var w2 = s.split('-');
+    var lw = (i < w1.length - 1 ? ' ' : '');
+    if (w2.length > 1) {
+        w2.forEach(function(t, j) {
+            w.push(t + (j < w2.length - 1 ? '-' : lw));
+        });
+    } else {
+        w.push(s + lw);
+    }
     });
     maxChars = maxCharactersPerLine || 40;
     minChars = minCharactersPerLine || Math.max(3, Math.min(maxChars * 0.5, 0.75 * w.map(word_len).sort(num_asc)[Math.round(w.length / 2)]));
