@@ -14,12 +14,13 @@ export default function(line, maxCharactersPerLine, minCharactersPerLine, monosp
     w1 = line.split(' ');
     w1.forEach(function(s, i) {
         var w2 = s.split('-');
+        var lw = (i < w1.length - 1 ? ' ' : '');
         if (w2.length > 1) {
             w2.forEach(function(t, j) {
-                w.push(t + (j < w2.length - 1 ? '-' : ''));
+                w.push(t + (j < w2.length - 1 ? '-' : lw));
             });
         } else {
-            w.push(s + (i < w1.length - 1 ? ' ' : ''));
+            w.push(s + lw);
         }
     });
     maxChars = maxCharactersPerLine || 40;
