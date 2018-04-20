@@ -10,9 +10,9 @@ If you use NPM, `npm install d3-jetpack`. Otherwise, download the latest [d3v4+j
 
 Here's what's in the package:
 
-<a name="append" href="#append">#</a> selection.<b>append</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/append.js "Source") 
+<a name="append" href="#append">#</a> selection.<b>append</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/append.js "Source")
 
-Modifies `append` so it adds classes and ids. 
+Modifies `append` so it adds classes and ids.
 
 ```js
 selection.append("div.my-class");
@@ -60,19 +60,19 @@ selection
     .attr('font-weight', 600)
 ```
 
-or with [d3-selection-multi](https://github.com/d3/d3-selection-multi): 
+or with [d3-selection-multi](https://github.com/d3/d3-selection-multi):
 
 ```js
 selection.attrs({'stroke-width': 10, 'text-anchor': 'end', 'font-weight': 600})
 ```
 
-you can write: 
+you can write:
 
 ```js
 selection.at({fontSize: 10, textAnchor: 'end', fontWeight: 600})
 ```
 
-With syntax highlighting on, it is a little easier to see the difference between keys and values when everything isn't a string. Plus there's less typing! 
+With syntax highlighting on, it is a little easier to see the difference between keys and values when everything isn't a string. Plus there's less typing!
 
 Confusingly, there are several SVG attributes that are supposed to be camelCase. To avoid the automatic hypenation, use `attr`:
 
@@ -82,7 +82,7 @@ selection.attr('startOffset', 10)
 
 <a name="st" href="#st">#</a> selection.<b>st</b>(<i>name[, value]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/st.js "Source")
 
-Like `at`, but for `style`. Additionally, when a number is passed to a style that requires a unit of measure, like `margin-top` or `font-size`, `px` is automatically appended. Instead of 
+Like `at`, but for `style`. Additionally, when a number is passed to a style that requires a unit of measure, like `margin-top` or `font-size`, `px` is automatically appended. Instead of
 
 ```js
 selection
@@ -91,7 +91,7 @@ selection
     .style('width', width - 80 + 'px')
 ```
 
-The `+ px`s can also be dropped: 
+The `+ px`s can also be dropped:
 
 ```js
 selection.st({marginTop: height/2, fontSize: 40, width: width - 80})
@@ -109,7 +109,7 @@ d3.selectAppend('ul.fruits')
 
 <a name="parent" href="#parent">#</a> d3.<b>parent</b>(<i></i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/parent.js "Source")
 
-Returns the parent of each element in the selection: 
+Returns the parent of each element in the selection:
 
 ```js
 d3.selectAll('span')
@@ -190,7 +190,7 @@ var firstY = polygons.map(d3.f('points', 0, 'y'));
 
 Since we use this little function quite a lot, we usually set `var ƒ = d3.f` (type with [alt] + f on Macs). Also, [in @1wheel's blog](http://roadtolarissa.com/blog/2014/06/23/even-fewer-lamdas-with-d3/) you can read more about the rationale behind ƒ.
 
-<a name="ascendingKey" href="#ascendingKey">#</a> d3.<b>ascendingKey</b>(<i>key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/ascendingKey.js "Source") 
+<a name="ascendingKey" href="#ascendingKey">#</a> d3.<b>ascendingKey</b>(<i>key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/ascendingKey.js "Source")
 
 <a name="descendingKey" href="#descendingKey">#</a> d3.<b>descendingKey</b>(<i>key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/descendingKey.js "Source")
 
@@ -203,11 +203,11 @@ fruits.sort(d3.ascendingKey('color'));
 
 <a name="timer" href="#timer">#</a> d3.<b>timer</b>(<i>callback[, delay[, time[, namespace]]]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/timer.js "Source")
 
-`d3.timer`, `d3.timeout` and `d3.interval` all now take an optional namespace argument. Previous timers with the same namespace as a new timer are stopped. 
+`d3.timer`, `d3.timeout` and `d3.interval` all now take an optional namespace argument. Previous timers with the same namespace as a new timer are stopped.
 
 <a name="nestBy" href="#nestBy">#</a> d3.<b>nestBy</b>(<i>array, key</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/nestBy.js "Source")
 
-Shorthand for `d3.nest().key(key).entries(array)`. Returns an array of arrays, instead of a `key`/`value` pairs. The `key` property of each array is equal the value returned by the `key` function when it is called with element of the array.  
+Shorthand for `d3.nest().key(key).entries(array)`. Returns an array of arrays, instead of a `key`/`value` pairs. The `key` property of each array is equal the value returned by the `key` function when it is called with element of the array.
 
 ```js
 d3.nest()
@@ -217,14 +217,14 @@ d3.nest()
         console.log('Count in ' + d.key + ': ' + d.values.length) })
 ```
 
-to 
+to
 
 ```js
 d3.nestBy(yields, d => d.year).forEach(function(d){
     console.log('Count in ' + d.key  + ': ' + d.length) })
 ```
 
-<a 
+<a
 name="loadData" href="#loadData">#</a> d3.<b>loadData</b>(<i>file1, file2, file3, ..., callback</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/loadData.js "Source")
 
 Takes any number of files paths and loads them with `queue`, `d3.csv` and `d3.json`. After all the files have loaded, calls the `callback` function with the first error (or null if there are none) as the first argument and an array of the loaded files as the second. Instead of:
@@ -241,7 +241,7 @@ d3.queue()
     })
 ```
 
-if your file types match their extensions, you can use: 
+if your file types match their extensions, you can use:
 
 ```js
 d3.loadData('state-data.csv', 'county-data.tsv', 'us.json', function(err, res){
@@ -274,7 +274,7 @@ d3.clamp(0, 410, 200) // 200
 
 <a name="attachTooltip" href="#attachTooltip">#</a> d3.<b>attachTooltip</b>(<i>selector</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/attachTooltip.js "Source")
 
-Attaches a light weight tooltip that prints out all of an objects properties on click. No more `> d3.select($0).datum()`! 
+Attaches a light weight tooltip that prints out all of an objects properties on click. No more `> d3.select($0).datum()`!
 
 ```js
 d3.select('body').selectAppend('div.tooltip')
@@ -322,7 +322,7 @@ Make sure to add a  `<div class='tooltip'></div>` and that there's some tooltip 
 
 <a name="conventions" href="#conventions">#</a> d3.<b>conventions</b>(<i>[options]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/conventions.js "Source")
 
-`d3.conventions([config])` creates an SVG with a G element translated to follow the [margin convention](http://bl.ocks.org/mbostock/3019563). `d3.conventions` returns an object with the dimensions and location of the created element. Passing in a config object overrides the default dimensions. 
+`d3.conventions([config])` creates an SVG with a G element translated to follow the [margin convention](http://bl.ocks.org/mbostock/3019563). `d3.conventions` returns an object with the dimensions and location of the created element. Passing in a config object overrides the default dimensions.
 
 To create this html:
 
@@ -330,11 +330,11 @@ To create this html:
 <div id="graph">
   <svg width=900 height=500>
     <g transform="translate(20, 20)">
-  </svg>  
+  </svg>
 </div>
 ```
 
-You could run this: 
+You could run this:
 
 ```js
 var sel = d3.select('#graph')
@@ -351,11 +351,11 @@ weight  // width  of charting area (900 - 20 - 20 = 460 here)
 
 `sel`: `d3.selection` of the element the SVG was appended to. Defaults to `d3.select("body")`, but can be specified by passing in an object: `d3.conventions({sel: d3.select("#graph-container")})` appends an SVG to `#graph-container`.
 
-`totalWidth`/`totalHeight`: size of the SVG. By default uses the offsetWidth and offsetHeight of `sel`. `d3.conventions({totalHeight: 500})` makes a responsive chart with a fixed height of 500. 
+`totalWidth`/`totalHeight`: size of the SVG. By default uses the offsetWidth and offsetHeight of `sel`. `d3.conventions({totalHeight: 500})` makes a responsive chart with a fixed height of 500.
 
 `margin`:  Individual keys override the defaults. `d3.conventions({margins: {top: 50}})` sets the top margin to 50 and leaves the others at 20
 
-`width`/`height`: inner charting area. If passed into conventions, `totalWidth` and `totalHeight` are set to the extent of the charting area plus the margins. `d3.conventions({width: 200, height: 200, margin: {top: 50}})` creates a square charting area with extra top margin. 
+`width`/`height`: inner charting area. If passed into conventions, `totalWidth` and `totalHeight` are set to the extent of the charting area plus the margins. `d3.conventions({width: 200, height: 200, margin: {top: 50}})` creates a square charting area with extra top margin.
 
 `layers`:  `d3.conventions` can also create multiple canvas and div elements. `d3.conventions({layers: 'sdc'})` makes an **S**VG, **D**IV and canvas **c**tx with the same margin and size. Layers are positioned absolutely on top of each other in the order listed in the layer string. To create an SVG with two canvas elements on top:
 
@@ -365,9 +365,9 @@ var {layers: [svg, bg_ctx, fg_ctx]} = d3.conventions({layers: 'scc'})
 
 `layers` defaults to `'s'`, creating a single SVG.
 
-Most charts use two linear scales and axii. `d3.conventions` returns some functions to get you started, but feel free to use something else!  
+Most charts use two linear scales and axii. `d3.conventions` returns some functions to get you started, but feel free to use something else!
 
-`x`: `scaleLinear().range([0, width])`. To use a different scale: `d3.conventions({x: d3.scaleSqrt()})`. 
+`x`: `scaleLinear().range([0, width])`. To use a different scale: `d3.conventions({x: d3.scaleSqrt()})`.
 
 `y`: `scaleLinear().range([height, 0])`.
 
@@ -386,4 +386,13 @@ c.y.domain(d3.extent(data, d => d.cost))
 d3.drawAxis(c)
 ```
 
+## Essential jetpack
 
+If you think jetpack adds to much to your build, try starting with the essential jetpack and adding features as you need them:
+
+```js
+// essentials (insert, append, appendMany etc)
+import {f, nestBy} from 'd3-jetpack/essentials.js';
+// extra stuff
+import attachTooltip from 'd3-jetpack/src/attachTooltip.js'
+```
