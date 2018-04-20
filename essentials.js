@@ -1,5 +1,13 @@
 /*
- * the essentials jetpack built
+ * the essential jetpack build. mainly to keep es6 imports small.
+ * contains all of jetpack except:
+ *  - wordwrap
+ *  - conventions
+ *  - drawAxis
+ *  - attachTooltip
+ *  - loadData
+ *  - polygonClip
+ *  - timer, interval, timeout
  */
 
 import {selection} from "d3-selection";
@@ -36,6 +44,3 @@ export {default as descendingKey} from "./src/descendingKey";
 export {default as nestBy} from "./src/nestBy";
 export {default as round} from "./src/round";
 export {default as clamp} from "./src/clamp";
-export {default as timer} from "./src/timer";
-export {default as interval} from "./src/interval";
-export {default as timeout} from "./src/timeout";
