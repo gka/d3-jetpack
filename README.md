@@ -388,7 +388,7 @@ d3.drawAxis(c)
 
 ## Essential jetpack
 
-If you think jetpack adds to much to your build, try starting with the essential jetpack and adding features as you need them.
+If you think jetpack adds too much to your build, try starting with the essential jetpack and adding features as you need them.
 
 ```js
 // essentials (insert, append, appendMany etc)
