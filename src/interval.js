@@ -7,6 +7,6 @@ export default function(fn, delay, time, name){
 
   var newTimer = interval(fn, delay, time, name)
   if (name) prev[name] = newTimer
-  
+
   return newTimer
 }

@@ -3,7 +3,7 @@ import {csv, tsv, json} from 'd3-request';
 
 export default function(){
   var q = queue();
-  
+
   var args = [].slice.call(arguments);
   var files = args.slice(0, args.length - 1);
   var cb = args[args.length - 1];

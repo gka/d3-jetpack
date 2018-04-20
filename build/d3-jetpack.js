@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.0.16. Copyright 2017 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.0.16. Copyright 2018 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request'), require('d3-timer')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request', 'd3-timer'], factory) :
@@ -136,7 +136,7 @@ var at = function(name, value) {
 
 function f(){
   var functions = arguments;
-  
+
   //convert all string arguments into field accessors
   var i = 0, l = functions.length;
   while (i < l) {
@@ -187,7 +187,7 @@ var st = function(name, value) {
     }
 
     return sel;
-  } 
+  }
 
   function addPx(d){ return d.match ? d : d + 'px'; }
   function wrapPx(fn){
@@ -213,12 +213,13 @@ var wordwrap = function(line, maxCharactersPerLine, minCharactersPerLine, monosp
     w1 = line.split(' ');
     w1.forEach(function(s, i) {
         var w2 = s.split('-');
+        var lw = (i < w1.length - 1 ? ' ' : '');
         if (w2.length > 1) {
             w2.forEach(function(t, j) {
-                w.push(t + (j < w2.length - 1 ? '-' : ''));
+                w.push(t + (j < w2.length - 1 ? '-' : lw));
             });
         } else {
-            w.push(s + (i < w1.length - 1 ? ' ' : ''));
+            w.push(s + lw);
         }
     });
     maxChars = maxCharactersPerLine || 40;
@@ -401,7 +402,7 @@ var attachTooltip = function(sel, tooltipSel, fieldFns){
 
 var loadData = function(){
   var q = d3Queue.queue();
-  
+
   var args = [].slice.call(arguments);
   var files = args.slice(0, args.length - 1);
   var cb = args[args.length - 1];
@@ -493,7 +494,7 @@ var timer$1 = function(fn, delay, time, name){
 
   var newTimer = d3Timer.timer(fn, delay, time, name);
   if (name) prev[name] = newTimer;
-  
+
   return newTimer
 };
 
@@ -504,7 +505,7 @@ var interval$1 = function(fn, delay, time, name){
 
   var newTimer = d3Timer.interval(fn, delay, time, name);
   if (name) prev$1[name] = newTimer;
-  
+
   return newTimer
 };
 
@@ -515,7 +516,7 @@ var timeout$1 = function(fn, delay, time, name){
 
   var newTimer = d3Timer.timeout(fn, delay, time, name);
   if (name) prev$2[name] = newTimer;
-  
+
   return newTimer
 };
 

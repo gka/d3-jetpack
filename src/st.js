@@ -23,7 +23,7 @@ export default function(name, value) {
     }
 
     return sel;
-  } 
+  }
 
   function addPx(d){ return d.match ? d : d + 'px'; }
   function wrapPx(fn){

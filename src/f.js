@@ -1,6 +1,6 @@
 function f(){
   var functions = arguments;
-  
+
   //convert all string arguments into field accessors
   var i = 0, l = functions.length;
   while (i < l) {
