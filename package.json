@@ -1,6 +1,6 @@
 {
   "name": "d3-jetpack",
-  "version": "2.0.16",
+  "version": "2.0.17",
   "description": "d3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js",
   "main": "build/d3-jetpack.js",
   "jsnext:main": "index",
