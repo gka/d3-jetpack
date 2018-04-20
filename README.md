@@ -392,7 +392,7 @@ If you think jetpack adds to much to your build, try starting with the essential
 
 ```js
 // essentials (insert, append, appendMany etc)
-import {f, nestBy} from 'd3-jetpack/essentials.js';
+import {f} from 'd3-jetpack/essentials';
 // extra stuff
 import attachTooltip from 'd3-jetpack/src/attachTooltip.js'
 ```

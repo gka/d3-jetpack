@@ -1,6 +1,7 @@
 /*
  * the essential jetpack build. mainly to keep es6 imports small.
- * contains all of jetpack except:
+ * contains what's good about jetpack, except:
+ *  - transition hacks
  *  - wordwrap
  *  - conventions
  *  - drawAxis
@@ -8,10 +9,11 @@
  *  - loadData
  *  - polygonClip
  *  - timer, interval, timeout
+ *
+ * use at your own risk!
  */
 
 import {selection} from "d3-selection";
-import {transition} from "d3-transition";
 
 import translateSelection from "./src/translate-selection";
 import append from "./src/append";
@@ -24,7 +26,6 @@ import at from "./src/at";
 import st from "./src/st";
 
 selection.prototype.translate = translateSelection;
-transition.prototype.translate = translateSelection;
 selection.prototype.append = append;
 selection.prototype.insert = insert;
 selection.prototype.parent = parent;
@@ -33,8 +34,6 @@ selection.prototype.tspans = tspans;
 selection.prototype.appendMany = appendMany;
 selection.prototype.at = at;
 selection.prototype.st = st;
-transition.prototype.at = at;
-transition.prototype.st = st;
 selection.prototype.prop = selection.prototype.property;
 
 export {default as parseAttributes} from "./src/parseAttributes";
