@@ -40,3 +40,13 @@ tape('camelcase is converted to hypens', function(test) {
   test.equal(document.querySelector('div').getAttribute('max-width'), '100');
   test.end();
 });
+
+tape('blacklisted camelcase attrs are not hyphenized', function(test) {
+  var document = jsdom.jsdom('<div></div>');
+
+  d3.select(document.querySelector('div')).at({viewBox: '0 0 10 10', markerWidth: '10'});
+
+  test.equal(document.querySelector('div').getAttribute('viewBox'), '0 0 10 10');
+  test.equal(document.querySelector('div').getAttribute('markerWidth'), '10');
+  test.end();
+});
