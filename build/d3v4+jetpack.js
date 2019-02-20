@@ -21800,10 +21800,12 @@ var appendMany = function(name, data){
   return this.selectAll(null).data(data).enter().append(name);
 };
 
+const camelCaseAttrs = /^(allowReorder|attributeName|attributeType|autoReverse|baseFrequency|baseProfile|calcMode|clipPathUnits|contentScriptType|contentStyleType|diffuseConstant|edgeMode|externalResourcesRequired|filterRes|filterUnits|glyphRef|gradientTransform|gradientUnits|kernelMatrix|kernelUnitLength|keyPoints|keySplines|keyTimes|lengthAdjust|limitingConeAngle|markerHeight|markerUnits|markerWidth|maskContentUnits|maskUnits|numOctaves|pathLength|patternContentUnits|patternTransform|patternUnits|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|referrerPolicy|refX|refY|repeatCount|repeatDur|requiredExtensions|requiredFeatures|specularConstant|specularExponent|spreadMethod|startOffset|stdDeviation|stitchTiles|surfaceScale|systemLanguage|tableValues|targetX|targetY|textLength|viewBox|viewTarget|xChannelSelector|yChannelSelector|zoomAndPan)$/;
+
 var at = function(name, value) {
   if (typeof(name) == 'object'){
     for (var key in name){
-      this.attr(key.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase(), name[key]);
+      this.attr(camelCaseAttrs.test(key) ? key : key.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase(), name[key]);
     }
     return this;
   } else{
