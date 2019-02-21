@@ -74,12 +74,6 @@ selection.at({fontSize: 10, textAnchor: 'end', fontWeight: 600})
 
 With syntax highlighting on, it is a little easier to see the difference between keys and values when everything isn't a string. Plus there's less typing!
 
-Confusingly, there are several SVG attributes that are supposed to be camelCase. To avoid the automatic hypenation, use `attr`:
-
-```js
-selection.attr('startOffset', 10)
-```
-
 <a name="st" href="#st">#</a> selection.<b>st</b>(<i>name[, value]</i>) [<>](https://github.com/gka/d3-jetpack/blob/master/src/st.js "Source")
 
 Like `at`, but for `style`. Additionally, when a number is passed to a style that requires a unit of measure, like `margin-top` or `font-size`, `px` is automatically appended. Instead of
