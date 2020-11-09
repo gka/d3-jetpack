@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.0.19. Copyright 2019 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.1.0. Copyright 2020 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request'), require('d3-timer')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request', 'd3-timer'], factory) :
@@ -180,7 +180,7 @@ var st = function(name, value) {
   function addStyle(sel, style, value){
     style = style.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
 
-    var pxStyles = 'top left bottom right padding-top padding-left padding-bottom padding-right border-top b-width border-left-width border-botto-width m border-right-width  margin-top margin-left margin-bottom margin-right font-size width height stroke-width line-height margin padding border border-radius max-width min-width';
+    var pxStyles = 'top left bottom right padding-top padding-left padding-bottom padding-right border-top b-width border-left-width border-botto-width m border-right-width margin-top margin-left margin-bottom margin-right font-size width stroke-width line-height margin padding border border-radius max-width min-width max-height min-height';
 
     if (~pxStyles.indexOf(style) ){
       sel.style(style, typeof value == 'function' ? wrapPx(value) : addPx(value));

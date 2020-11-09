@@ -21857,7 +21857,7 @@ var st = function(name, value) {
   function addStyle(sel, style, value){
     style = style.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
 
-    var pxStyles = 'top left bottom right padding-top padding-left padding-bottom padding-right border-top b-width border-left-width border-botto-width m border-right-width  margin-top margin-left margin-bottom margin-right font-size width height stroke-width line-height margin padding border border-radius max-width min-width';
+    var pxStyles = 'top left bottom right padding-top padding-left padding-bottom padding-right border-top b-width border-left-width border-botto-width m border-right-width margin-top margin-left margin-bottom margin-right font-size width stroke-width line-height margin padding border border-radius max-width min-width max-height min-height';
 
     if (~pxStyles.indexOf(style) ){
       sel.style(style, typeof value == 'function' ? wrapPx(value) : addPx(value));
