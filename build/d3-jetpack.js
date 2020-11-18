@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.1.0. Copyright 2020 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.1.1. Copyright 2020 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request'), require('d3-timer')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request', 'd3-timer'], factory) :
@@ -99,8 +99,8 @@ var selectAppend = function(name) {
 
 var tspans = function(lines, lh) {
   return this.selectAll('tspan')
-      .data(function(d) {
-        return (typeof(lines) == 'function' ? lines(d) : lines)
+      .data(function(d, i) {
+        return (typeof(lines) === 'function' ? lines.call(this, d, i) : lines)
           .map(function(l) {
             return { line: l, parent: d };
           });
@@ -109,7 +109,7 @@ var tspans = function(lines, lh) {
     .append('tspan')
       .text(function(d) { return d.line; })
       .attr('x', 0)
-      .attr('dy', function(d, i) { return i ? (typeof(lh) == 'function' ? lh(d.parent, d.line, i) : lh) || 15 : 0; });
+      .attr('dy', function(d, i) { return i ? (typeof(lh) === 'function' ? lh.call(this, d.parent, d.line, i) : lh) || 15 : 0; });
 };
 
 var appendMany = function(name, data){
