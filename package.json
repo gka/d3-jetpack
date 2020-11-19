@@ -13,7 +13,7 @@
   "devDependencies": {
     "d3": "4",
     "d3-selection-multi": "1",
-    "eslint": "2",
+    "eslint": "4",
     "jsdom": "9",
     "package-preamble": "0.0",
     "rollup": "0.41",
