@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.1.1. Copyright 2020 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 2.1.1. Copyright 2021 Gregor Aisch.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request'), require('d3-timer')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request', 'd3-timer'], factory) :
