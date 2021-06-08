@@ -1,5 +1,5 @@
 import {creator} from "d3-selection";
-import parseAttributes from "./parseAttributes";
+import parseAttributes from "./parseAttributes.js";
 
 export default function(name) {
   var create, n;

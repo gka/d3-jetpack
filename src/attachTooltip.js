@@ -2,7 +2,7 @@ import {select} from 'd3-selection';
 import {selectAll} from 'd3-selection';
 import {event as d3event} from 'd3-selection';
 import {keys as d3keys} from 'd3-collection';
-import clamp from './clamp'
+import clamp from './clamp.js'
 
 export default function(sel, tooltipSel, fieldFns){
   if (!sel.size()) return;
