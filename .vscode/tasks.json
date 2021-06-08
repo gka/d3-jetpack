@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "test-ts",
+			"problemMatcher": [],
+			"label": "npm: test-ts",
+			"detail": "tsc test.ts && node test.js",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
