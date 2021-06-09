@@ -3,6 +3,7 @@
   "version": "2.1.1",
   "description": "d3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js",
   "main": "build/d3-jetpack.js",
+  "types": "d3-jetpack.d.ts",
   "jsnext:main": "index",
   "module": "index",
   "scripts": {
