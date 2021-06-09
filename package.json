@@ -16,20 +16,20 @@
   },
   "scripts": {
     "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -g d3-selection:d3,d3-transition:d3,d3-axis:d3,d3-scale:d3,d3-queue:d3,d3-array:d3,d3-collection:d3,d3-request:d3,d3-timer:d3 -n d3 -o build/d3-jetpack.cjs -- index.js",
-    "test": "tape 'test/test-*.js'",
+    "test": "tape 'test/test-*.cjs'",
     "prepublish": "npm run pretest && bin/rollup.cjs"
   },
   "devDependencies": {
     "d3": "4",
     "d3-selection-multi": "1",
     "eslint": "2",
-    "jsdom": "9",
+    "jsdom": "^16.6.0",
     "package-preamble": "0.0",
     "rollup": "0.41",
     "rollup-plugin-ascii": "0.0",
     "rollup-plugin-node-resolve": "2",
     "svgdom": "0.0.18",
-    "tape": "4",
+    "tape": "^5.2.2",
     "uglify-js": "2"
   },
   "repository": {

@@ -1,11 +1,11 @@
 var tape = require('tape'),
-    jetpack = require('../'),
-    jsdom = require('jsdom'),
+    makeDocument = require('./helpers/makeDocument.cjs'),
+    jetpack = require('../build/d3-jetpack.cjs'),
     d3 = require('d3-selection');
 
 
 tape('append adds a class and id', function(test) {
-  var document = jsdom.jsdom('<div></div>');
+  var document = makeDocument('<div></div>');
 
   d3.select(document.querySelector('div')).append('span#id.class');
 
@@ -17,7 +17,7 @@ tape('append adds a class and id', function(test) {
 
 
 tape('append takes a function', function(test) {
-  var document = jsdom.jsdom('<div></div>');
+  var document = makeDocument('<div></div>');
 
   d3.select(document.querySelector('div'))
     .append(d => document.createElement('span'))

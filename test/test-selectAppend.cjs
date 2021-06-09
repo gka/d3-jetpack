@@ -1,11 +1,12 @@
 var tape = require('tape'),
-    jetpack = require('../'),
-    jsdom = require('jsdom'),
+    jetpack = require('../build/d3-jetpack.cjs'),
+    makeDocument = require('./helpers/makeDocument.cjs'),
+
     d3 = require('d3-selection');
 
 
 tape('selectAppend selects when element exists', function(test) {
-  var document = jsdom.jsdom('<div><span></span></div>');
+  var document = makeDocument('<div><span></span></div>');
 
   var span = document.querySelector('span')
 
@@ -17,7 +18,7 @@ tape('selectAppend selects when element exists', function(test) {
 });
 
 tape('selectAppend appends when element doesn\'t exist', function(test) {
-  var document = jsdom.jsdom('<div></div>');
+  var document = makeDocument('<div></div>');
 
   var d3Span = d3.select(document.querySelector('div'))
     .selectAppend('span').node();
@@ -29,7 +30,7 @@ tape('selectAppend appends when element doesn\'t exist', function(test) {
 });
 
 tape('selectAppend selects each child when element exists', function(test) {
-  var document = jsdom.jsdom('<div><span></span></div><div><span></span></div>');
+  var document = makeDocument('<div><span></span></div><div><span></span></div>');
 
   var spans = document.querySelectorAll('span')
 
@@ -44,7 +45,7 @@ tape('selectAppend selects each child when element exists', function(test) {
 });
 
 tape('selectAppend append each child when element exists', function(test) {
-  var document = jsdom.jsdom('<div></div><div></div>');
+  var document = makeDocument('<div></div><div></div>');
 
   var d3Spans = d3.select(document).selectAll('div')
     .selectAppend('span');
@@ -59,7 +60,7 @@ tape('selectAppend append each child when element exists', function(test) {
 });
 
 tape('selectAppend should select or append each child element based on whether they exist', function(test) {
-  var document = jsdom.jsdom('<div><span></span></div><div></div>');
+  var document = makeDocument('<div><span></span></div><div></div>');
 
   var d3Spans = d3.select(document).selectAll('div')
     .selectAppend('span');
@@ -77,7 +78,7 @@ tape('selectAppend should select or append each child element based on whether t
 
 
 tape('selectAppend adds a class and id', function(test) {
-  var document = jsdom.jsdom('<div></div>');
+  var document = makeDocument('<div></div>');
 
   d3.select(document.querySelector('div')).selectAppend('span#id.class');
 
