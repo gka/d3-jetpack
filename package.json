@@ -19,8 +19,14 @@
     "test": "tape 'test/test-*.cjs'",
     "prepublish": "npm run pretest && bin/rollup.cjs"
   },
+  "sideEffects": [
+    "./index.js",
+    "./essentials.js",
+    "./selection.js"
+],
   "devDependencies": {
     "d3": "4",
+    "d3-selection": "1",
     "d3-selection-multi": "1",
     "eslint": "2",
     "jsdom": "^16.6.0",
@@ -68,8 +74,11 @@
     "d3-queue": "3",
     "d3-request": "1",
     "d3-scale": "1",
-    "d3-selection": "1",
     "d3-timer": "1",
     "d3-transition": "1"
+  },
+  "peerDependencies": {
+    "d3-selection": "1",
+    "d3-selection-multi": "1"
   }
 }
