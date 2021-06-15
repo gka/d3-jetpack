@@ -1,7 +1,6 @@
 var tape = require('tape'),
-    jetpack = require('../'),
+    jetpack = require('../build/d3-jetpack.cjs'),
     ƒ = jetpack.f
-
 
 tape('ƒ with no arguements is the identity function', function(test) {
   test.equal(ƒ()(10), 10);

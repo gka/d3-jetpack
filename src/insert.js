@@ -1,5 +1,5 @@
 import {creator, selector} from "d3-selection";
-import parseAttributes from "./parseAttributes";
+import parseAttributes from "./parseAttributes.js";
 
 function constantNull() {
   return null;

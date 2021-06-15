@@ -1,4 +1,4 @@
-import ƒ from "./f";
+import ƒ from "./f.js";
 
 export default function(name, value) {
   if (typeof(name) == 'object'){

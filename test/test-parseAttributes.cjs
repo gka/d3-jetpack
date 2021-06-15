@@ -1,6 +1,5 @@
 var tape = require('tape'),
-    jetpack = require('../');
-
+    jetpack = require('../build/d3-jetpack.cjs');
 
 tape('parseAttributes can read a class and id', function(test) {
   var obj = jetpack.parseAttributes('div.className#idName');

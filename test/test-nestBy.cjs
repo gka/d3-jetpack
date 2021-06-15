@@ -1,6 +1,5 @@
 var tape = require('tape'),
-    jetpack = require('../');
-
+    jetpack = require('../build/d3-jetpack.cjs');
 
 tape('nestBy sets returns an array of arrays with key props', function(test) {
   var bySign = jetpack.nestBy([1, 2, 3, 4], function(d){ return d > 0 })

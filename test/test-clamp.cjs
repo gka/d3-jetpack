@@ -1,6 +1,5 @@
 var tape = require('tape'),
-    jetpack = require('../');
-
+    jetpack = require('../build/d3-jetpack.cjs');
 
 tape('clamp uses min', function(test) {
   test.equal(jetpack.clamp(0, -1, 10), 0);

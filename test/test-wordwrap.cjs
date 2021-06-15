@@ -1,6 +1,5 @@
 var tape = require('tape'),
-    jetpack = require('../');
-
+    jetpack = require('../build/d3-jetpack.cjs');
 
 tape('wordwrap second arg sets line length', function(test) {
   // test.equal(jetpack.wordwrap('two words', 4)[0], 'two');

@@ -1,11 +1,10 @@
 var tape = require('tape'),
-    jetpack = require('../'),
-    jsdom = require('jsdom'),
-    d3 = require('d3-selection')
-
+    jetpack = require('../build/d3-jetpack.cjs'),
+    makeDocument = require('./helpers/makeDocument.cjs'),
+    d3 = require('d3-selection');
 
 tape('st can look up styles', function(test) {
-  var document = jsdom.jsdom('<div style="background: green"></div>')
+  var document = makeDocument('<div style="background: green"></div>')
 
   var prop = d3.select(document.querySelector('div')).st('background')
   test.equal(prop, 'green')
@@ -13,7 +12,7 @@ tape('st can look up styles', function(test) {
 })
 
 tape('st can set styles', function(test) {
-  var document = jsdom.jsdom('<div></div>')
+  var document = makeDocument('<div></div>')
 
   d3.select(document.querySelector('div')).st('background', 'green')
 
@@ -22,7 +21,7 @@ tape('st can set styles', function(test) {
 })
 
 tape('st can set style with an object', function(test) {
-  var document = jsdom.jsdom('<div></div>')
+  var document = makeDocument('<div></div>')
 
   var sel = d3.select(document.querySelector('div'))
 
@@ -34,7 +33,7 @@ tape('st can set style with an object', function(test) {
 })
 
 tape('camelcase is converted to hypens', function(test) {
-  var document = jsdom.jsdom('<div></div>')
+  var document = makeDocument('<div></div>')
 
   var sel = d3.select(document.querySelector('div'))
 
@@ -46,7 +45,7 @@ tape('camelcase is converted to hypens', function(test) {
 })
 
 tape('px is appened to numbers', function(test) {
-  var document = jsdom.jsdom('<div></div>')
+  var document = makeDocument('<div></div>')
 
   var sel = d3.select(document.querySelector('div'))
 
