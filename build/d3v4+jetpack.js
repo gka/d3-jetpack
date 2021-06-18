@@ -1477,13 +1477,11 @@ var selection_remove = function() {
 };
 
 function selection_cloneShallow() {
-  var clone = this.cloneNode(false), parent = this.parentNode;
-  return parent ? parent.insertBefore(clone, this.nextSibling) : clone;
+  return this.parentNode.insertBefore(this.cloneNode(false), this.nextSibling);
 }
 
 function selection_cloneDeep() {
-  var clone = this.cloneNode(true), parent = this.parentNode;
-  return parent ? parent.insertBefore(clone, this.nextSibling) : clone;
+  return this.parentNode.insertBefore(this.cloneNode(true), this.nextSibling);
 }
 
 var selection_clone = function(deep) {
