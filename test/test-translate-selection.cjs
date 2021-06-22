@@ -1,6 +1,6 @@
 var tape = require('tape'),
-    jetpack = require('../'),
-    jsdom = require('jsdom'),
+    jetpack = require('../build/d3-jetpack.cjs'),
+    makeDocument = require('./helpers/makeDocument.cjs'),
     svgdom = require('svgdom'),
     d3 = require('d3-selection');
 
@@ -37,28 +37,28 @@ tape('translate can take dim parameter to work on single dimension - svg', funct
 // html translate
 
 tape('translate can take an array and set transform style on html element', function(test) {
-  var document = jsdom.jsdom();
+  var document = makeDocument();
   d3.select(document.body).translate([10, 10]);
   test.equal(document.body.style.transform, 'translate(10px,10px)');
   test.end();
 });
 
 tape('translate can take a function and set transform string on html element', function(test) {
-  var document = jsdom.jsdom();
+  var document = makeDocument();
   d3.select(document.body).translate(function(){ return [10, 10]; });
   test.equal(document.body.style.transform, 'translate(10px,10px)');
   test.end();
 });
 
 tape('translate can take dim parameter to work on single dimension - html', function(test) {
-  var document = jsdom.jsdom();
+  var document = makeDocument();
   d3.select(document.body).translate(10, 1);
   test.equal(document.body.style.transform, 'translate(0px,10px)');
   test.end();
 });
 
 tape('translate can take dim parameter to work on single dimension - html', function(test) {
-  var document = jsdom.jsdom();
+  var document = makeDocument();
   d3.select(document.body).translate(function() { return 10; }, 0);
   test.equal(document.body.style.transform, 'translate(10px,0px)');
   test.end();
@@ -66,7 +66,7 @@ tape('translate can take dim parameter to work on single dimension - html', func
 
 
 tape('translate does not break on empty selections', function(test) {
-  var document = jsdom.jsdom();
+  var document = makeDocument();
   d3.select(document.body)
     .select('.no-element')
     .translate(function() { return 10; }, 0);

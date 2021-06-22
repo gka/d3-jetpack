@@ -1,4 +1,4 @@
-import './essentials';
+import './essentials.js';
 
 import {
     create,
