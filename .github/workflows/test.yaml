@@ -1,0 +1,13 @@
+name: test
+on: ['push']
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+        run: npm ci --no-optional
+      - name: Run tests
+        run: npm run test
