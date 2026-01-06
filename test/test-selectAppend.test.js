@@ -1,11 +1,9 @@
-var tape = require('tape'),
-    jetpack = require('../build/d3-jetpack.cjs'),
-    makeDocument = require('./helpers/makeDocument.cjs'),
+import {it, expect} from 'vitest';
+import makeDocument from './helpers/makeDocument.js';
+import '../index.js';
+import * as d3 from 'd3-selection';
 
-    d3 = require('d3-selection');
-
-
-tape('selectAppend selects when element exists', function(test) {
+it('selectAppend selects when element exists', function() {
   var document = makeDocument('<div><span></span></div>');
 
   var span = document.querySelector('span')
@@ -13,11 +11,10 @@ tape('selectAppend selects when element exists', function(test) {
   var d3Span = d3.select(document.querySelector('div'))
     .selectAppend('span').node();
 
-  test.equal(span, d3Span);
-  test.end();
+  expect(span).toBe(d3Span);
 });
 
-tape('selectAppend appends when element doesn\'t exist', function(test) {
+it('selectAppend appends when element doesn\'t exist', function() {
   var document = makeDocument('<div></div>');
 
   var d3Span = d3.select(document.querySelector('div'))
@@ -25,11 +22,10 @@ tape('selectAppend appends when element doesn\'t exist', function(test) {
 
   var span = document.querySelector('span')
 
-  test.equal(span, d3Span);
-  test.end();
+  expect(span).toBe(d3Span);
 });
 
-tape('selectAppend selects each child when element exists', function(test) {
+it('selectAppend selects each child when element exists', function() {
   var document = makeDocument('<div><span></span></div><div><span></span></div>');
 
   var spans = document.querySelectorAll('span')
@@ -38,13 +34,11 @@ tape('selectAppend selects each child when element exists', function(test) {
     .selectAppend('span');
 
   d3Spans.each(function(d, i) {
-    test.equal(spans[i], this);
+    expect(spans[i]).toBe(this);
   })
-
-  test.end();
 });
 
-tape('selectAppend append each child when element exists', function(test) {
+it('selectAppend append each child when element exists', function() {
   var document = makeDocument('<div></div><div></div>');
 
   var d3Spans = d3.select(document).selectAll('div')
@@ -53,13 +47,11 @@ tape('selectAppend append each child when element exists', function(test) {
   var spans = document.querySelectorAll('span')
 
   d3Spans.each(function(d, i) {
-    test.equal(spans[i], this);
+    expect(spans[i]).toBe(this);
   })
-
-  test.end();
 });
 
-tape('selectAppend should select or append each child element based on whether they exist', function(test) {
+it('selectAppend should select or append each child element based on whether they exist', function() {
   var document = makeDocument('<div><span></span></div><div></div>');
 
   var d3Spans = d3.select(document).selectAll('div')
@@ -67,23 +59,20 @@ tape('selectAppend should select or append each child element based on whether t
 
   var spans = document.querySelectorAll('span')
 
-  test.equal(d3Spans.size(), 2);
+  expect(d3Spans.size()).toBe(2);
 
   d3Spans.each(function(d, i) {
-    test.equal(spans[i], this);
+    expect(spans[i]).toBe(this);
   })
-
-  test.end();
 });
 
 
-tape('selectAppend adds a class and id', function(test) {
+it('selectAppend adds a class and id', function() {
   var document = makeDocument('<div></div>');
 
   d3.select(document.querySelector('div')).selectAppend('span#id.class');
 
   var span = document.querySelector('span');
-  test.equal(span.getAttribute('id'), 'id');
-  test.equal(span.getAttribute('class'), 'class');
-  test.end();
+  expect(span.getAttribute('id')).toBe('id');
+  expect(span.getAttribute('class')).toBe('class');
 });

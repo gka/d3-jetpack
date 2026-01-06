@@ -1,6 +1,6 @@
 {
   "name": "d3-jetpack",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "d3-jetpack is a set of nifty convenience wrappers that speed up your daily work with d3.js",
   "type": "module",
   "main": "build/d3-jetpack.js",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -g d3-selection:d3,d3-transition:d3,d3-axis:d3,d3-scale:d3,d3-queue:d3,d3-array:d3,d3-collection:d3,d3-request:d3,d3-timer:d3 -n d3 -o build/d3-jetpack.cjs -- index.js",
-    "test": "tape 'test/test-*.cjs'",
+    "test": "vitest run",
     "prepublish": "npm run pretest && bin/rollup.cjs"
   },
   "sideEffects": [
@@ -26,16 +26,15 @@
     "./selection.js"
   ],
   "devDependencies": {
-    "d3": "4",
-    "eslint": "2",
-    "jsdom": "^16.6.0",
-    "package-preamble": "0.0",
-    "rollup": "0.41",
-    "rollup-plugin-ascii": "0.0",
-    "rollup-plugin-node-resolve": "2",
-    "svgdom": "0.0.18",
-    "tape": "^5.2.2",
-    "uglify-js": "2"
+    "d3": "7",
+    "eslint": "9",
+    "jsdom": "^27.4.0",
+    "package-preamble": "0.1",
+    "rollup": "4.55",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "svgdom": "0.1.22",
+    "vitest": "^3.2.4",
+    "uglify-js": "3"
   },
   "repository": {
     "type": "git",
@@ -67,13 +66,13 @@
     }
   ],
   "dependencies": {
-    "d3-array": "1",
-    "d3-axis": "1",
+    "d3-array": "3",
+    "d3-axis": "3",
     "d3-collection": "1",
     "d3-queue": "3",
     "d3-request": "1",
-    "d3-scale": "1",
-    "d3-timer": "1"
+    "d3-scale": "4",
+    "d3-timer": "3"
   },
   "peerDependencies": {
     "d3-selection": "^1.4.2",
