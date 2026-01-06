@@ -11,10 +11,10 @@ rollup.rollup({
     banner: process.argv[2],
     format: "umd",
     name: "d3",
-    file: "build/d3v4+jetpack.js"
+    file: "build/d3v7+jetpack.js"
   });
 }).then(function() {
-  console.warn("↳ build/d3v4+jetpack.js");
+  console.warn("↳ build/d3v7+jetpack.js");
 }).catch(abort);
 
 function abort(error) {
