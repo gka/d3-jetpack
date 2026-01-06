@@ -4,11 +4,11 @@ jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: '14'
       - name: Install dependencies
-        run: npm ci --no-optional
+        run: pnpm i 
       - name: Run tests
-        run: npm run test
+        run: pnpm run test
