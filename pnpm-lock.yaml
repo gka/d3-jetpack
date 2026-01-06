@@ -57,9 +57,6 @@ importers:
       rollup:
         specifier: '4.55'
         version: 4.55.1
-      rollup-plugin-ascii:
-        specifier: '0.0'
-        version: 0.0.3
       svgdom:
         specifier: 0.1.22
         version: 0.1.22
@@ -536,11 +533,6 @@ packages:
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
 
-  acorn@3.3.0:
-    resolution: {integrity: sha512-OLUyIIZ7mF5oaAUT1w0TFqQS81q3saT46x8t7ukpPjMNk+nbs4ZHhs7ToV8EWnLYLepjETXd4XaCE4uxkMeqUw==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
-
   acorn@8.15.0:
     resolution: {integrity: sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==}
     engines: {node: '>=0.4.0'}
@@ -892,9 +884,6 @@ packages:
     resolution: {integrity: sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==}
     engines: {node: '>=4.0'}
 
-  estree-walker@0.2.1:
-    resolution: {integrity: sha512-6/I1dwNKk0N9iGOU3ydzAAurz4NPo/ttxZNCqgIVbWFvWyzWBSNonRrJ5CpjDuyBfmM7ENN7WCzUi9aT/UPXXQ==}
-
   estree-walker@2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
 
@@ -1050,11 +1039,6 @@ packages:
       canvas:
         optional: true
 
-  jsesc@2.5.2:
-    resolution: {integrity: sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==}
-    engines: {node: '>=4'}
-    hasBin: true
-
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
 
@@ -1084,9 +1068,6 @@ packages:
   lru-cache@11.2.4:
     resolution: {integrity: sha512-B5Y16Jr9LB9dHVkh6ZevG+vAbOsNOYCX+sXvFWFu7B3Iz5mijW3zdbMyhsh8ANd2mSWBYdJgnqi+mL7/LrOPYg==}
     engines: {node: 20 || >=22}
-
-  magic-string@0.15.2:
-    resolution: {integrity: sha512-xkHb690SyIbvr1x6PiHoP2M2rTkIt9La8gZLjoXIjcm7CI0a+9V9JqQWVQPsBLgt9qzkgtCuYN+/Thqw6crg6w==}
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
@@ -1192,12 +1173,6 @@ packages:
 
   robust-predicates@3.0.2:
     resolution: {integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==}
-
-  rollup-plugin-ascii@0.0.3:
-    resolution: {integrity: sha512-4sx0tYyy3Fc7qKwJ7zpBk+wGeWzB1QzkADWNfwuDZ6AHV8vgPn42+cwjzl5RuiQpU+wRSeOhnfST+h4oivQc0w==}
-
-  rollup-pluginutils@1.5.2:
-    resolution: {integrity: sha512-SjdWWWO/CUoMpDy8RUbZ/pSpG68YHmhk5ROKNIoi2En9bJ8bTt3IhYi254RWiTclQmL7Awmrq+rZFOhZkJAHmQ==}
 
   rollup@4.55.1:
     resolution: {integrity: sha512-wDv/Ht1BNHB4upNbK74s9usvl7hObDnvVzknxqY/E/O3X6rW1U1rV1aENEfJ54eFZDTNo7zv1f5N4edCluH7+A==}
@@ -1395,9 +1370,6 @@ packages:
         optional: true
       jsdom:
         optional: true
-
-  vlq@0.2.3:
-    resolution: {integrity: sha512-DRibZL6DsNhIgYQ+wNdWDL2SL3bKPlVrRiBqV5yuMm++op8W4kGFtaQfCs4KEJn0wBZcHVHJ3eoywX8983k1ow==}
 
   w3c-xmlserializer@5.0.0:
     resolution: {integrity: sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA==}
@@ -1799,8 +1771,6 @@ snapshots:
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
       acorn: 8.15.0
-
-  acorn@3.3.0: {}
 
   acorn@8.15.0: {}
 
@@ -2216,8 +2186,6 @@ snapshots:
 
   estraverse@5.3.0: {}
 
-  estree-walker@0.2.1: {}
-
   estree-walker@2.0.2: {}
 
   estree-walker@3.0.3:
@@ -2378,8 +2346,6 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  jsesc@2.5.2: {}
-
   json-buffer@3.0.1: {}
 
   json-schema-traverse@0.4.1: {}
@@ -2404,10 +2370,6 @@ snapshots:
   loupe@3.2.1: {}
 
   lru-cache@11.2.4: {}
-
-  magic-string@0.15.2:
-    dependencies:
-      vlq: 0.2.3
 
   magic-string@0.30.21:
     dependencies:
@@ -2495,19 +2457,6 @@ snapshots:
   restructure@3.0.2: {}
 
   robust-predicates@3.0.2: {}
-
-  rollup-plugin-ascii@0.0.3:
-    dependencies:
-      acorn: 3.3.0
-      estree-walker: 0.2.1
-      jsesc: 2.5.2
-      magic-string: 0.15.2
-      rollup-pluginutils: 1.5.2
-
-  rollup-pluginutils@1.5.2:
-    dependencies:
-      estree-walker: 0.2.1
-      minimatch: 3.1.2
 
   rollup@4.55.1:
     dependencies:
@@ -2714,8 +2663,6 @@ snapshots:
       - terser
       - tsx
       - yaml
-
-  vlq@0.2.3: {}
 
   w3c-xmlserializer@5.0.0:
     dependencies:
