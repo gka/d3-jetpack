@@ -31,8 +31,7 @@
     "jsdom": "^27.4.0",
     "package-preamble": "0.1",
     "rollup": "4.55",
-    "rollup-plugin-ascii": "0.0",
-    "rollup-plugin-node-resolve": "5",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "svgdom": "0.1.22",
     "vitest": "^3.2.4",
     "uglify-js": "3"

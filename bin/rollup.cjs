@@ -1,18 +1,17 @@
 #!/usr/bin/env node
 
 var rollup = require("rollup"),
-    ascii = require("rollup-plugin-ascii"),
-    nodeResolve = require("rollup-plugin-node-resolve");
+    nodeResolve = require("@rollup/plugin-node-resolve").nodeResolve;
 
 rollup.rollup({
-  entry: "d3-index.js",
-  plugins: [nodeResolve({jsnext: true}), ascii()]
+  input: "d3-index.js",
+  plugins: [nodeResolve({mainFields: ["module", "jsnext:main", "main"]})]
 }).then(function(bundle) {
   return bundle.write({
     banner: process.argv[2],
     format: "umd",
-    moduleName: "d3",
-    dest: "build/d3v4+jetpack.js"
+    name: "d3",
+    file: "build/d3v4+jetpack.js"
   });
 }).then(function() {
   console.warn("↳ build/d3v4+jetpack.js");
