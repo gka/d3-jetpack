@@ -1,6 +1,5 @@
 import {select} from 'd3-selection';
 import {selectAll} from 'd3-selection';
-import {event as d3event} from 'd3-selection';
 import {keys as d3keys} from 'd3-collection';
 import clamp from './clamp.js'
 
@@ -13,7 +12,7 @@ export default function(sel, tooltipSel, fieldFns){
       .on('mouseover.attachTooltip', ttDisplay)
       .on('mousemove.attachTooltip', ttMove)
       .on('mouseout.attachTooltip',  ttHide)
-      .on('click.attachTooltip', function(d){ console.log(d); });
+      .on('click.attachTooltip', function(e, d){ console.log(d); });
 
   var d = sel.datum();
   fieldFns = fieldFns || d3keys(d)
@@ -24,7 +23,7 @@ export default function(sel, tooltipSel, fieldFns){
         return function(d){ return str + ': <b>' + d[str] + '</b>'; };
       });
 
-  function ttDisplay(d){
+  function ttDisplay(e, d){
     tooltipSel
         .classed('tooltip-hidden', false)
         .html('')
@@ -34,11 +33,10 @@ export default function(sel, tooltipSel, fieldFns){
     select(this).classed('tooltipped', true);
   }
 
-  function ttMove(d){
+  function ttMove(e){
     if (!tooltipSel.size()) return;
 
-    var e = d3event,
-        x = e.clientX,
+    var x = e.clientX,
         y = e.clientY,
         bb = tooltipSel.node().getBoundingClientRect(),
         left = clamp(20, (x-bb.width/2), window.innerWidth - bb.width - 20),
@@ -49,7 +47,7 @@ export default function(sel, tooltipSel, fieldFns){
       .style('top', top + 'px');
   }
 
-  function ttHide(d){
+  function ttHide(){
     tooltipSel.classed('tooltip-hidden', true);
 
     selectAll('.tooltipped').classed('tooltipped', false);

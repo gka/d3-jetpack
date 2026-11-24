@@ -4,7 +4,6 @@
 
 export * from "d3";
 
-import "d3-selection-multi";
 import "./index.js";
 
 export {
