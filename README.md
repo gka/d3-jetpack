@@ -6,7 +6,7 @@ d3-jetpack is a set of nifty convenience wrappers that speed up your daily work 
 
 ## Usage
 
-If you use NPM, `npm install d3-jetpack`. Otherwise, download the latest [d3v4+jetpack.js](https://raw.githubusercontent.com/gka/d3-jetpack/master/build/d3v4%2Bjetpack.js).
+If you use NPM, `npm install d3-jetpack`. Otherwise, download the latest [d3v7+jetpack.js](https://raw.githubusercontent.com/gka/d3-jetpack/master/build/d3v7%2Bjetpack.js).
 
 Here's what's in the package:
 

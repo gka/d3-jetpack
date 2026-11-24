@@ -75,8 +75,7 @@
     "d3-timer": "3"
   },
   "peerDependencies": {
-    "d3-selection": "^1.4.2",
-    "d3-selection-multi": "1",
-    "d3-transition": "1"
+    "d3-selection": "3",
+    "d3-transition": "3"
   }
 }

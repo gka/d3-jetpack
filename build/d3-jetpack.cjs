@@ -1,4 +1,4 @@
-// https://github.com/gka/d3-jetpack#readme Version 2.3.0. Copyright 2026 Gregor Aisch.
+// https://github.com/gka/d3-jetpack#readme Version 3.0.0. Copyright 2026 Gregor Aisch.
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('d3-array'), require('d3-axis'), require('d3-scale'), require('d3-collection'), require('d3-queue'), require('d3-request'), require('d3-timer')) :
   typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'd3-array', 'd3-axis', 'd3-scale', 'd3-collection', 'd3-queue', 'd3-request', 'd3-timer'], factory) :
@@ -359,7 +359,7 @@
         .on('mouseover.attachTooltip', ttDisplay)
         .on('mousemove.attachTooltip', ttMove)
         .on('mouseout.attachTooltip',  ttHide)
-        .on('click.attachTooltip', function(d){ console.log(d); });
+        .on('click.attachTooltip', function(e, d){ console.log(d); });
 
     var d = sel.datum();
     fieldFns = fieldFns || d3Collection.keys(d)
@@ -370,7 +370,7 @@
           return function(d){ return str + ': <b>' + d[str] + '</b>'; };
         });
 
-    function ttDisplay(d){
+    function ttDisplay(e, d){
       tooltipSel
           .classed('tooltip-hidden', false)
           .html('')
@@ -380,11 +380,10 @@
       d3Selection.select(this).classed('tooltipped', true);
     }
 
-    function ttMove(d){
+    function ttMove(e){
       if (!tooltipSel.size()) return;
 
-      var e = d3Selection.event,
-          x = e.clientX,
+      var x = e.clientX,
           y = e.clientY,
           bb = tooltipSel.node().getBoundingClientRect(),
           left = clamp(20, (x-bb.width/2), window.innerWidth - bb.width - 20),
@@ -395,7 +394,7 @@
         .style('top', top + 'px');
     }
 
-    function ttHide(d){
+    function ttHide(){
       tooltipSel.classed('tooltip-hidden', true);
 
       d3Selection.selectAll('.tooltipped').classed('tooltipped', false);
